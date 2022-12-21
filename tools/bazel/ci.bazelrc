@@ -1,0 +1,41 @@
+
+#
+# Bazel: CI Buildbot Settings
+#
+
+build:ci --config=buildbuddy
+build:ci --config=disk-cache
+
+build:ci --verbose_failures
+
+build:ci --spawn_strategy=worker,sandboxed,local
+build:ci --strategy=J2cl=worker,sandboxed,local
+build:ci --strategy=Closure=worker,sandboxed,local
+build:ci --strategy=JdepsMerger=worker,sandboxed,local
+build:ci --strategy=KotlinCompile=worker,sandboxed,local
+build:ci --strategy=Javac=worker,sandboxed,local
+build:ci --strategy=JavaIjar=worker,sandboxed,local
+build:ci --strategy=JavaDeployJar=worker,sandboxed,local
+build:ci --strategy=JavaSourceJar=worker,sandboxed,local
+build:ci --strategy=Turbine=worker,sandboxed,local
+build:ci --local_ram_resources="HOST_RAM*.8"
+build:ci --local_cpu_resources=HOST_CPUS
+
+build:ci --compilation_mode=fastbuild
+build:ci --google_default_credentials
+build:ci --remote_upload_local_results
+build:ci --build_metadata=ROLE=CI
+build:ci --test_output=errors
+build:ci --test_keep_going
+build:ci --noexperimental_use_sandboxfs
+
+test:ci --test_output=streamed
+test:ci --test_sharding_strategy=disabled
+test:ci --compilation_mode=fastbuild
+test:ci --google_default_credentials
+test:ci --remote_upload_local_results
+test:ci --build_metadata=ROLE=CI
+test:ci --test_output=errors
+test:ci --test_keep_going
+test:ci --test_env=GOOGLE_APPLICATION_CREDENTIALS
+

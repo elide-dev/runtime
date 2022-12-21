@@ -1,0 +1,38 @@
+lockfileVersion: 5.4
+
+specifiers:
+  '@bazel/buildifier': 5.1.0
+  '@bazel/buildozer': 5.1.0
+  '@bazel/ibazel': 0.16.2
+  typescript: 4.9.4
+
+dependencies:
+  typescript: 4.9.4
+
+devDependencies:
+  '@bazel/buildifier': 5.1.0
+  '@bazel/buildozer': 5.1.0
+  '@bazel/ibazel': 0.16.2
+
+packages:
+
+  /@bazel/buildifier/5.1.0:
+    resolution: {integrity: sha512-gO0+//hkH+iE3AQ02mYttJAcWiE+rapP8IxmstDhwSqs+CmZJJI8Q1vAaIvMyJUT3NIf7lGljRNpzclkCPk89w==}
+    hasBin: true
+    dev: true
+
+  /@bazel/buildozer/5.1.0:
+    resolution: {integrity: sha512-207j8a4872L2mJLSRnatH3m8ll0YYwlUdCd89LVy4IwTZuaa/i8QJWNZoNmfRNvq6nMbCFpyM7ci/FxA2DUUNA==}
+    hasBin: true
+    dev: true
+
+  /@bazel/ibazel/0.16.2:
+    resolution: {integrity: sha512-KgqAWMH0emL6f3xH6nqyTryoBMqlJ627LBIe9PT1PRRQPz2FtHib3FIHJPukp1slzF3hJYZvdiVwgPnHbaSOOA==}
+    hasBin: true
+    dev: true
+
+  /typescript/4.9.4:
+    resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: false

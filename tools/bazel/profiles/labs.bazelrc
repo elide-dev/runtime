@@ -1,0 +1,7 @@
+
+#
+# Bazel: Experimental Builds
+#
+
+build:labs --experimental_java_classpath=bazel
+build:labs --experimental_persistent_test_runner

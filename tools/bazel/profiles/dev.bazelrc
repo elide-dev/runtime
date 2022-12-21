@@ -1,0 +1,15 @@
+
+#
+# Bazel: Development Builds
+#
+
+build --compilation_mode=fastbuild
+
+build:dev --test_output=errors
+build:dev --worker_max_instances=4
+build:dev --experimental_worker_max_multiplex_instances=KotlinCompile=5
+
+test --test_output=streamed
+test --test_sharding_strategy=disabled
+
+test:test-local --define=DYME_TEST_LOCAL=true --test_env=DYME_TEST_LOCAL=true

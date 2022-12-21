@@ -1,0 +1,8 @@
+
+#
+# Bazel: GraalVM Settings
+#
+
+build:native --define=ENGINE=native
+build:native --nojava_header_compilation
+build:native --@elide//tools/config:runtime=native

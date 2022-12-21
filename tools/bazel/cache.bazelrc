@@ -1,0 +1,12 @@
+
+#
+# Bazel: Build Caching
+#
+
+build:disk-cache --disk_cache=~/.cache/bazel
+
+build:remote-cache --remote_cache=grpcs://remote.buildbuddy.io
+build:remote-cache --remote_download_toplevel
+
+build:remote-cache --experimental_remote_cache_compression
+build:remote-cache --experimental_remote_cache_async

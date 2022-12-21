@@ -1,0 +1,6 @@
+
+#
+# Bazel: Local API
+#
+
+build:local --define=API_TARGET=local

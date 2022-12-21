@@ -1,0 +1,31 @@
+directories:
+  .
+  elide
+  tools
+  .github
+
+java_language_level: 11
+derive_targets_from_directories: true
+
+build_flags:
+  --config=dev
+  --config=disk-cache
+  --config=buildbuddy
+
+targets:
+  //elide/...
+
+test_flags:
+  --test_strategy=standalone
+
+test_sources:
+  tests/*
+
+ts_config_rules:
+  //:tsconfig
+
+additional_languages:
+  java
+  javascript
+  kotlin
+  typescript

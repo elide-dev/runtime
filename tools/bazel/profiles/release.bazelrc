@@ -1,0 +1,9 @@
+
+#
+# Bazel: Release Builds
+#
+
+build:release --stamp
+build:release --compilation_mode=opt
+build:release --copt=-gmlt
+build:release --define=API_TARGET=prod

@@ -1,0 +1,6 @@
+
+#
+# Bazel: Build Metadata
+#
+
+build:ci --build_metadata=REPO_URL=https://github.com/elide-dev/runtime.git

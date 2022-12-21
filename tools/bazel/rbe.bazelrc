@@ -1,0 +1,8 @@
+
+#
+# Bazel: RBE Settings
+#
+
+build:rbe --jobs=100
+build:rbe --define=EXECUTOR=remote
+build:rbe --remote_executor=grpcs://remote.buildbuddy.io

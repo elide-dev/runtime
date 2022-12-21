@@ -1,0 +1,16 @@
+
+#
+# Bazel: Debug Builds
+#
+
+build:debug --compilation_mode=dbg
+build:debug --sandbox_debug
+
+build:javadebug --java_debug
+build:javadebug --define=jvmdebug=on
+
+build:verbose --test_output=streamed
+build:verbose --ui_event_filters=
+
+build:quiet --ui_event_filters=-info,-stdout,-stderr
+build:silent --noshow_progress

@@ -1,0 +1,16 @@
+#
+# Bazel Configuration
+#
+
+import %workspace%/tools/bazel/base.bazelrc
+import %workspace%/tools/bazel/cache.bazelrc
+import %workspace%/tools/bazel/meta.bazelrc
+import %workspace%/tools/bazel/rbe.bazelrc
+import %workspace%/tools/bazel/ci.bazelrc
+import %workspace%/tools/bazel/profiles/debug.bazelrc
+import %workspace%/tools/bazel/profiles/release.bazelrc
+import %workspace%/tools/bazel/profiles/dev.bazelrc
+import %workspace%/tools/bazel/profiles/local.bazelrc
+
+try-import %workspace%/.env.bazel.rc
+

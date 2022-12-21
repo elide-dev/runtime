@@ -1,0 +1,14 @@
+{
+  "name": "@elide/runtime",
+  "private": true,
+  "version": "1.0.0-alpha1",
+  "description": "Runtime userland intrinsics for Elide",
+  "devDependencies": {
+    "@bazel/buildifier": "5.1.0",
+    "@bazel/buildozer": "5.1.0",
+    "@bazel/ibazel": "0.16.2"
+  },
+  "dependencies": {
+    "typescript": "4.9.4"
+  }
+}

@@ -1,0 +1,117 @@
+load(
+    "@io_bazel_rules_closure//closure:defs.bzl",
+    "closure_js_library",
+)
+load(
+    "@com_google_j2cl//build_defs:rules.bzl",
+    "j2cl_application",
+    "j2cl_library",
+    "j2wasm_application",
+    "j2wasm_library",
+)
+
+package(
+    default_visibility = ["//visibility:public"],
+    licenses = ["notice"],
+)
+
+#
+# Sample: HelloWASM
+#
+
+filegroup(
+    name = "HelloWorldWASMJavaSrc",
+    srcs = ["HelloWorldWASM.java"],
+)
+
+filegroup(
+    name = "HelloWorldWASMJsSrc",
+    srcs = ["wasm.js"],
+)
+
+filegroup(
+    name = "HelloWorldWASMSrc",
+    srcs = [
+        ":HelloWorldWASMJavaSrc",
+        ":HelloWorldWASMJsSrc",
+    ],
+)
+
+# This is the bazel target that compiles our J2WASM library.
+# Since J2WASM currently does global compilation this only serves as a way
+# to collect sources and byte code required for j2wasm_application compilation.
+j2wasm_library(
+    name = "helloworld",
+    srcs = [
+        ":HelloWorldWASMJavaSrc",
+    ],
+)
+
+# This is the bazel target that compiles and optimizes whole J2WASM app.
+# It provides couple of convenient targets:
+#  :app produces the app.wat and app.wasm that could be used for production.
+#  :app_dev produces app_dev.wat and app_dev.wasm as development version
+#
+# e.g.:
+#   $ bazel build samples/wasm/src/main/java/com/google/j2cl/samples/wasm:app
+#
+# Note that for .wat files (wasm binary output) to be available, you would
+# need to have a recent version of binaryen available in your path.
+j2wasm_application(
+    name = "app",
+    binaryen_stage1_args = [
+        # Specific list of passes: The order and count of these flags does
+        # matter. First -O3 will be the slowest, so we isolate it in a
+        # stage1 invocation (due to go/forge-limits for time).
+        "-O3",
+        "--gufa",
+        "-O3",
+    ],
+    binaryen_stage2_args = [
+        # Optimization flags (affecting passes in general) included at top.
+        "--partial-inlining-ifs=4",
+        "-fimfs=50",
+        # Specific list of passes:
+        "--gufa",
+        # Get several rounds of -O3 before intrinsic lowering.
+        "-O3",
+        "-O3",
+        "-O3",
+        "--gufa",
+        "-O3",
+        "--intrinsic-lowering",
+        "--gufa",
+        # Get several rounds of -O3 after intrinsic lowering.
+        "-O3",
+        "-O3",
+    ],
+    entry_points = [
+        r"elide\.runtime\.wasm\.HelloWorldWASM\.getHelloWorldNative",
+    ],
+    deps = [
+        ":helloworld",
+    ],
+)
+
+# Below is an example of the JS wiring of the wasm app
+
+closure_js_library(
+    name = "hellojs",
+    srcs = glob(["wasm.js"]),
+    lenient = True,
+    deps = ["@com_google_j2cl//:j2wasm_js"],
+)
+
+# This is the bazel target that serves your J2WASM app.
+#
+# Give it a try:
+#   $ bazel run samples/wasm/src/main/java/com/google/j2cl/samples/wasm:jsapp_dev_server
+#
+j2cl_application(
+    name = "jsapp",
+    entry_points = ["entry"],
+    extra_dev_resources = [
+        ":app.wasm",
+    ],
+    deps = [":hellojs"],
+)
