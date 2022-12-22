@@ -21,8 +21,13 @@ build:ci --strategy=Turbine=worker,sandboxed,local
 build:ci --local_ram_resources="HOST_RAM*.8"
 build:ci --local_cpu_resources=HOST_CPUS
 
+build:ci --bes_results_url=https://app.buildbuddy.io/invocation/
+build:ci --bes_backend=grpcs://remote.buildbuddy.io
+build:ci --remote_cache=grpcs://remote.buildbuddy.io
+build:ci --remote_timeout=3600
+build:ci --experimental_remote_cache_compression
+
 build:ci --compilation_mode=fastbuild
-build:ci --google_default_credentials
 build:ci --remote_upload_local_results
 build:ci --build_metadata=ROLE=CI
 build:ci --test_output=errors
@@ -37,5 +42,6 @@ test:ci --remote_upload_local_results
 test:ci --build_metadata=ROLE=CI
 test:ci --test_output=errors
 test:ci --test_keep_going
-test:ci --test_env=GOOGLE_APPLICATION_CREDENTIALS
 
+build:adc --google_default_credentials
+test:adc --test_env=GOOGLE_APPLICATION_CREDENTIALS

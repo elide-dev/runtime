@@ -1,0 +1,10 @@
+version: 2
+updates:
+  # Maintain dependencies for Docker
+  - package-ecosystem: "docker"
+    directory: "images"
+    target-branch: "main"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "sgammon"

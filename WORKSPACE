@@ -171,16 +171,11 @@ http_archive(
     url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v1.0.4.tar.gz",
 )
 
-#http_archive(
-#    name = "com_google_j2cl",
-#    sha256 = None,
-#    strip_prefix = "j2cl-237e6f5d697f4fda0045a70826567b76da18e38a",
-#    url = "https://github.com/elide-tools/j2cl/archive/237e6f5d697f4fda0045a70826567b76da18e38a.tar.gz",
-#)
-
-local_repository(
+http_archive(
     name = "com_google_j2cl",
-    path = "/workspace/j2cl",
+    sha256 = None,
+    strip_prefix = "j2cl-42e9863a7eb6ccbd81dedf351181b4c6b1c55706",
+    url = "https://github.com/elide-tools/j2cl/archive/42e9863a7eb6ccbd81dedf351181b4c6b1c55706.tar.gz",
 )
 
 http_archive(

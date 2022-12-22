@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  ##
+  ## Job: Pre-flight Checks
+  ##
+  preflight-checks:
+    name: "Pre-flight Checks"
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: "read"
+      id-token: "write"
+      checks: "write"
+      pull-requests: "write"
+    steps:
+      - name: "Setup: Checkout"
+        uses: "actions/checkout@v3"
+      - name: "Check: Dependency Review"
+        uses: "actions/dependency-review-action@v3"
+        continue-on-error: true
+        with:
+          config-file: "./.github/dependency-review-config.yml"
+          license-check: true
+          vulnerability-check: true
+          fail-on-severity: "low"
+          base-ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.ref || 'v3' }}
+
+  ##
+  ## Job: Runtime Build
+  ##
+
+  bazel:
+    name: "Build"
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: "read"
+      actions: "read"
+      id-token: "write"
+      checks: "write"
+      pull-requests: "write"
+      security-events: "write"
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: "Setup: Checkout"
+        uses: actions/checkout@v3
+      - name: "Setup: GraalVM (Java 19)"
+        uses: graalvm/setup-graalvm@v1
+        with:
+          components: "native-image,js"
+          version: latest
+          java-version: 19
+          check-for-updates: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - id: "auth"
+        name: "Setup: Authorize Service Account"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.BUILDBOT_SERVICE_ACCOUNT }}"
+          create_credentials_file: true
+          export_environment_variables: true
+          cleanup_credentials: true
+      - name: "Setup: Node"
+        uses: actions/setup-node@v3
+      - name: "Setup: PNPM"
+        run: npm install -g pnpm && pnpm install
+      - name: "Setup: Binaryen"
+        run: curl -sSL https://github.com/WebAssembly/binaryen/releases/download/version_111/binaryen-version_111-x86_64-linux.tar.gz | tar -C /usr/local -xz --strip-components=1
+      - name: "Setup: Authorization"
+        run: echo "${{ secrets.BUILDBUDDY_API_KEY }}" > ~/.bazelrc
+      - uses: bazelbuild/setup-bazelisk@v2
+      - name: "🛠️ Build & Test"
+        id: bazelbuild
+        env:
+          CI: true
+        run: bazel build --config=adc --config=ci //...
