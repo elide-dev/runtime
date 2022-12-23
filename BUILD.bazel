@@ -7,3 +7,8 @@ filegroup(
     name = "tsconfig",
     srcs = ["tsconfig.base.json"],
 )
+
+alias(
+    name = "tsconfig.json",
+    actual = "tsconfig",
+)

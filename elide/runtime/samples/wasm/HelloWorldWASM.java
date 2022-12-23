@@ -1,4 +1,4 @@
-package elide.runtime.wasm;
+package elide.runtime.samples.wasm;
 
 /**
  * A simple hello world example.

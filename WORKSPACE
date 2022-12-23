@@ -1,4 +1,11 @@
-workspace(name = "elide")
+workspace(
+    name = "elide",
+    managed_directories = {
+        "@npm": [
+            "node_modules",
+        ],
+    },
+)
 
 load(
     "@bazel_tools//tools/build_defs/repo:http.bzl",
@@ -31,6 +38,7 @@ load(
     "KOTLIN_COMPILER_VERSION",
     "KOTLIN_SDK_VERSION",
     "NODE_VERSION",
+    "YARN_VERSION",
     "PROTOBUF_VERSION",
 )
 
@@ -158,22 +166,28 @@ http_archive(
 )
 
 http_archive(
-    name = "aspect_rules_js",
-    sha256 = "66ecc9f56300dd63fb86f11cfa1e8affcaa42d5300e2746dba08541916e913fd",
-    strip_prefix = "rules_js-1.13.0",
-    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.13.0.tar.gz",
+    name = "build_bazel_rules_nodejs",
+    sha256 = "c911b5bd8aee8b0498cc387cacdb5f917098ce477fb4182db07b0ef8a9e045c0",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/4.7.1/rules_nodejs-4.7.1.tar.gz"],
 )
 
 http_archive(
-    name = "aspect_rules_ts",
-    sha256 = "e81f37c4fe014fc83229e619360d51bfd6cb8ac405a7e8018b4a362efa79d000",
-    strip_prefix = "rules_ts-1.0.4",
-    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v1.0.4.tar.gz",
+    name = "io_bazel_rules_webtesting",
+    sha256 = "e9abb7658b6a129740c0b3ef6f5a2370864e102a5ba5ffca2cea565829ed825a",
+    urls = ["https://github.com/bazelbuild/rules_webtesting/releases/download/0.3.5/rules_webtesting.tar.gz"],
+)
+
+http_archive(
+    name = "externs",
+    sha256 = "f8a62a8ffe017159901693848fe40a8ca5a6205e4b5af783673fb181ef3c0e03",
+    strip_prefix = "closure-compiler-bb0e54d24103a3256b7c7f025a53ab73cbb077d3/externs",
+    url = "https://github.com/google/closure-compiler/archive/bb0e54d24103a3256b7c7f025a53ab73cbb077d3.tar.gz",
+    build_file = "google/closure/externs.bzl",
 )
 
 http_archive(
     name = "com_google_j2cl",
-    sha256 = None,
+    sha256 = "2124ed8366f88bad29a0b34e5a1e164ba5f90a868625f67a9e198f5d732feb52",
     strip_prefix = "j2cl-42e9863a7eb6ccbd81dedf351181b4c6b1c55706",
     url = "https://github.com/elide-tools/j2cl/archive/42e9863a7eb6ccbd81dedf351181b4c6b1c55706.tar.gz",
 )
@@ -224,6 +238,20 @@ http_archive(
     urls = ["https://github.com/google/flatbuffers/archive/8468eab83bacc8bbd6cb5ae22197af06a9437b2d.tar.gz"],
 )
 
+BAZEL_TOOLCHAINS_VERSION = "5.1.2"
+
+BAZEL_TOOLCHAINS_FINGERPRINT = None
+
+http_archive(
+    name = "bazel_toolchains",
+    sha256 = BAZEL_TOOLCHAINS_FINGERPRINT,
+    strip_prefix = "bazel-toolchains-v%s" % BAZEL_TOOLCHAINS_VERSION,
+    urls = [
+        "https://github.com/bazelbuild/bazel-toolchains/releases/download/v%s/bazel-toolchains-%s.tar.gz" % (BAZEL_TOOLCHAINS_VERSION, BAZEL_TOOLCHAINS_VERSION),
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-toolchains/releases/download/%s/bazel-toolchains-%s.tar.gz" % (BAZEL_TOOLCHAINS_VERSION, BAZEL_TOOLCHAINS_VERSION),
+    ],
+)
+
 RULES_JVM_EXTERNAL_TAG = "4.2"
 
 RULES_JVM_EXTERNAL_SHA = "cd1a77b7b02e8e008439ca76fd34f5b07aecb8c752961f9640dea15e9e5ba1ca"
@@ -236,6 +264,14 @@ http_archive(
 )
 
 ## -- Dependency Setup -- ##
+
+# toolchains
+
+http_archive(
+    name = "rbe_default",
+    sha256 = "f341312f4c80e1d6f81c937660ee0430175ecef85468f1c11e7fd99871cc7b5a",
+    urls = ["https://storage.googleapis.com/elide-snapshots/tools/rbe/r1a/rbe_default.tar"],
+)
 
 # rules_kotlin
 
@@ -338,42 +374,41 @@ load("@com_github_bazelbuild_buildtools//buildifier:deps.bzl", "buildifier_depen
 
 buildifier_dependencies()
 
-# rules_ts
+# rules_webtesting
 
-load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
+load("@io_bazel_rules_webtesting//web:repositories.bzl", "web_test_repositories")
 
-rules_ts_dependencies(
-    ts_version_from = "//:package.json",
+web_test_repositories()
+
+load("@io_bazel_rules_webtesting//web/versioned:browsers-0.3.3.bzl", "browser_repositories")
+
+browser_repositories(
+    chromium = True,
+    firefox = True,
 )
 
-# rules_js
+# rules_nodejs
 
-load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories")
 
-rules_js_dependencies()
-
-load("@rules_nodejs//nodejs:repositories.bzl", "nodejs_register_toolchains")
-
-nodejs_register_toolchains(
-    name = "nodejs",
+node_repositories(
     node_version = NODE_VERSION,
+#    yarn_version = YARN_VERSION,
+    package_json = ["//:package.json"],
 )
 
-load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
+load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
 
-npm_translate_lock(
+yarn_install(
     name = "npm",
-    pnpm_lock = "//:pnpm-lock.yaml",
-    verify_node_modules_ignored = "//:.bazelignore",
+    package_json = "//:package.json",
+    strict_visibility = True,
+    yarn_lock = "//:yarn.lock",
 )
 
-load("@npm//:repositories.bzl", "npm_repositories")
+#load("@npm//@bazel/labs:package.bzl", "npm_bazel_labs_dependencies")
 
-npm_repositories()
-
-#load("//tools/defs/java/testing:junit5.bzl", "junit5_repositories")
-
-#junit5_repositories()
+#npm_bazel_labs_dependencies()
 
 # JVM dependencies
 
@@ -480,12 +515,6 @@ j2cl_maven_import_external(
 
 # skylib
 
-#load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 
-#bazel_skylib_workspace()
-
-# stardoc
-
-#load("@io_bazel_stardoc//:setup.bzl", "stardoc_repositories")
-
-#stardoc_repositories()
+bazel_skylib_workspace()

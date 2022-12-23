@@ -25,11 +25,11 @@ echo "GIT_BRANCH $git_branch"
 git_tree_status=$(git diff-index --quiet HEAD -- && echo 'Clean' || echo 'Modified')
 echo "GIT_TREE_STATUS $git_tree_status"
 
-#app_version=$(cat .version)
-#echo "VERSION $app_version"
+app_version=$(cat .version)
+echo "VERSION $app_version"
 
-#package_version="$(cat .release)"
-#echo "PACKAGE_VERSION $package_version"
+package_version="$(cat .release)"
+echo "PACKAGE_VERSION $package_version"
 
-#package_version="$(cat .release)"
-#echo "STABLE_APP_PACKAGE_VERSION $package_version-$app_version"
+package_version="$(cat .release)"
+echo "STABLE_APP_PACKAGE_VERSION $package_version-$app_version"

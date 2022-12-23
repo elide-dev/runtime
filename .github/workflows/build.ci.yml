@@ -76,7 +76,7 @@ jobs:
       - name: "Setup: PNPM"
         run: npm install -g pnpm && pnpm install
       - name: "Setup: Binaryen"
-        run: curl -sSL https://github.com/WebAssembly/binaryen/releases/download/version_111/binaryen-version_111-x86_64-linux.tar.gz | tar -C /usr/local -xz --strip-components=1
+        run: sudo bash -c 'curl -sSL https://github.com/WebAssembly/binaryen/releases/download/version_111/binaryen-version_111-x86_64-linux.tar.gz | tar -C /usr/local -xz --strip-components=1'
       - name: "Setup: Authorization"
         run: echo "${{ secrets.BUILDBUDDY_API_KEY }}" > ~/.bazelrc
       - uses: bazelbuild/setup-bazelisk@v2

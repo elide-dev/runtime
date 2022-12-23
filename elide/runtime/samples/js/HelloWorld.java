@@ -1,4 +1,4 @@
-package elide.runtime.js;
+package elide.runtime.samples.js;
 
 import jsinterop.annotations.JsType;
 

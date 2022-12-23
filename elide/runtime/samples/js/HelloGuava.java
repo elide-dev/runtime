@@ -1,4 +1,4 @@
-package elide.runtime.js;
+package elide.runtime.samples.js;
 
 import com.google.common.collect.ImmutableList;
 import jsinterop.annotations.JsType;

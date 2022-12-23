@@ -1,106 +1,41 @@
 load(
-    "@io_bazel_rules_closure//closure:defs.bzl",
-    "closure_js_library",
+    "//tools:defs.bzl",
+    "js_library",
 )
 load(
-    "@com_google_j2cl//build_defs:rules.bzl",
-    "j2cl_application",
-    "j2cl_library",
-    "j2wasm_application",
-    "j2wasm_library",
+    "//tools/defs:elide.bzl",
+    "js_runtime",
+)
+load(
+    "//elide/runtime/js:config.bzl",
+    "BASE_JS_EXTERNS",
 )
 
 package(
     default_visibility = ["//visibility:public"],
-    licenses = ["notice"],
 )
 
-#
-# Sample: HelloGuava
-#
 
-filegroup(
-    name = "HelloGuavaJavaSrc",
-    srcs = ["HelloGuava.java"],
+## -- Entrypoint -- ##
+
+js_library(
+    name = "entrypoint",
+    srcs = ["entry.js"],
 )
 
-filegroup(
-    name = "HelloGuavaJsSrc",
-    srcs = ["app.js"],
-)
+EXTERNS = BASE_JS_EXTERNS + [
+    # Any additional externs here.
+]
 
-filegroup(
-    name = "HelloGuavaSrc",
-    srcs = [
-        ":HelloGuavaJavaSrc",
-        ":HelloGuavaJsSrc",
+js_runtime(
+    name = "runtime",
+    entrypoint = "elide.runtime.js.entry",
+    deps = EXTERNS + [
+        ":entrypoint",
     ],
 )
 
-java_library(
-    name = "HelloGuavaJava",
-    srcs = [":HelloGuavaJavaSrc"],
-    deps = [
-        "@com_google_guava",
-        "@com_google_j2cl//:jsinterop-annotations",
-    ],
-)
-
-j2cl_library(
-    name = "helloguavalib",
-    srcs = [
-        ":HelloGuavaSrc",
-    ],
-    deps = [
-        "@com_google_guava-j2cl",
-        "@com_google_j2cl//:jsinterop-annotations-j2cl",
-    ],
-)
-
-j2cl_application(
-    name = "guava",
-    entry_points = ["j2cl.samples.app"],
-    deps = [":helloguavalib"],
-)
-
-#
-# Sample: HelloGuava
-#
-
-filegroup(
-    name = "HelloWorldJavaSrc",
-    srcs = ["HelloWorld.java"],
-)
-
-filegroup(
-    name = "HelloWorldJsSrc",
-    srcs = ["app.js"],
-)
-
-filegroup(
-    name = "HelloWorldSrc",
-    srcs = [
-        ":HelloWorldJavaSrc",
-        ":HelloWorldJsSrc",
-    ],
-)
-
-java_library(
-    name = "HelloWorldJava",
-    srcs = [":HelloWorldJavaSrc"],
-    deps = [
-        "@com_google_j2cl//:jsinterop-annotations",
-        "@lombok",
-    ],
-)
-
-j2cl_library(
-    name = "helloworldlib",
-    srcs = [
-        ":HelloWorldSrc",
-    ],
-    deps = [
-        "@com_google_j2cl//:jsinterop-annotations-j2cl",
-        "@org_projectlombok_lombok-j2cl",
-    ],
+alias(
+    name = "js",
+    actual = "runtime",
 )

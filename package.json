@@ -6,9 +6,24 @@
   "devDependencies": {
     "@bazel/buildifier": "5.1.0",
     "@bazel/buildozer": "5.1.0",
-    "@bazel/ibazel": "0.16.2"
+    "@bazel/concatjs": "<5.0.0",
+    "@bazel/ibazel": "0.16.2",
+    "@bazel/labs": "^4.6.1",
+    "@bazel/typescript": "4.6.2",
+    "karma": ">=4.0.0",
+    "karma-chrome-launcher": ">=2.0.0",
+    "karma-firefox-launcher": ">=1.0.0",
+    "karma-jasmine": ">=2.0.0",
+    "karma-junit-reporter": ">=2.0.0",
+    "karma-requirejs": ">=1.0.0",
+    "karma-sourcemap-loader": ">=0.3.0",
+    "protobufjs": "^7.1.2",
+    "requirejs": "^2.1.0",
+    "source-map-support": "^0.5.21",
+    "tsickle": "^0.46.3",
+    "tsutils": "^3.21.0"
   },
   "dependencies": {
-    "typescript": "4.9.4"
+    "typescript": "<4.4.0"
   }
 }
