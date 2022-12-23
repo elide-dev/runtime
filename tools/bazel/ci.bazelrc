@@ -25,7 +25,11 @@ build:ci --bes_results_url=https://app.buildbuddy.io/invocation/
 build:ci --bes_backend=grpcs://remote.buildbuddy.io
 build:ci --remote_cache=grpcs://remote.buildbuddy.io
 build:ci --remote_timeout=3600
+
 build:ci --experimental_remote_cache_compression
+build:ci --noslim_profile
+build:ci --experimental_profile_include_target_label
+build:ci --experimental_profile_include_primary_output
 
 build:ci --compilation_mode=fastbuild
 build:ci --remote_upload_local_results
