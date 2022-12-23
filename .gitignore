@@ -2,3 +2,4 @@ node_modules/
 bazel-*
 .ijwb/
 .env.bazel.rc
+yarn-error.log
