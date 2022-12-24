@@ -80,8 +80,13 @@ jobs:
       - name: "Setup: Authorization"
         run: echo "build --remote_header=x-buildbuddy-api-key=${{ secrets.BUILDBUDDY_API_KEY }}" > ~/.bazelrc
       - uses: bazelbuild/setup-bazelisk@v2
-      - name: "🛠️ Build & Test"
+      - name: "🛠️ Build"
         id: bazelbuild
+        env:
+          CI: true
+        run: bazel build --config=adc --config=ci //elide/runtime/js
+      - name: "🛠️ Test"
+        id: bazeltest
         env:
           CI: true
         run: bazel test --config=adc --config=ci //tests/...
