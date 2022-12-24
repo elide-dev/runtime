@@ -10,6 +10,7 @@
     "@bazel/ibazel": "0.16.2",
     "@bazel/labs": "^4.6.1",
     "@bazel/typescript": "4.6.2",
+    "google-closure-library-types": "^0.1.17",
     "karma": ">=4.0.0",
     "karma-chrome-launcher": ">=2.0.0",
     "karma-firefox-launcher": ">=1.0.0",

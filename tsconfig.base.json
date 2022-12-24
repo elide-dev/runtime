@@ -1,10 +1,83 @@
 {
   "compilerOptions": {
+    // Module/Language Targets
+    "target": "es2022",
+    "module": "es2022",
+
+    // Library Environment
+    "lib": [
+      "es5",
+      "es6",
+      "es2015",
+      "es2016",
+      "es2017",
+      "es2018",
+      "es2019",
+      "es2020",
+      "es2021",
+      "ES2021.Promise",
+      "es2021.intl",
+      "esnext"
+    ],
+
+    // Compiler Settings
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "strict": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+
+    // Module Resolution
+    "baseUrl": ".",
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Decorators
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    // Source Resolution
+    "rootDirs": [
+      ".",
+      "dist/bin/elide",
+      "dist/bin",
+      "bazel-bin/elide",
+      "bazel-bin/"
+    ],
+
+    "paths": {
+      "@elide/*": ["./elide/*"],
+      "//*": [
+        "*",
+        "./dist/bin/elide/*",
+        "./dist/bin/*",
+        "./bazel-bin/elide/*",
+        "./bazel-bin/*"
+      ]
+    },
+
     // Explicitly set types settings so typescript doesn't auto-discover types.
     // If all types are discovered then all types need to be included as deps
     // or typescript may error out with TS2688: Cannot find type definition file for 'foo'.
     "types": []
   },
+  "exclude": [
+    "node_modules"
+  ],
   "bazelOptions": {
     "tsickle": true,
     "googmodule": true

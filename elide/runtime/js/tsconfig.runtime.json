@@ -1,0 +1,10 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    // Add the Google Closure Library types as a dependency here, carefully scoped so that it does not collide with the
+    // internal module declarations present in `tools`.
+    "types": [
+      "google-closure-library-types"
+    ]
+  }
+}

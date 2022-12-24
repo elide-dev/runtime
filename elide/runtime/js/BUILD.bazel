@@ -1,6 +1,12 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
 load(
     "//tools:defs.bzl",
     "js_library",
+    "ts_config",
+    "ts_library",
 )
 load(
     "//tools/defs:elide.bzl",
@@ -11,8 +17,33 @@ load(
     "BASE_JS_EXTERNS",
 )
 
-package(
-    default_visibility = ["//visibility:public"],
+MODULE_NAME = "elide.runtime.js"
+
+
+## -- Configuration -- ##
+
+filegroup(
+    name = "runtime_tsconfig_json",
+    srcs = ["tsconfig.runtime.json"],
+)
+
+ts_config(
+    name = "tsconfig",
+    src = ":runtime_tsconfig_json",
+    deps = [
+        "//:tsconfig"
+    ],
+)
+
+
+## -- Top-level Intrinsics -- ##
+
+ts_library(
+    name = "console",
+    srcs = [
+        "console.ts"
+    ],
+    module = MODULE_NAME,
 )
 
 
@@ -21,6 +52,9 @@ package(
 js_library(
     name = "entrypoint",
     srcs = ["entry.js"],
+    ts_deps = [
+        ":console",
+    ],
 )
 
 EXTERNS = BASE_JS_EXTERNS + [

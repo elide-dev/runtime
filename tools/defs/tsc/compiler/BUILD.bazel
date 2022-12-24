@@ -19,5 +19,6 @@ nodejs_binary(
     entry_point = "@npm//:node_modules/@bazel/typescript/internal/tsc_wrapped/tsc_wrapped.js",
     templated_args = [
         "--node_options=--expose-gc",
+        "--node_options=--max-old-space-size=2048",
     ],
 )

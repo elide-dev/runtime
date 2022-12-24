@@ -31,6 +31,7 @@ load(
 load(
     "//tools:config.bzl",
     "BUF_VERSION",
+    "ELIDE_VERSION",
     "GO_VERSION",
     "GRAALVM_VERSION",
     "JAVA_LANGUAGE_LEVEL",
@@ -178,6 +179,13 @@ http_archive(
 )
 
 http_archive(
+    name = "com_google_javascript_closure_library",
+    sha256 = "eae757619dce6cf614a86f54064179acf137c43018895a3b67eafcf5682a2651",
+    strip_prefix = "closure-library-851af4fccc188daf32a09df05ad334eaf4e0b12d",
+    url = "https://github.com/google/closure-library/archive/851af4fccc188daf32a09df05ad334eaf4e0b12d.tar.gz",
+)
+
+http_archive(
     name = "externs",
     sha256 = "f8a62a8ffe017159901693848fe40a8ca5a6205e4b5af783673fb181ef3c0e03",
     strip_prefix = "closure-compiler-bb0e54d24103a3256b7c7f025a53ab73cbb077d3/externs",
@@ -285,6 +293,15 @@ kotlin_repositories(
 )
 
 register_toolchains("//tools/defs/kt/toolchain")
+
+# elide
+
+load("//tools/defs/elide:bindist.bzl", "elide_bindist_repository")
+
+elide_bindist_repository(
+    name = "elide_cli",
+    version = ELIDE_VERSION,
+)
 
 # j2cl
 

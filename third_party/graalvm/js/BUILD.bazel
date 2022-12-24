@@ -1,0 +1,30 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load(
+    "//tools/defs/closure:exports.bzl",
+    "closure_js_library",
+)
+
+filegroup(
+    name = "context_extern_src",
+    srcs = ["context.js"],
+)
+
+closure_js_library(
+    name = "context",
+    srcs = [":context_extern_src"],
+)
+
+closure_js_library(
+    name = "exports",
+    exports = [
+        ":context",
+    ],
+)
+
+alias(
+    name = "js",
+    actual = "exports",
+)

@@ -1,0 +1,18 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load(
+    "//tools/defs/closure:exports.bzl",
+    "closure_js_library",
+)
+
+filegroup(
+    name = "tslib_src",
+    srcs = ["tslib.js"],
+)
+
+closure_js_library(
+    name = "tslib",
+    srcs = [":tslib_src"],
+)

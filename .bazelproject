@@ -5,7 +5,7 @@ directories:
   .github
 
 java_language_level: 11
-derive_targets_from_directories: true
+derive_targets_from_directories: false
 
 build_flags:
   --config=dev
@@ -13,7 +13,7 @@ build_flags:
   --config=buildbuddy
 
 targets:
-  //elide/...
+  //elide/runtime/...
 
 test_flags:
   --test_strategy=standalone

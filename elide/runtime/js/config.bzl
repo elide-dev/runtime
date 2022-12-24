@@ -23,7 +23,9 @@ JS_ARGS = []
 ## Describes the baseline set of externs available in the Elide JS runtime environment.
 BASE_JS_EXTERNS = [extern(i) for i in [
     "browser/intl",
-]]
+]] + [
+    "//third_party/graalvm/js",
+]
 
 ## JS: Static Defines
 ## ------------------

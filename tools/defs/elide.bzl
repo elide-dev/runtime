@@ -18,6 +18,15 @@ load(
     _j2wasm_application = "j2wasm_application",
     _j2wasm_library = "j2wasm_library",
 )
+load(
+    "//tools/defs/tsc:exports.bzl",
+    _ts_config = "ts_config",
+    _ts_library = "ts_library",
+)
+load(
+    "//tools/defs/elide:elide.bzl",
+    _elide_test = "elide_test",
+)
 
 _RUNTIME_JS_ARGS = _JS_ARGS + [
     # Additional Closure Compiler arguments for the runtime.
@@ -50,7 +59,7 @@ def _abstract_runtime_targets(name, srcs = [], deps = [], **kwargs):
         visibility = ["//visibility:private"],
     )
 
-def _js_library(name, srcs = [], deps = [], **kwargs):
+def _js_library(name, srcs = [], deps = [], ts_deps = [], **kwargs):
     """Create a library target for code which implements some aspect of Elide JS runtime functionality."""
 
     _abstract_runtime_targets(
@@ -64,10 +73,13 @@ def _js_library(name, srcs = [], deps = [], **kwargs):
     config.update(_base_js_library_config)
     config.update(kwargs)
 
+    deplist = [i for i in deps]
+    deplist += ["%s_js" % i for i in ts_deps]
+
     _closure_js_library(
         name = "%s_js" % name,
         srcs = [":%s_src" % name],
-        deps = deps,
+        deps = deplist,
         **config
     )
     native.alias(
@@ -95,5 +107,8 @@ def _js_runtime(name, entrypoint, deps, extra_production_args = [], **kwargs):
     )
 
 ## Exports.
+elide_test = _elide_test
 js_library = _js_library
 js_runtime = _js_runtime
+ts_library = _ts_library
+ts_config = _ts_config

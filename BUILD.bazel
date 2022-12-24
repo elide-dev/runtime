@@ -1,14 +1,18 @@
-
 package(
     default_visibility = ["//visibility:public"],
 )
 
+load(
+    "//tools/defs/tsc:exports.bzl",
+    "ts_config",
+)
+
 filegroup(
-    name = "tsconfig",
+    name = "tsconfig.json",
     srcs = ["tsconfig.base.json"],
 )
 
-alias(
-    name = "tsconfig.json",
-    actual = "tsconfig",
+ts_config(
+    name = "tsconfig",
+    src = ":tsconfig.json",
 )

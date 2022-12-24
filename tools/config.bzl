@@ -2,6 +2,11 @@
 ## ------------------------------------
 VERSION = "1.0.0-alpha1"
 
+## Elide CLI version.
+## ------------------------------------
+## Pinned version of the CLI for testing.
+ELIDE_VERSION = "1.0.0-r2"
+
 ## `Debug` mode.
 ## ------------------------------------
 ## Set to `True` to shut off symbol rewriting and enable logging.

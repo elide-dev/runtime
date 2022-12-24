@@ -1,3 +1,5 @@
+import { installGlobal } from "./tools/base";
+
 /**
  * ## API: Console
  *
@@ -20,3 +22,20 @@ export interface IConsole {
      */
     info(...args: any[]): void;
 }
+
+/** JS bridge to the console intrinsics. */
+export class ConsoleBridge implements IConsole {
+    /** @inheritDoc */
+    info(...args: any[]) {
+        // nothing here
+    }
+}
+
+/** Main `console` global. */
+export const console: ConsoleBridge = new ConsoleBridge();
+
+declare global {
+    export const console: ConsoleBridge;
+}
+
+installGlobal('console', console);
