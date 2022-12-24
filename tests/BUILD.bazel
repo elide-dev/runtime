@@ -1,0 +1,15 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+test_suite(
+    name = "js_runtime",
+    tests = [
+        "//tests/elide/runtime/js",
+    ],
+)
+
+alias(
+    name = "tests",
+    actual = "js_runtime",
+)

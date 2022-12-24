@@ -84,4 +84,4 @@ jobs:
         id: bazelbuild
         env:
           CI: true
-        run: bazel build --config=adc --config=ci //elide/runtime/...
+        run: bazel test --config=adc --config=ci //tests
