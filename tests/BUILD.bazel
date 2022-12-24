@@ -5,7 +5,7 @@ package(
 test_suite(
     name = "js_runtime",
     tests = [
-        "//tests/elide/runtime/js",
+        "//tests/elide/runtime/js:runtime_test",
     ],
 )
 
