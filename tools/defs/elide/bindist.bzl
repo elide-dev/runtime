@@ -10,7 +10,6 @@ _elide_version_configs = {
         "sha": {
             "darwin-aarch64": "0b4679f57b644aefd11acb794e0044d83f49ddac0ef96e7a1417f36a1a297eba",
             "darwin-amd64": "d18f92effa617405dc18d42c203a02f5ace684095b8253b64201528c1bc26376",
-            "linux-aarch64": None,
             "linux-amd64": "f1fe32812fc1fa13c48e7ef1d96dfd0698e788767363cdd50edf332a2e1e688b",
         },
     },
@@ -26,6 +25,8 @@ def _get_platform(ctx):
         elif uname == "aarch64":
             arch = "aarch64"
     if ctx.os.name == "linux":
+        if arch == "aarch64":
+            fail("Elide CLI is not currently supported on ARM64 Linux.")
         return "linux-%s" % arch
     elif ctx.os.name == "mac os x":
         if arch == "arm64" or arch == "aarch64":
