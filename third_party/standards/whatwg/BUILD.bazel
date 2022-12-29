@@ -1,0 +1,32 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load(
+    "//tools/defs/closure:exports.bzl",
+    "closure_js_library",
+)
+
+filegroup(
+    name = "whatwg_externs_src",
+    srcs = [
+        "whatwg_console.js",
+    ],
+)
+
+closure_js_library(
+    name = "whatwg_externs",
+    srcs = [":whatwg_externs_src"],
+)
+
+closure_js_library(
+    name = "exports",
+    exports = [
+        ":whatwg_externs",
+    ],
+)
+
+alias(
+    name = "whatwg",
+    actual = "exports",
+)
