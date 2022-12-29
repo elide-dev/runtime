@@ -31,7 +31,6 @@ load(
 load(
     "//tools:config.bzl",
     "BUF_VERSION",
-    "ELIDE_VERSION",
     "ENABLE_J2CL",
     "ENABLE_J2WASM",
     "GO_VERSION",
@@ -315,7 +314,6 @@ load("//tools/defs/elide:bindist.bzl", "elide_bindist_repository")
 
 elide_bindist_repository(
     name = "elide_cli",
-    version = ELIDE_VERSION,
 )
 
 # j2cl

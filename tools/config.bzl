@@ -1,3 +1,8 @@
+load(
+    "//tools/defs/elide:bindist.bzl",
+    _LATEST_ELIDE_VERSION = "latest_version",
+)
+
 ## Runtime version tag.
 ## ------------------------------------
 VERSION = "1.0.0-alpha1"
@@ -5,7 +10,7 @@ VERSION = "1.0.0-alpha1"
 ## Elide CLI version.
 ## ------------------------------------
 ## Pinned version of the CLI for testing.
-ELIDE_VERSION = "1.0.0-r2"
+ELIDE_VERSION = _LATEST_ELIDE_VERSION
 
 ## `Debug` mode.
 ## ------------------------------------
@@ -111,4 +116,4 @@ ENABLE_J2WASM = False
 ## Elide: Use Local CLI
 ## --------------------
 ## Whether to use a local CLI copy.
-LOCAL_ELIDE = True
+LOCAL_ELIDE = False
