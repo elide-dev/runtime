@@ -41,6 +41,8 @@ load(
     "KOTLIN_SDK_VERSION",
     "NODE_VERSION",
     "PROTOBUF_VERSION",
+    "RUST_EDITION",
+    "RUST_VERSION",
     "YARN_VERSION",
 )
 
@@ -213,6 +215,13 @@ http_archive(
 )
 
 http_archive(
+    name = "aspect_bazel_lib",
+    sha256 = "3534a27621725fbbf1d3e53daa0c1dda055a2732d9031b8c579f917d7347b6c4",
+    strip_prefix = "bazel-lib-1.16.1",
+    url = "https://github.com/aspect-build/bazel-lib/archive/refs/tags/v1.16.1.tar.gz",
+)
+
+http_archive(
     name = "com_google_jsinterop_generator",
     sha256 = "9ce71fed8a0d0a8e004e5a910c1bc3dae34e18a4ba27c04fd6a64f21176055a4",
     strip_prefix = "jsinterop-generator-00852a07cf4b78711243b2a0a86287984a90712f",
@@ -240,6 +249,21 @@ http_archive(
     sha256 = "187bdf6d384258cd7709514fb213776d81d81910c4b21cd4521bd41db264ddf5",
     strip_prefix = "flatbuffers-e0d68bdda2f66ffde77c219ea40a64bf945a7f32",
     urls = ["https://github.com/google/flatbuffers/archive/e0d68bdda2f66ffde77c219ea40a64bf945a7f32.tar.gz"],
+)
+
+http_archive(
+    name = "rules_rust",
+    sha256 = "5c2b6745236f8ce547f82eeacbbcc81d736734cc8bd92e60d3e3cdfa6e167bb5",
+    urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.15.0/rules_rust-v0.15.0.tar.gz"],
+)
+
+BAZEL_ZIG_CC_VERSION = "v0.9.2"
+
+http_archive(
+    name = "bazel-zig-cc",
+    sha256 = "73afa7e1af49e3dbfa1bae9362438cdc51cb177c359a6041a7a403011179d0b5",
+    strip_prefix = "bazel-zig-cc-{}".format(BAZEL_ZIG_CC_VERSION),
+    urls = ["https://git.sr.ht/~motiejus/bazel-zig-cc/archive/{}.tar.gz".format(BAZEL_ZIG_CC_VERSION)],
 )
 
 BAZEL_TOOLCHAINS_VERSION = "5.1.2"
@@ -529,6 +553,86 @@ j2cl_maven_import_external(
     ],
 )
 
+# zig toolchain
+
+#load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
+
+#zig_toolchains()
+
+#register_toolchains(
+#    "@zig_sdk//toolchain:darwin_arm64",
+#)
+
+# rules_rust
+
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains", "rust_repository_set")
+
+rules_rust_dependencies()
+
+rust_register_toolchains(
+    edition = RUST_EDITION,
+    extra_target_triples = [],
+    version = RUST_VERSION,
+)
+
+rust_repository_set(
+    name = "macos_x86_64",
+    edition = RUST_EDITION,
+    exec_triple = "x86_64-apple-darwin",
+    extra_target_triples = ["aarch64-unknown-linux-gnu"],
+    versions = [RUST_VERSION],
+)
+
+rust_repository_set(
+    name = "linux_x86_64",
+    edition = RUST_EDITION,
+    exec_triple = "x86_64-unknown-linux-gnu",
+    extra_target_triples = ["aarch64-unknown-linux-gnu"],
+    versions = [RUST_VERSION],
+)
+
+load("@rules_rust//crate_universe:repositories.bzl", "crate_universe_dependencies")
+load("@rules_rust//crate_universe:defs.bzl", "crates_repository")
+
+crate_universe_dependencies(
+    bootstrap = True,
+)
+
+crates_repository(
+    name = "crates",
+    cargo_lockfile = "//:cargo.lock",
+    lockfile = "//:cargo.Bazel.lock",
+    manifests = ["//:cargo.toml"],
+)
+
+load("@crates//:defs.bzl", "crate_repositories")
+
+crate_repositories()
+
+load("@rules_rust//tools/rust_analyzer:deps.bzl", "rust_analyzer_dependencies")
+
+rust_analyzer_dependencies()
+
+load("@rules_rust//bindgen:repositories.bzl", "rust_bindgen_dependencies", "rust_bindgen_register_toolchains")
+
+rust_bindgen_dependencies()
+
+rust_bindgen_register_toolchains()
+
+load("@rules_rust//proto:repositories.bzl", "rust_proto_repositories")
+
+rust_proto_repositories()
+
+load("@rules_rust//proto:transitive_repositories.bzl", "rust_proto_transitive_repositories")
+
+rust_proto_transitive_repositories()
+
+load("@rules_rust//wasm_bindgen:repositories.bzl", "rust_wasm_bindgen_dependencies", "rust_wasm_bindgen_register_toolchains")
+
+rust_wasm_bindgen_dependencies()
+
+rust_wasm_bindgen_register_toolchains()
+
 # skylib
 
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
@@ -553,3 +657,9 @@ buf_dependencies(
         "buf.build/elide/v3:1b11fd0a79d74e2b83b01b0483f49f11",
     ],
 )
+
+# aspect
+
+load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies")
+
+aspect_bazel_lib_dependencies()

@@ -7,6 +7,12 @@ load(
     "ts_config",
 )
 
+exports_files([
+    "cargo.toml",
+    "cargo.lock",
+    "cargo.bazel.lock",
+])
+
 filegroup(
     name = "tsconfig.json",
     srcs = ["tsconfig.base.json"],

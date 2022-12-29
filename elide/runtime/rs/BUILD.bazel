@@ -1,0 +1,79 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load(
+    "//tools/defs/rust:exports.bzl",
+    "all_crate_deps",
+    "rust_binary",
+    "rust_library",
+    "rust_shared_library",
+    "rust_wasm_bindgen",
+)
+load(
+    "//tools/defs/java:exports.bzl",
+    "java_library",
+)
+load(
+    "//tools/defs/kt:exports.bzl",
+    "kt_jvm_binary",
+)
+
+RUST_MODULES = [
+    "@crates//:js-sys",
+    "@crates//:wasm-bindgen",
+    "@crates//:web-sys",
+]
+
+rust_library(
+    name = "lib",
+    srcs = [
+        "lib.rs",
+        "utils.rs",
+    ],
+    deps = RUST_MODULES + [],
+)
+
+rust_shared_library(
+    name = "runtime-shared",
+    srcs = ["runtime.rs"],
+    crate_features = ["console_error_panic_hook"],
+    crate_name = "elide",
+    crate_root = "runtime.rs",
+    deps = RUST_MODULES + [
+        ":lib",
+    ],
+)
+
+rust_binary(
+    name = "runtime",
+    srcs = ["runtime.rs"],
+    crate_features = ["console_error_panic_hook"],
+    crate_name = "elide",
+    crate_root = "runtime.rs",
+    deps = RUST_MODULES + [
+        ":lib",
+    ],
+)
+
+#rust_wasm_bindgen(
+#    name = "runtime-wasm-bindgen",
+#    wasm_file = ":runtime",
+#)
+
+#java_library(
+#    name = "runtime-jni",
+#    srcs = ["ElideNativeRuntime.java"],
+#    deps = [],
+#)
+
+#kt_jvm_binary(
+#    name = "runtime-jvm",
+#    main_class = "com.elide.runtime.ElideRuntime",
+#    deps = [":runtime-jni"],
+#)
+
+alias(
+    name = "rs",
+    actual = "runtime",
+)

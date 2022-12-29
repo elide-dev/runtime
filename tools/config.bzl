@@ -103,6 +103,16 @@ YARN_VERSION = "1.22.19"
 ## Pins the version of the Buf toolchain to use.
 BUF_VERSION = "v1.5.0"
 
+## Rust: Edition to use.
+## ---------------------
+## Sets the edition of the Rust language to use.
+RUST_EDITION = "2021"
+
+## Rust: Version to use.
+## ---------------------
+## Sets the version of the Rust SDK to use.
+RUST_VERSION = "1.66.0"
+
 ## JS: Enable J2CL
 ## ---------------
 ## Enable integration with the J2CL toolchain.
