@@ -1,0 +1,48 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load(
+    "//tools:defs.bzl",
+    "ts_config",
+    "ts_library",
+)
+load(
+    "//tools/defs:elide.bzl",
+    "ts_runtime",
+)
+load(
+    "//elide/runtime/js:config.bzl",
+    "TS_MODULES",
+)
+
+MODULE_NAME = "elide.runtime.ts"
+
+## -- Configuration -- ##
+
+filegroup(
+    name = "runtime_tsconfig_ts_json",
+    srcs = ["tsconfig.ts.json"],
+)
+
+ts_config(
+    name = "tsconfig",
+    src = ":runtime_tsconfig_ts_json",
+    deps = ["//:tsconfig"],
+)
+
+## -- Entrypoints -- ##
+
+ts_runtime(
+    name = "entrypoint-ts",
+    main = "entrypoint.ts",
+    ts_config = ":tsconfig",
+    deps = TS_MODULES + [
+        "@npm//tslib",
+    ],
+)
+
+alias(
+    name = "ts",
+    actual = "entrypoint-ts",
+)

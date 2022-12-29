@@ -1,0 +1,23 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowJs": false,
+    "checkJs": false,
+    "composite": true,
+    "emitDeclarationOnly": true,
+    "paths": {
+      "@elide/runtime/*": [
+        "../*",
+        "./bazel-out/darwin_arm64-opt/bin/elide/runtime/*",
+        "./bazel-out/darwin_arm64-dbg/bin/elide/runtime/*",
+        "./bazel-out/darwin_arm64-fastbuild/bin/elide/runtime/*"
+      ],
+      "//*": [
+        "*",
+        "./bazel-out/darwin_arm64-opt/bin/*",
+        "./bazel-out/darwin_arm64-dbg/bin/*",
+        "./bazel-out/darwin_arm64-fastbuild/bin/*"
+      ]
+    }
+  }
+}

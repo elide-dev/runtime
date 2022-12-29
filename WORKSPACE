@@ -32,6 +32,8 @@ load(
     "//tools:config.bzl",
     "BUF_VERSION",
     "ELIDE_VERSION",
+    "ENABLE_J2CL",
+    "ENABLE_J2WASM",
     "GO_VERSION",
     "GRAALVM_VERSION",
     "JAVA_LANGUAGE_LEVEL",
@@ -39,8 +41,8 @@ load(
     "KOTLIN_COMPILER_VERSION",
     "KOTLIN_SDK_VERSION",
     "NODE_VERSION",
-    "YARN_VERSION",
     "PROTOBUF_VERSION",
+    "YARN_VERSION",
 )
 
 http_archive(
@@ -98,6 +100,15 @@ http_archive(
     ],
 )
 
+http_archive(
+    name = "rules_pkg",
+    sha256 = "eea0f59c28a9241156a47d7a8e32db9122f3d50b505fae0f33de6ce4d9b61834",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/0.8.0/rules_pkg-0.8.0.tar.gz",
+        "https://github.com/bazelbuild/rules_pkg/releases/download/0.8.0/rules_pkg-0.8.0.tar.gz",
+    ],
+)
+
 rules_kotlin_version = "1.6.0"
 
 rules_kotlin_sha = "a57591404423a52bd6b18ebba7979e8cd2243534736c5c94d35c89718ea38f94"
@@ -143,19 +154,19 @@ http_archive(
 
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "f2dcd210c7095febe54b804bb1cd3a58fe8435a909db2ec04e31542631cf715c",
+    sha256 = "56d8c5a5c91e1af73eca71a6fab2ced959b67c86d12ba37feedb0a2dfea441a6",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.31.0/rules_go-v0.31.0.zip",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.31.0/rules_go-v0.31.0.zip",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.37.0/rules_go-v0.37.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.37.0/rules_go-v0.37.0.zip",
     ],
 )
 
 http_archive(
     name = "bazel_gazelle",
-    sha256 = "de69a09dc70417580aabf20a28619bb3ef60d038470c7cf8442fafcf627c21cb",
+    sha256 = "448e37e0dbf61d6fa8f00aaa12d191745e14f07c31cabfa731f0c8e8a4f41b97",
     urls = [
-        "https://storage.googleapis.com/bazel-mirror/github.com/bazelbuild/bazel-gazelle/releases/download/v0.24.0/bazel-gazelle-v0.24.0.tar.gz",
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.24.0/bazel-gazelle-v0.24.0.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.28.0/bazel-gazelle-v0.28.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.28.0/bazel-gazelle-v0.28.0.tar.gz",
     ],
 )
 
@@ -187,17 +198,17 @@ http_archive(
 
 http_archive(
     name = "externs",
+    build_file = "google/closure/externs.bzl",
     sha256 = "f8a62a8ffe017159901693848fe40a8ca5a6205e4b5af783673fb181ef3c0e03",
     strip_prefix = "closure-compiler-bb0e54d24103a3256b7c7f025a53ab73cbb077d3/externs",
     url = "https://github.com/google/closure-compiler/archive/bb0e54d24103a3256b7c7f025a53ab73cbb077d3.tar.gz",
-    build_file = "google/closure/externs.bzl",
 )
 
 http_archive(
     name = "com_google_j2cl",
-    sha256 = "2124ed8366f88bad29a0b34e5a1e164ba5f90a868625f67a9e198f5d732feb52",
-    strip_prefix = "j2cl-42e9863a7eb6ccbd81dedf351181b4c6b1c55706",
-    url = "https://github.com/elide-tools/j2cl/archive/42e9863a7eb6ccbd81dedf351181b4c6b1c55706.tar.gz",
+    sha256 = "e6e16c82b1fba14f57144a589115d94ca5712d25e5a5c3ef79f75a0506340deb",
+    strip_prefix = "j2cl-6699ca5439e31ba6aa37c47fd4a05f4be20be423",
+    url = "https://github.com/elide-tools/j2cl/archive/6699ca5439e31ba6aa37c47fd4a05f4be20be423.tar.gz",
 )
 
 http_archive(
@@ -233,17 +244,10 @@ http_archive(
 )
 
 http_archive(
-    name = "cel_spec",
-    sha256 = "639e1bb2c11eca9d208e09de9115096a8ea9bad7094ce896d095437534aa0628",
-    strip_prefix = "cel-spec-8f7ae41b744cbc0129263c5f8f2dfd2390ced522",
-    url = "https://github.com/google/cel-spec/archive/8f7ae41b744cbc0129263c5f8f2dfd2390ced522.zip",
-)
-
-http_archive(
     name = "com_github_google_flatbuffers",
-    sha256 = "917bc64329af88a7a22b113ad6cc76b81e27e8946a498241e25ca3608a377eb3",
-    strip_prefix = "flatbuffers-8468eab83bacc8bbd6cb5ae22197af06a9437b2d",
-    urls = ["https://github.com/google/flatbuffers/archive/8468eab83bacc8bbd6cb5ae22197af06a9437b2d.tar.gz"],
+    sha256 = "187bdf6d384258cd7709514fb213776d81d81910c4b21cd4521bd41db264ddf5",
+    strip_prefix = "flatbuffers-e0d68bdda2f66ffde77c219ea40a64bf945a7f32",
+    urls = ["https://github.com/google/flatbuffers/archive/e0d68bdda2f66ffde77c219ea40a64bf945a7f32.tar.gz"],
 )
 
 BAZEL_TOOLCHAINS_VERSION = "5.1.2"
@@ -294,6 +298,17 @@ kotlin_repositories(
 
 register_toolchains("//tools/defs/kt/toolchain")
 
+# rules_go
+
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
+
+go_rules_dependencies()
+
+go_register_toolchains(version = GO_VERSION)
+
+gazelle_dependencies()
+
 # elide
 
 load("//tools/defs/elide:bindist.bzl", "elide_bindist_repository")
@@ -310,8 +325,12 @@ load("@com_google_j2cl//build_defs:repository.bzl", "load_j2cl_repo_deps")
 load_j2cl_repo_deps()
 
 load("@com_google_j2cl//build_defs:rules.bzl", "setup_j2cl_workspace")
+load("//tools/defs/closure:compiler.bzl", "setup_closure_compiler")
+
+setup_closure_compiler()
 
 setup_j2cl_workspace(
+    omit_com_google_javascript_closure_compiler = True,
     omit_kotlin = True,
 )
 
@@ -366,15 +385,6 @@ load("@com_google_protobuf//:protobuf_deps.bzl", "PROTOBUF_MAVEN_ARTIFACTS")
 
 protobuf_deps()
 
-# rules_go
-
-load("@bazel_gazelle//:deps.bzl", "go_repository")
-load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
-
-go_register_toolchains(version = GO_VERSION)
-
-go_rules_dependencies()
-
 # rules_jvm_external
 
 load("@rules_jvm_external//:repositories.bzl", "rules_jvm_external_deps")
@@ -410,7 +420,6 @@ load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories")
 
 node_repositories(
     node_version = NODE_VERSION,
-#    yarn_version = YARN_VERSION,
     package_json = ["//:package.json"],
 )
 
@@ -423,9 +432,9 @@ yarn_install(
     yarn_lock = "//:yarn.lock",
 )
 
-#load("@npm//@bazel/labs:package.bzl", "npm_bazel_labs_dependencies")
+load("@build_bazel_rules_nodejs//toolchains/esbuild:esbuild_repositories.bzl", "esbuild_repositories")
 
-#npm_bazel_labs_dependencies()
+esbuild_repositories(npm_repository = "npm")
 
 # JVM dependencies
 
@@ -535,3 +544,22 @@ j2cl_maven_import_external(
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 
 bazel_skylib_workspace()
+
+# rules_pkg
+
+load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
+
+rules_pkg_dependencies()
+
+# rules_buf
+
+load("@rules_buf//buf:defs.bzl", "buf_dependencies")
+
+buf_dependencies(
+    name = "proto",
+    modules = [
+        "buf.build/googleapis/googleapis:75b4300737fb4efca0831636be94e517",
+        "buf.build/elide/safe-html-types:3d5d7e9b28be4293bba1e2571091590e",
+        "buf.build/elide/v3:1b11fd0a79d74e2b83b01b0483f49f11",
+    ],
+)

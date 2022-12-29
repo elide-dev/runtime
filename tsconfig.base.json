@@ -38,6 +38,7 @@
     "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
+    "noEmitHelpers": false,
 
     // Module Resolution
     "baseUrl": ".",

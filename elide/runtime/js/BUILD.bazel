@@ -6,19 +6,26 @@ load(
     "//tools:defs.bzl",
     "js_library",
     "ts_config",
-    "ts_library",
 )
 load(
     "//tools/defs:elide.bzl",
     "js_runtime",
+    "runtime_dist",
 )
 load(
     "//elide/runtime/js:config.bzl",
     "BASE_JS_EXTERNS",
+    "TS_MODULES",
 )
 
 MODULE_NAME = "elide.runtime.js"
 
+## -- Externs & Types -- ##
+
+js_library(
+    name = "runtime_externs",
+    srcs = ["intrinsics.externs.js"],
+)
 
 ## -- Configuration -- ##
 
@@ -30,46 +37,39 @@ filegroup(
 ts_config(
     name = "tsconfig",
     src = ":runtime_tsconfig_json",
-    deps = [
-        "//:tsconfig"
-    ],
+    deps = ["//:tsconfig"],
 )
 
-
-## -- Top-level Intrinsics -- ##
-
-ts_library(
-    name = "console",
-    srcs = [
-        "console.ts"
-    ],
-    module = MODULE_NAME,
-)
-
-
-## -- Entrypoint -- ##
-
-js_library(
-    name = "entrypoint",
-    srcs = ["entry.js"],
-    ts_deps = [
-        ":console",
-    ],
-)
+## -- Entrypoints -- ##
 
 EXTERNS = BASE_JS_EXTERNS + [
     # Any additional externs here.
 ]
 
+js_library(
+    name = "entrypoint-js",
+    srcs = ["entrypoint.js"],
+    ts_deps = TS_MODULES,
+)
+
 js_runtime(
     name = "runtime",
     entrypoint = "elide.runtime.js.entry",
+    main = ":entrypoint-js",
+    ts_deps = TS_MODULES,
     deps = EXTERNS + [
-        ":entrypoint",
+        ":runtime_externs",
     ],
 )
 
-alias(
-    name = "js",
-    actual = "runtime",
+## -- Distribution -- ##
+
+runtime_dist(
+    name = "dist",
+    language = "js",
+    manifest = "MANIFEST.MF",
+    target = ":runtime",
+    #    info = [],
+    #    configs = [],
+    #    extra_sources = [],
 )

@@ -4,6 +4,7 @@ load(
     "@npm//@bazel/typescript:index.bzl",
     _ts_config = "ts_config",
     _ts_library = "ts_library",
+    _ts_project = "ts_project",
 )
 load(
     "//tools/defs/closure:exports.bzl",
@@ -21,6 +22,11 @@ _BASE_TS_DEPS = [
     # Nothing at this time.
 ]
 
+_BASE_TS_TOOLS = [
+    "//elide/runtime/js/intrinsics:base",
+    "//elide/runtime/js/intrinsics:primordials",
+]
+
 _BASE_JS_DEPS = [
     "//third_party/google/tsickle:tslib",
 ]
@@ -28,8 +34,6 @@ _BASE_JS_DEPS = [
 _BASE_SUPPRESSIONS = [
     "JSC_UNREACHABLE_CODE",
 ]
-
-JS_RUNTIME_TOOLS = "//elide/runtime/js/tools"
 
 _BASE_TS_ARGS = {
     "devmode_module": MODULE_TARGET,
@@ -39,6 +43,15 @@ _BASE_TS_ARGS = {
     "compiler": "//tools/defs/tsc/compiler:tsc_wrapped",
     "tsconfig": "//elide/runtime/js:tsconfig",
 }
+
+def _fixup_shortlabel(label):
+    """Fixup a short-label which has no target."""
+    if label.startswith("@"):
+        return label
+    elif ":" not in label:
+        return (label + ":" + (label.split("/")[-1]))
+    else:
+        label
 
 def _wrapped_ts_library(
         name,
@@ -57,11 +70,10 @@ def _wrapped_ts_library(
     config.update(_BASE_TS_ARGS)
     config.update(kwargs)
 
-    ts_deps_resolved = _BASE_TS_DEPS + ["%s_ts" % i for i in deps]
-    closure_deps_resolved = ["%s_js" % i for i in closure_deps]
-
+    ts_deps_resolved = _BASE_TS_DEPS + ["%s_ts" % _fixup_shortlabel(i) for i in deps]
+    closure_deps_resolved = ["%s_js" % _fixup_shortlabel(i) for i in closure_deps]
     if include_tools:
-        ts_deps_resolved += [JS_RUNTIME_TOOLS]
+        ts_deps_resolved += _BASE_TS_TOOLS
 
     native.filegroup(
         name = "%s_src" % name,
@@ -93,3 +105,4 @@ def _wrapped_ts_library(
 
 ts_library = _wrapped_ts_library
 ts_config = _ts_config
+ts_project = _ts_project

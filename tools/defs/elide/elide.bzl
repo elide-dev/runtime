@@ -1,3 +1,10 @@
+"""Defines Bazel rules for running tests and scripts with Elide."""
+
+load(
+    "//tools:config.bzl",
+    _LOCAL = "LOCAL_ELIDE",
+)
+
 def _elide_impl_test(ctx):
     """Run a test using the Elide runtime binary."""
 
@@ -17,6 +24,9 @@ def _elide_impl_test(ctx):
     env = {}
     args = ctx.actions.args()
     args.add("--language=JS")
+
+    if ctx.attr.debug:
+        args.add("--debug")
     args.add(script.short_path)
 
     # write to args file
@@ -25,10 +35,25 @@ def _elide_impl_test(ctx):
         args,
     )
 
+    elide_path = elide_bin.path
+    if _LOCAL:
+        elide_path = "elide"
+
+    command = "%s run @%s" % (
+        elide_path,
+        args_file.short_path,
+    )
+    if ctx.attr.show_version:
+        command = "%s --version && %s run @%s" % (
+            elide_path,
+            elide_path,
+            args_file.short_path,
+        )
+
     # write to runner file
     ctx.actions.write(
         runner,
-        "%s run @%s" % (elide_bin.path, args_file.short_path),
+        command,
         is_executable = True,
     )
 
@@ -49,6 +74,9 @@ _elide_test = rule(
         "test": attr.label(
             allow_files = True,
         ),
+        "show_version": attr.bool(
+            default = True,
+        ),
         "_elide": attr.label(
             cfg = "host",
             default = "@elide_cli",
@@ -57,6 +85,9 @@ _elide_test = rule(
         ),
         "data": attr.label_list(
             allow_files = True,
+        ),
+        "debug": attr.bool(
+            default = False,
         ),
     },
 )

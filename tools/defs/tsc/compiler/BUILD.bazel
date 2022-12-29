@@ -13,6 +13,7 @@ nodejs_binary(
         "@npm//protobufjs",
         "@npm//source-map-support",
         "@npm//tsickle",
+        "@npm//tslib",
         "@npm//tsutils",
         "@npm//typescript",
     ],

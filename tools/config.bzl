@@ -97,3 +97,18 @@ YARN_VERSION = "1.22.19"
 ## ------------------------------------
 ## Pins the version of the Buf toolchain to use.
 BUF_VERSION = "v1.5.0"
+
+## JS: Enable J2CL
+## ---------------
+## Enable integration with the J2CL toolchain.
+ENABLE_J2CL = True
+
+## JS: Enable J2WASM
+## -----------------
+## Enable integration with the J2WASM toolchain.
+ENABLE_J2WASM = False
+
+## Elide: Use Local CLI
+## --------------------
+## Whether to use a local CLI copy.
+LOCAL_ELIDE = True

@@ -2,24 +2,8 @@ package(
     default_visibility = ["//visibility:public"],
 )
 
-load(
-    "//tools:defs.bzl",
-    "ts_library",
-)
+## -- Configs -- ##
 
-MODULE_NAME = "elide.runtime.js.tools"
-
-## -- Abstract Tools / Utilities -- ##
-
-ts_library(
-    name = "base",
-    srcs = ["base.ts"],
-    include_tools = False,
-    module = MODULE_NAME,
-    tsconfig = "//:tsconfig.json",
-)
-
-alias(
-    name = "tools",
-    actual = "base",
-)
+exports_files([
+    "esbuild.config.js",
+])

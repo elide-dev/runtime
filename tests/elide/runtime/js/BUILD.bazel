@@ -9,11 +9,9 @@ load(
 
 ## -- Tests: Main -- ##
 
-
 ## Tests the main entrypoint for the built facade of the Elide runtime for JavaScript. This will consume the JavaScript
 ## output from the Closure Compiler, which is used to prime the guest-facing facade in Elide-hosted JS VMs.
-
 elide_test(
     name = "runtime_test",
-    test = "//elide/runtime/js",
+    test = "//elide/runtime/js:runtime",
 )

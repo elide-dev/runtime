@@ -4,3 +4,4 @@
 #
 
 build:local --define=API_TARGET=local
+build:local --action_env=PATH
