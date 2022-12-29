@@ -8,9 +8,9 @@ load(
 )
 
 exports_files([
-    "cargo.toml",
-    "cargo.lock",
-    "cargo.bazel.lock",
+    "Cargo.toml",
+    "Cargo.lock",
+    "Cargo.Bazel.lock",
 ])
 
 filegroup(

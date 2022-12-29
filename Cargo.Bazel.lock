@@ -1,5 +1,5 @@
 {
-  "checksum": "22568c1705c949a45e99f1bc5cb508246f13e6097ea070cb6d8234db3837fbd4",
+  "checksum": "1a0716e60dff5b907cbb18ee0fa9452ad90dfd48d1f24aa127071906cca0b6f0",
   "crates": {
     "autocfg 1.1.0": {
       "name": "autocfg",
@@ -1143,13 +1143,13 @@
       },
       "license": "Unlicense/MIT"
     },
-    "once_cell 1.16.0": {
+    "once_cell 1.17.0": {
       "name": "once_cell",
-      "version": "1.16.0",
+      "version": "1.17.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/once_cell/1.16.0/download",
-          "sha256": "86f0b0d4bf799edbc74508c1e8bf170ff5f41238e5f8225603ca7caaae2b7860"
+          "url": "https://crates.io/api/v1/crates/once_cell/1.17.0/download",
+          "sha256": "6f61fba1741ea2b3d6a1e3178721804bb716a68a6aeba1149b5d52e3d464ea66"
         }
       },
       "targets": [
@@ -1178,7 +1178,7 @@
           "std"
         ],
         "edition": "2021",
-        "version": "1.16.0"
+        "version": "1.17.0"
       },
       "license": "MIT OR Apache-2.0"
     },
@@ -1362,7 +1362,7 @@
         "deps": {
           "common": [
             {
-              "id": "once_cell 1.16.0",
+              "id": "once_cell 1.17.0",
               "target": "once_cell"
             },
             {
@@ -2358,7 +2358,7 @@
               "target": "log"
             },
             {
-              "id": "once_cell 1.16.0",
+              "id": "once_cell 1.17.0",
               "target": "once_cell"
             },
             {

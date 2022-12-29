@@ -600,9 +600,9 @@ crate_universe_dependencies(
 
 crates_repository(
     name = "crates",
-    cargo_lockfile = "//:cargo.lock",
-    lockfile = "//:cargo.Bazel.lock",
-    manifests = ["//:cargo.toml"],
+    cargo_lockfile = "//:Cargo.lock",
+    lockfile = "//:Cargo.Bazel.lock",
+    manifests = ["//:Cargo.toml"],
 )
 
 load("@crates//:defs.bzl", "crate_repositories")
