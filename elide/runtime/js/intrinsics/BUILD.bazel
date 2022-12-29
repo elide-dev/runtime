@@ -10,19 +10,6 @@ load(
 
 MODULE_NAME = "@elide/runtime/js/intrinsics"
 
-## -- Configuration -- ##
-
-filegroup(
-    name = "runtime_tsconfig_ts_json",
-    srcs = ["tsconfig.ts.json"],
-)
-
-ts_config(
-    name = "tsconfig",
-    src = ":runtime_tsconfig_ts_json",
-    deps = ["//:tsconfig"],
-)
-
 ## -- Abstracts -- ##
 
 ts_library(
