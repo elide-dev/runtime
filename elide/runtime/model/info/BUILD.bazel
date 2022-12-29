@@ -1,0 +1,13 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load(
+    "//tools/defs/proto:model.bzl",
+    "model",
+)
+
+model(
+    name = "runtime_info",
+    srcs = ["runtime_info.proto"],
+)
