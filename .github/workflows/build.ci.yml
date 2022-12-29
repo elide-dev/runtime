@@ -84,7 +84,7 @@ jobs:
         id: bazelbuild
         env:
           CI: true
-        run: bazel build --config=adc --config=ci //elide/runtime/js
+        run: bazel build --config=adc --config=ci //elide/runtime/...
       - name: "🛠️ Test"
         id: bazeltest
         env:
