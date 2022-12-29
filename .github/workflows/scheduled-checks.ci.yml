@@ -45,7 +45,7 @@ jobs:
       pull-requests: "write"
     steps:
       - name: "Setup: Docker"
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@8c0edbc76e98fa90f69d9a2c020dcb50019dc325 # v2
         id: buildx
         with:
           install: true
