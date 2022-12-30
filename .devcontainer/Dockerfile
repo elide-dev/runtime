@@ -1,0 +1,1 @@
+FROM us-docker.pkg.dev/elide-fw/tools/codespace@sha256:86b44aad8dd524fb07259c696e0334f5bd96c413a404d0a97d6cd496a914239a
