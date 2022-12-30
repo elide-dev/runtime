@@ -71,6 +71,10 @@ jobs:
           create_credentials_file: true
           export_environment_variables: true
           cleanup_credentials: true
+      - name: "Setup: LLVM"
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: "15"
       - name: "Setup: Node"
         uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3
       - name: "Setup: PNPM"
