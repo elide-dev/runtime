@@ -4,6 +4,7 @@
     "dockerfile": "Dockerfile"
   },
   "settings": {
+    "netbeans.jdkhome": "/usr/lib/gvm",
     "java.completion.enabled": true,
     "java.debug.settings.enableRunDebugCodeLens": true,
     "java.test.editor.enableShortcuts": true
