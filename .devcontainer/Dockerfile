@@ -1,6 +1,14 @@
-FROM us-docker.pkg.dev/elide-fw/tools/codespace@sha256:86b44aad8dd524fb07259c696e0334f5bd96c413a404d0a97d6cd496a914239a
-COPY --from=golang:1.19 /usr/local/go/ /usr/local/go/
+FROM us-docker.pkg.dev/elide-fw/tools/codespace@sha256:d3a4bc920610cd5888f32bdb3211617a5472bc16e36e900142d4b1d9419433a2
+
+## install binaryen
+ADD install-binaryen.sh /tmp/install-binaryen.sh
+RUN bash /tmp/install-binaryen.sh && sudo rm -f /tmp/install-binaryen.sh
+
+## set environment
 ENV JAVA_HOME=/usr/lib/gvm \
-    PATH="/usr/local/go/bin:/usr/lib/gvm/bin:${PATH}"
+    GOROOT=/usr/local/go \
+    GOPATH=$HOME/go \
+    PATH="/usr/local/go/bin:$GOPATH/bin:/usr/lib/gvm/bin:${PATH}"
+
 ENTRYPOINT ["/usr/local/share/docker-init.sh"]
 CMD ["sleep", "infinity"]

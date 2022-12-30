@@ -25,12 +25,11 @@
     "ms-vscode-remote.remote-containers",
     "ms-vscode.vscode-typescript-tslint-plugin",
     "redhat.vscode-yaml",
-    "vscjava.vscode-java-debug",
-    "vscjava.vscode-java-pack",
     "bufbuild.vscode-buf",
     "sourcegraph.sourcegraph",
     "oracle-labs-graalvm.graalvm",
-    "oracle-labs-graalvm.graalvm-pack"
+    "oracle-labs-graalvm.graalvm-pack",
+    "oracle-labs-graalvm.dashboard"
   ],
   "features": {
     "ghcr.io/devcontainers/features/docker-from-docker:1": {}
