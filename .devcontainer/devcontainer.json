@@ -32,7 +32,11 @@
     "oracle-labs-graalvm.dashboard"
   ],
   "features": {
-    "ghcr.io/devcontainers/features/docker-from-docker:1": {}
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/go:1": {"version":  "1.19"},
+    "ghcr.io/devcontainers/features/docker-from-docker:1": {},
+    "ghcr.io/devcontainers/features/sshd:1": {"version": "latest"}
   },
   "updateContentCommand": "echo \"Not yet implemented\";",
   "forwardPorts": [8080, 50051],

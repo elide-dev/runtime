@@ -4,6 +4,9 @@ FROM us-docker.pkg.dev/elide-fw/tools/codespace@sha256:d3a4bc920610cd5888f32bdb3
 ADD install-binaryen.sh /tmp/install-binaryen.sh
 RUN bash /tmp/install-binaryen.sh && sudo rm -f /tmp/install-binaryen.sh
 
+## install gopls
+RUN go install -v golang.org/x/tools/gopls@latest
+
 ## set environment
 ENV JAVA_HOME=/usr/lib/gvm \
     GOROOT=/usr/local/go \
