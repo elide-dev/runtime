@@ -286,14 +286,21 @@ http_archive(
     urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.15.0/rules_rust-v0.15.0.tar.gz"],
 )
 
-BAZEL_ZIG_CC_VERSION = "v0.9.2"
-
 http_archive(
-    name = "bazel-zig-cc",
-    sha256 = "73afa7e1af49e3dbfa1bae9362438cdc51cb177c359a6041a7a403011179d0b5",
-    strip_prefix = "bazel-zig-cc-{}".format(BAZEL_ZIG_CC_VERSION),
-    urls = ["https://git.sr.ht/~motiejus/bazel-zig-cc/archive/{}.tar.gz".format(BAZEL_ZIG_CC_VERSION)],
+    name = "rules_foreign_cc",
+    sha256 = "69023642d5781c68911beda769f91fcbc8ca48711db935a75da7f6536b65047f",
+    strip_prefix = "rules_foreign_cc-0.6.0",
+    url = "https://github.com/bazelbuild/rules_foreign_cc/archive/0.6.0.tar.gz",
 )
+
+#BAZEL_ZIG_CC_VERSION = "v0.9.2"
+
+#http_archive(
+#    name = "bazel-zig-cc",
+#    sha256 = "73afa7e1af49e3dbfa1bae9362438cdc51cb177c359a6041a7a403011179d0b5",
+#    strip_prefix = "bazel-zig-cc-{}".format(BAZEL_ZIG_CC_VERSION),
+#    urls = ["https://git.sr.ht/~motiejus/bazel-zig-cc/archive/{}.tar.gz".format(BAZEL_ZIG_CC_VERSION)],
+#)
 
 BAZEL_TOOLCHAINS_VERSION = "5.1.2"
 
@@ -696,3 +703,9 @@ buf_dependencies(
 load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies")
 
 aspect_bazel_lib_dependencies()
+
+# rules_foreign_cc
+
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+
+rules_foreign_cc_dependencies()

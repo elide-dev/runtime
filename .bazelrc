@@ -3,6 +3,7 @@
 #
 
 import %workspace%/tools/bazel/base.bazelrc
+import %workspace%/tools/bazel/toolchain.bazelrc
 import %workspace%/tools/bazel/cache.bazelrc
 import %workspace%/tools/bazel/meta.bazelrc
 import %workspace%/tools/bazel/rbe.bazelrc
