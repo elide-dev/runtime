@@ -1,0 +1,26 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load(
+    "//tools/defs/go:exports.bzl",
+    "go_library",
+)
+
+go_library(
+    name = "logger",
+    srcs = [
+        "logger.go",
+        "logger_darwin.go",
+        "logger_linux.go",
+        "logger_other.go",
+        "logger_windows.go",
+        "msg_ids.go",
+    ],
+    importpath = "github.com/elide-dev/runtime/internal/logger",
+    deps = [
+        "@org_golang_x_sys//unix",
+    ],
+)
