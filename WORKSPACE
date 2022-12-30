@@ -200,6 +200,35 @@ http_archive(
     url = "https://github.com/google/closure-compiler/archive/bb0e54d24103a3256b7c7f025a53ab73cbb077d3.tar.gz",
 )
 
+guava_version = "30.1.1"
+
+guava_sha256 = "44ce229ce26d880bf3afc362bbfcec34d7e6903d195bbb1db9f3b6e0d9834f06"
+
+java_import_external(
+    name = "com_google_guava",
+    jar_sha256 = guava_sha256,
+    jar_urls = [
+        "https://repo1.maven.org/maven2/com/google/guava/guava/%s-jre/guava-%s-jre.jar" % (guava_version, guava_version),
+    ],
+    licenses = ["notice"],
+    exports = [
+        "@com_google_code_findbugs_jsr305",
+        "@com_google_errorprone_error_prone_annotations",
+    ],
+    deps = [
+        "@com_google_guava_failure_access",
+    ],
+)
+
+java_import_external(
+    name = "com_google_guava_failure_access",
+    jar_sha256 = "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+    jar_urls = [
+        "https://repo1.maven.org/maven2/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",
+    ],
+    licenses = ["notice"],
+)
+
 http_archive(
     name = "com_google_j2cl",
     sha256 = "e6e16c82b1fba14f57144a589115d94ca5712d25e5a5c3ef79f75a0506340deb",
