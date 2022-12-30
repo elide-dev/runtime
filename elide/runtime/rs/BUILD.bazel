@@ -11,6 +11,10 @@ load(
     "rust_wasm_bindgen",
 )
 load(
+    "//tools/defs/wasm:exports.bzl",
+    "wasm_rust_binary",
+)
+load(
     "//tools/defs/java:exports.bzl",
     "java_library",
 )
@@ -19,9 +23,12 @@ load(
     "kt_jvm_binary",
 )
 
-RUST_MODULES = [
+RUST_LIBS = [
+    "@rules_rust//wasm_bindgen/3rdparty:wasm_bindgen",
+]
+
+RUST_MODULES = RUST_LIBS + [
     "@crates//:js-sys",
-    "@crates//:wasm-bindgen",
     "@crates//:web-sys",
 ]
 
@@ -59,6 +66,17 @@ rust_binary(
 #rust_wasm_bindgen(
 #    name = "runtime-wasm-bindgen",
 #    wasm_file = ":runtime",
+#)
+
+#wasm_rust_binary(
+#    name = "runtime",
+#    srcs = ["runtime.rs"],
+#    crate_features = ["console_error_panic_hook"],
+#    crate_name = "elide",
+#    crate_root = "runtime.rs",
+#    deps = RUST_MODULES + [
+#        ":lib",
+#    ],
 #)
 
 #java_library(
