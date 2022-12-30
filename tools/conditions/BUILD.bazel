@@ -1,0 +1,90 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load(
+    "@bazel_skylib//lib:selects.bzl",
+    "selects",
+)
+
+## Platform: WASM
+
+config_setting(
+    name = "wasm_v8",
+    values = {"define": "wasm=v8"},
+)
+
+config_setting(
+    name = "wasm_wamr",
+    values = {"define": "wasm=wamr"},
+)
+
+config_setting(
+    name = "wasm_wasmtime",
+    values = {"define": "wasm=wasmtime"},
+)
+
+config_setting(
+    name = "wasm_none",
+    values = {"define": "wasm=disabled"},
+)
+
+## Platform: Linux
+
+config_setting(
+    name = "linux_x86_64",
+    values = {"cpu": "k8"},
+)
+
+config_setting(
+    name = "linux_aarch64",
+    values = {"cpu": "aarch64"},
+)
+
+## Platform: Darwin
+
+config_setting(
+    name = "darwin",
+    values = {"cpu": "darwin"},
+)
+
+config_setting(
+    name = "darwin_x86_64",
+    values = {"cpu": "darwin_x86_64"},
+)
+
+config_setting(
+    name = "darwin_arm64",
+    values = {"cpu": "darwin_arm64"},
+)
+
+selects.config_setting_group(
+    name = "apple",
+    match_any = [
+        ":darwin",
+        ":darwin_x86_64",
+        ":darwin_arm64",
+    ],
+)
+
+selects.config_setting_group(
+    name = "linux",
+    match_any = [
+        ":darwin",
+        ":linux_x86_64",
+        ":linux_aarch64",
+    ],
+)
+
+selects.config_setting_group(
+    name = "x86",
+    match_any = [
+        ":darwin_x86_64",
+        ":linux_x86_64",
+    ],
+)
+
+alias(
+    name = "remote_jdk11",
+    actual = "@bazel_tools//tools/jdk:remotejdk_17",
+)
