@@ -11,39 +11,30 @@
   "runArgs": ["--init", "--privileged"],
   "overrideCommand": false,
   "extensions": [
+    "vscode.cpptools",
+    "golang.go",
+    "dtsvet.vscode-wasm",
+    "rust-lang.rust-analyzer",
     "bazelbuild.vscode-bazel",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "mathiasfrohlich.kotlin",
     "github.codespaces",
     "github.copilot",
     "ms-azuretools.vscode-docker",
-    "ms-python.python",
     "ms-vscode-remote.remote-containers",
     "ms-vscode.vscode-typescript-tslint-plugin",
     "redhat.vscode-yaml",
-    "sswg.swift-lang",
-    "naco-siren.gradle-language",
-    "ms-python.python",
-    "vscjava.vscode-gradle",
     "vscjava.vscode-java-debug",
     "vscjava.vscode-java-pack",
     "bufbuild.vscode-buf",
-    "sswg.swift-lang",
-    "fwcd.kotlin",
     "sourcegraph.sourcegraph",
     "oracle-labs-graalvm.graalvm",
-    "oracle-labs-graalvm.graalvm-pack",
-    "oracle-labs-graalvm.micronaut"
+    "oracle-labs-graalvm.graalvm-pack"
   ],
   "features": {
-    "docker-from-docker": {
-      "version": "latest",
-      "moby": false,
-      "dockerDashComposeVersion": "v1"
-    }
+    "ghcr.io/devcontainers/features/docker-from-docker:1": {}
   },
-  "updateContentCommand": "./gradlew dependencies --refresh-dependencies && ./gradlew tasks && git checkout kotlin-js-store || exit 0",
+  "updateContentCommand": "echo \"Not yet implemented\";",
   "forwardPorts": [8080, 50051],
   "remoteUser": "dev"
 }
