@@ -316,7 +316,11 @@ register_toolchains("//tools/defs/kt/toolchain")
 # rules_go
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+load("//:godeps.bzl", "go_dependencies")
+
+# gazelle:repository_macro godeps.bzl%go_dependencies
+go_dependencies()
 
 go_rules_dependencies()
 

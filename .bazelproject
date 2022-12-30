@@ -13,7 +13,7 @@ build_flags:
   --config=buildbuddy
 
 targets:
-  //elide/runtime/...
+  //elide/...
 
 test_flags:
   --test_strategy=standalone
@@ -31,3 +31,4 @@ additional_languages:
   javascript
   kotlin
   typescript
+  go

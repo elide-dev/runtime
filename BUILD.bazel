@@ -6,6 +6,10 @@ load(
     "//tools/defs/tsc:exports.bzl",
     "ts_config",
 )
+load(
+    "@bazel_gazelle//:def.bzl",
+    "gazelle",
+)
 
 exports_files([
     "Cargo.toml",
@@ -21,4 +25,17 @@ filegroup(
 ts_config(
     name = "tsconfig",
     src = ":tsconfig.json",
+)
+
+# gazelle:prefix github.com/elide-dev/runtime
+gazelle(name = "gazelle")
+
+gazelle(
+    name = "gazelle-repin",
+    args = [
+        "-from_file=go.mod",
+        "-to_macro=godeps.bzl%go_dependencies",
+        "-prune",
+    ],
+    command = "update-repos",
 )

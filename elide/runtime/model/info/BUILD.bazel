@@ -1,3 +1,7 @@
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
+
 package(
     default_visibility = ["//visibility:public"],
 )
@@ -10,4 +14,21 @@ load(
 model(
     name = "runtime_info",
     srcs = ["runtime_info.proto"],
+)
+
+proto_library(
+    name = "elide_runtime_internal_info_proto",
+    srcs = ["runtime_info.proto"],
+)
+
+go_proto_library(
+    name = "elide_runtime_internal_info_go_proto",
+    importpath = "github.com/elide-dev/runtime/elide/runtime/model/info",
+    proto = ":elide_runtime_internal_info_proto",
+)
+
+go_library(
+    name = "info",
+    embed = [":elide_runtime_internal_info_go_proto"],
+    importpath = "github.com/elide-dev/runtime/elide/runtime/model/info",
 )

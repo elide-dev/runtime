@@ -13,4 +13,3 @@ import %workspace%/tools/bazel/profiles/dev.bazelrc
 import %workspace%/tools/bazel/profiles/local.bazelrc
 
 try-import %workspace%/.env.bazel.rc
-

@@ -1,4 +1,3 @@
-
 platform(
     name = "linux_x86_64",
     constraint_values = [
@@ -10,4 +9,3 @@ platform(
         "OSFamily": "linux",
     },
 )
-
