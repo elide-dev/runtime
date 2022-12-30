@@ -9,3 +9,10 @@ platform(
         "OSFamily": "linux",
     },
 )
+
+platform(
+    name = "wasm",
+    constraint_values = [
+        "@platforms//cpu:wasm32",
+    ],
+)

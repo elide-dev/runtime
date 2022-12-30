@@ -4,3 +4,4 @@ bazel-*
 .env.bazel.rc
 yarn-error.log
 target/
+.yarn/cache

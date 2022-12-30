@@ -23,45 +23,81 @@ load(
     "kt_jvm_binary",
 )
 
-RUST_LIBS = [
-    "@rules_rust//wasm_bindgen/3rdparty:wasm_bindgen",
-]
-
-RUST_MODULES = RUST_LIBS + [
-    "@crates//:js-sys",
-    "@crates//:web-sys",
-]
-
-rust_library(
-    name = "lib",
-    srcs = [
-        "lib.rs",
-        "utils.rs",
+rust_binary(
+    name = "hello_world_bin_wasm",
+    srcs = ["main.rs"],
+    edition = "2018",
+    deps = [
+        "@rules_rust//wasm_bindgen/3rdparty:wasm_bindgen",
     ],
-    deps = RUST_MODULES + [],
 )
 
 rust_shared_library(
-    name = "runtime-shared",
-    srcs = ["runtime.rs"],
-    crate_features = ["console_error_panic_hook"],
-    crate_name = "elide",
-    crate_root = "runtime.rs",
-    deps = RUST_MODULES + [
-        ":lib",
+    name = "hello_world_lib_wasm",
+    srcs = ["main.rs"],
+    edition = "2018",
+    deps = [
+        "@rules_rust//wasm_bindgen/3rdparty:wasm_bindgen",
     ],
 )
 
-rust_binary(
-    name = "runtime",
-    srcs = ["runtime.rs"],
-    crate_features = ["console_error_panic_hook"],
-    crate_name = "elide",
-    crate_root = "runtime.rs",
-    deps = RUST_MODULES + [
-        ":lib",
-    ],
+rust_wasm_bindgen(
+    name = "hello_world_bundler_wasm_bindgen",
+    wasm_file = ":hello_world_bin_wasm",
 )
+
+rust_wasm_bindgen(
+    name = "hello_world_web_wasm_bindgen",
+    target = "web",
+    wasm_file = ":hello_world_lib_wasm",
+)
+
+rust_wasm_bindgen(
+    name = "hello_world_deno_wasm_bindgen",
+    target = "deno",
+    wasm_file = ":hello_world_lib_wasm",
+)
+
+
+# RUST_LIBS = [
+#     "@rules_rust//wasm_bindgen/3rdparty:wasm_bindgen",
+# ]
+
+# RUST_MODULES = RUST_LIBS + [
+#     "@crates//:js-sys",
+#     "@crates//:web-sys",
+# ]
+
+# rust_library(
+#     name = "lib",
+#     srcs = [
+#         "lib.rs",
+#         "utils.rs",
+#     ],
+#     deps = RUST_MODULES + [],
+# )
+
+# rust_shared_library(
+#     name = "runtime-shared",
+#     srcs = ["runtime.rs"],
+#     crate_features = ["console_error_panic_hook"],
+#     crate_name = "elide",
+#     crate_root = "runtime.rs",
+#     deps = RUST_MODULES + [
+#         ":lib",
+#     ],
+# )
+
+# rust_binary(
+#     name = "runtime",
+#     srcs = ["runtime.rs"],
+#     crate_features = ["console_error_panic_hook"],
+#     crate_name = "elide",
+#     crate_root = "runtime.rs",
+#     deps = RUST_MODULES + [
+#         ":lib",
+#     ],
+# )
 
 #rust_wasm_bindgen(
 #    name = "runtime-wasm-bindgen",
@@ -93,5 +129,5 @@ rust_binary(
 
 alias(
     name = "rs",
-    actual = "runtime",
+    actual = "hello_world_bundler_wasm_bindgen",
 )

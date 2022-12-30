@@ -5,4 +5,13 @@
 
 build --incompatible_enable_cc_toolchain_resolution
 
-#build --platforms=@io_bazel_rules_go//go/toolchain:js_wasm
+build --repo_env=CC=/usr/lib/llvm-15/bin/clang
+build --repo_env=CXX=/usr/lib/llvm-15/bin/clang++
+build --repo_env=CPPFLAGS=-I/usr/lib/llvm-15/include
+build --repo_env=LDFLAGS="-L/usr/lib/llvm-15/lib -Wl,-rpath,/usr/lib/llvm-15/lib"
+
+build --@rules_rust//rust/toolchain/channel=nightly
+
+build:bundler-wasm --platforms=@io_bazel_rules_go//go/toolchain:js_wasm
+build:rust-wasm --platforms=@rules_rust//rust/platform:wasm
+build:rust-wasm --@rules_rust//rust/toolchain/channel=nightly

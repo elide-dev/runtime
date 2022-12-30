@@ -293,14 +293,14 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_foreign_cc/archive/0.6.0.tar.gz",
 )
 
-#BAZEL_ZIG_CC_VERSION = "v0.9.2"
+# BAZEL_ZIG_CC_VERSION = "v0.9.2"
 
-#http_archive(
+# http_archive(
 #    name = "bazel-zig-cc",
 #    sha256 = "73afa7e1af49e3dbfa1bae9362438cdc51cb177c359a6041a7a403011179d0b5",
 #    strip_prefix = "bazel-zig-cc-{}".format(BAZEL_ZIG_CC_VERSION),
 #    urls = ["https://git.sr.ht/~motiejus/bazel-zig-cc/archive/{}.tar.gz".format(BAZEL_ZIG_CC_VERSION)],
-#)
+# )
 
 BAZEL_TOOLCHAINS_VERSION = "5.1.2"
 
@@ -595,13 +595,15 @@ j2cl_maven_import_external(
 
 # zig toolchain
 
-#load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
+# load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
 
-#zig_toolchains()
+# zig_toolchains()
 
-#register_toolchains(
+# register_toolchains(
 #    "@zig_sdk//toolchain:darwin_arm64",
-#)
+#    "@zig_sdk//toolchain:darwin_amd64",
+#    "@zig_sdk//toolchain:x86_64-linux-gnu.2.31",
+# )
 
 # rules_rust
 
@@ -611,8 +613,14 @@ rules_rust_dependencies()
 
 rust_register_toolchains(
     edition = RUST_EDITION,
-    extra_target_triples = [],
     version = RUST_VERSION,
+    extra_target_triples = [
+        "x86_64-apple-darwin",
+        "x86_64-unknown-linux-gnu",
+        "aarch64-apple-darwin",
+        "wasm32-unknown-unknown",
+        "wasm32-wasi",
+    ],
 )
 
 rust_repository_set(

@@ -106,7 +106,7 @@ BUF_VERSION = "v1.5.0"
 ## Rust: Edition to use.
 ## ---------------------
 ## Sets the edition of the Rust language to use.
-RUST_EDITION = "2021"
+RUST_EDITION = "2018"
 
 ## Rust: Version to use.
 ## ---------------------
