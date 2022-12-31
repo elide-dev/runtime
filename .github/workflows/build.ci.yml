@@ -90,6 +90,10 @@ jobs:
         id: bazelbuild
         env:
           CI: true
+          CC: /home/runner/work/runtime/runtime/llvm/bin/clang
+          CXX: /home/runner/work/runtime/runtime/llvm/bin/clang++
+          LDFLAGS: -fuse-ld=lld -L/home/runner/work/runtime/runtime/llvm
+          CPPFLAGS: -I/home/runner/work/runtime/runtime/llvm/include
         run: bazel build --config=adc --config=ci //elide/runtime/...
       - name: "🛠️ Test"
         id: bazeltest
