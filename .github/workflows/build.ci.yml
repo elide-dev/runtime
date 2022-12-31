@@ -84,6 +84,8 @@ jobs:
       - name: "Setup: Authorization"
         run: echo "build --remote_header=x-buildbuddy-api-key=${{ secrets.BUILDBUDDY_API_KEY }}" > ~/.bazelrc
       - uses: bazelbuild/setup-bazelisk@95c9bf48d0c570bb3e28e57108f3450cd67c1a44 # v2
+      - name: "Sanity Test: LLVM"
+        run: which clang && clang --version
       - name: "🛠️ Build"
         id: bazelbuild
         env:
