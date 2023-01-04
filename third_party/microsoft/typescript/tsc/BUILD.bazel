@@ -14,7 +14,7 @@ load(
 
 closure_js_library(
     name = "tsc_lib",
-    srcs = ["tsc.js"],
+    srcs = ["@typescript//:typescript.js"],
     lenient = True,
     suppress = [
         "JSC_JSDOC_IN_BLOCK_COMMENT",

@@ -13,6 +13,12 @@ filegroup(
 )
 
 closure_js_library(
+    name = "bridge",
+    srcs = ["bridge.js"],
+    deps = [":tslib"],
+)
+
+closure_js_library(
     name = "tslib",
     srcs = [":tslib_src"],
 )

@@ -10,9 +10,11 @@ load(
 ts_library(
     name = "url",
     srcs = [
+        "index.ts",
+        "IURL.ts",
+        "IURLSearchParams.ts",
         "URL.ts",
         "URLSearchParams.ts",
-        "index.ts",
     ],
     module = "@elide/runtime/js/intrinsics/url",
     deps = [

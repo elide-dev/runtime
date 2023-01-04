@@ -3,8 +3,11 @@
 load(
     "@npm//@bazel/typescript:index.bzl",
     _ts_config = "ts_config",
-    _ts_library = "ts_library",
     _ts_project = "ts_project",
+)
+load(
+    "@npm//@bazel/typescript:index.bzl",
+    _ts_library = "ts_library",
 )
 load(
     "//tools/defs/closure:exports.bzl",
@@ -29,6 +32,7 @@ _BASE_TS_TOOLS = [
 
 _BASE_JS_DEPS = [
     "//third_party/google/tsickle:tslib",
+    "//elide/runtime/js:runtime_externs",
 ]
 
 _BASE_SUPPRESSIONS = [
@@ -62,6 +66,7 @@ def _wrapped_ts_library(
         lib_kwargs = {},
         suppress = [],
         include_tools = True,
+        nowrap = False,
         *args,
         **kwargs):
     """Wrap `ts_library` with extra arguments, which are considered standard for Elide's runtime TS environment."""
@@ -70,23 +75,38 @@ def _wrapped_ts_library(
     config.update(_BASE_TS_ARGS)
     config.update(kwargs)
 
-    ts_deps_resolved = _BASE_TS_DEPS + ["%s_ts" % _fixup_shortlabel(i) for i in deps]
-    closure_deps_resolved = ["%s_js" % _fixup_shortlabel(i) for i in closure_deps]
-    if include_tools:
-        ts_deps_resolved += _BASE_TS_TOOLS
-
     native.filegroup(
         name = "%s_src" % name,
         srcs = srcs,
     )
-    _ts_library(
-        name = "%s_ts" % name,
-        module_name = module,
-        srcs = srcs and [":%s_src" % name] or [],
-        deps = ts_deps_resolved,
-        *args,
-        **config
-    )
+
+    resolved_deps = []
+
+    if nowrap:
+        _ts_library(
+            name = "%s_ts" % name,
+            module_name = module,
+            srcs = srcs and [":%s_src" % name] or [],
+            deps = deps,
+            *args,
+            **config
+        )
+    else:
+        ts_deps_resolved = _BASE_TS_DEPS + ["%s_ts" % _fixup_shortlabel(i) for i in deps]
+        closure_deps_resolved = ["%s_js" % _fixup_shortlabel(i) for i in closure_deps]
+        if include_tools:
+            ts_deps_resolved += _BASE_TS_TOOLS
+
+        _ts_library(
+            name = "%s_ts" % name,
+            module_name = module,
+            srcs = srcs and [":%s_src" % name] or [],
+            deps = ts_deps_resolved,
+            *args,
+            **config
+        )
+        resolved_deps = closure_deps_resolved
+
     _ts_consumer(
         name = "%s_consumer" % name,
         deps = [":%s_ts" % name],
@@ -94,7 +114,7 @@ def _wrapped_ts_library(
     _closure_js_library(
         name = "%s_js" % name,
         srcs = [":%s_consumer" % name],
-        deps = _BASE_JS_DEPS + closure_deps_resolved,
+        deps = _BASE_JS_DEPS + resolved_deps,
         suppress = _BASE_SUPPRESSIONS + (suppress or []),
         **lib_kwargs
     )

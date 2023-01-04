@@ -53,8 +53,8 @@ load(
 _RUNTIME_JS_ARGS = _JS_ARGS + [
     # Additional Closure Compiler arguments for the runtime.
     "--env=CUSTOM",
-    "--inject_libraries=false",
-    "--rewrite_polyfills=false",
+    "--inject_libraries=true",
+    "--rewrite_polyfills=true",
 ]
 
 _RUNTIME_DEFINES = {}
@@ -78,11 +78,7 @@ _base_js_runtime_config = {
 }
 
 _ts_compiler_args = {
-    "allow_js": False,
-    "source_map": True,
-    "composite": True,
-    "declaration": True,
-    "emit_declaration_only": True,
+    # Nothing at this time.
 }
 
 def _abstract_runtime_targets(name, srcs = [], deps = [], **kwargs):
@@ -207,23 +203,95 @@ def _js_runtime(
         actual = "%s.jsopt" % name,
     )
 
-def _ts_runtime(name, main, ts_config, deps, **kwargs):
+def _ts_runtime(
+        name,
+        main,
+        ts_config,
+        deps,
+        closure_deps = [],
+        closure_lib_kwargs = {},
+        closure_bin_kwargs = {},
+        extra_sources = [],
+        extra_production_args = [],
+        **kwargs):
     """Single-use target macro which defines the main application entry target for the Elide TypeScript runtime."""
 
     tsc = {}
     tsc.update(_ts_compiler_args)
     tsc.update(kwargs)
 
-    _ts_project(
-        name = "%s-tsproject" % name,
+    _ts_library(
+        name = "%s-tslib" % name,
         srcs = [main],
         deps = deps,
+        module = "@elide/runtime/ts",
+        nowrap = True,
         tsconfig = ts_config,
+        devmode_target = "es2020",
+        prodmode_target = "es2020",
         **tsc
+    )
+    native.filegroup(
+        name = "%s-typings" % name,
+        srcs = [":%s-tslib" % name],
+        output_group = "types",
+    )
+    native.filegroup(
+        name = "%s-devsrc" % name,
+        srcs = [":%s-tslib" % name],
+        output_group = "es5_sources",
+    )
+    native.filegroup(
+        name = "%s-prodsrc" % name,
+        srcs = [":%s-tslib" % name],
+        output_group = "es6_sources",
+    )
+    _closure_js_library(
+        name = "%s-js" % name,
+        srcs = [":%s-devsrc" % name],
+        deps = closure_deps,
+        **closure_lib_kwargs
+    )
+
+    compiler_args = [] + _RUNTIME_JS_ARGS + extra_production_args
+
+    if _ENABLE_J2WASM:
+        fail("WASM is not supported yet.")
+    if _ENABLE_J2CL:
+        _j2cl_application(
+            name = "%s.jsbin" % name,
+            entry_points = ["elide.runtime.ts.entrypoint"],
+            extra_production_args = compiler_args,
+            closure_defines = _RUNTIME_DEFINES,
+            deps = [":%s-js" % name] + closure_deps,
+            **closure_bin_kwargs
+        )
+    else:
+        _closure_js_binary(
+            name = "%s.jsbin" % name,
+            entry_points = ["elide.runtime.ts.entrypoint"],
+            defs = compiler_args + (
+                ["-D%s=%s" % i for i in (_RUNTIME_DEFINES.items() if _RUNTIME_DEFINES else [])]
+            ),
+            deps = [":%s-js" % name] + closure_deps,
+            **closure_bin_kwargs
+        )
+
+    native.filegroup(
+        name = "%s-files" % name,
+        srcs = [
+            ":%s-typings" % name,
+            ":%s.jsbin" % name,
+        ] + extra_sources,
+    )
+    _pkg_tar(
+        name = "tsruntime.tarball",
+        out = "runtime.ts.tar",
+        srcs = [":%s-files" % name],
     )
     native.alias(
         name = name,
-        actual = "%s-tsproject" % name,
+        actual = "tsruntime.tarball",
     )
 
 def _runtime_dist(name, language, target, manifest, info = [], configs = [], extra_sources = []):

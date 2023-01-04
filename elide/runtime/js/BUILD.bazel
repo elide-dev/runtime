@@ -25,6 +25,9 @@ MODULE_NAME = "elide.runtime.js"
 js_library(
     name = "runtime_externs",
     srcs = ["intrinsics.externs.js"],
+    deps = [
+        "//third_party/standards/whatwg",
+    ],
 )
 
 ## -- Configuration -- ##
@@ -59,9 +62,6 @@ js_runtime(
     ts_deps = TS_MODULES,
     deps = EXTERNS + [
         ":runtime_externs",
-    ],
-    extra_sources = [
-        "//third_party/microsoft/typescript/tsc",
     ],
 )
 

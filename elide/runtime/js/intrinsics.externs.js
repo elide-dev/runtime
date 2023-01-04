@@ -9,11 +9,9 @@
 /**
  * Main Console intrinsic entrypoint.
  *
- * @type {!Console}
+ * @type {*}
  */
 var ConsoleBridge;
-
-globalContext.Console = ConsoleBridge;
 
 /**
  * Main Base64 intrinsic entrypoint.
@@ -45,4 +43,16 @@ Base64Bridge.prototype.decode = function (input) {};
  */
 var Base64;
 
-globalContext.Base64 = Base64;
+/**
+ * Mount-point for intrinsic classes defined by the Elide VM.
+ */
+var Intrinsics;
+
+/**
+ * Constructor entrypoint for an intrinsic `URL` object.
+ *
+ * @param {*} url_input URL to parse or copy.
+ * @param {*} opt_url_base Base URL to resolve against, if applicable.
+ * @constructor
+ */
+Intrinsics.URL = function (url_input, opt_url_base) {};

@@ -102,6 +102,16 @@ http_archive(
 )
 
 http_archive(
+    name = "typescript",
+    sha256 = "aa7f8d641543d8b1335c62088b98d509d4689329cd3681e622eb29d3002fe862",
+    build_file = "microsoft/typescript.bzl",
+    strip_prefix = "TypeScript-f43cd0accac3e5033820fd27035731ed88f54938",
+    urls = [
+        "https://github.com/microsoft/typescript/archive/f43cd0accac3e5033820fd27035731ed88f54938.tar.gz",
+    ],
+)
+
+http_archive(
     name = "rules_pkg",
     sha256 = "eea0f59c28a9241156a47d7a8e32db9122f3d50b505fae0f33de6ce4d9b61834",
     urls = [
@@ -474,10 +484,13 @@ load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories")
 
 node_repositories(
     node_version = NODE_VERSION,
-    package_json = ["//:package.json"],
+    package_json = [
+        "//:package.json",
+        "@typescript//:package.json",
+    ],
 )
 
-load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
+load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install", "npm_install")
 
 yarn_install(
     name = "npm",

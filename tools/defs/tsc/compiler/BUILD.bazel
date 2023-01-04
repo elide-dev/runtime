@@ -4,7 +4,10 @@ package(
     default_visibility = ["//visibility:public"],
 )
 
-load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load(
+    "@build_bazel_rules_nodejs//:index.bzl",
+    "nodejs_binary",
+)
 
 nodejs_binary(
     name = "tsc_wrapped",

@@ -47,6 +47,10 @@ TS_MODULE_PACKAGE = "//elide/runtime/js/intrinsics"
 ## -------------------
 ## Registers each TypeScript module used in the TS/JS runtimes.
 TS_MODULES = ["%s:%s" % (TS_MODULE_PACKAGE, t) for t in [
+    # Top-level modules.
     "base64",
     "console",
+]] + ["%s/%s:%s" % (TS_MODULE_PACKAGE, t, t) for t in [
+    # Sub-modules
+    "url",
 ]]

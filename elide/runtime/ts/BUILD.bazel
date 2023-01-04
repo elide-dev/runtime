@@ -40,6 +40,17 @@ ts_runtime(
     deps = TS_MODULES + [
         "@npm//tslib",
     ],
+    closure_deps = [
+        "//third_party/google/tsickle:bridge",
+        "//third_party/google/tsickle:tslib",
+    ] + [
+        "//elide/runtime/js/intrinsics:base64_js",
+        "//elide/runtime/js/intrinsics:console_js",
+        "//elide/runtime/js/intrinsics/url:url_js",
+    ],
+    extra_sources = [
+        "//third_party/microsoft/typescript/tsc",
+    ],
 )
 
 alias(
