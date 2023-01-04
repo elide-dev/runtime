@@ -86,7 +86,7 @@ j2wasm_application(
         "-O3",
     ],
     entry_points = [
-        r"elide\.runtime\.wasm\.HelloWorldWASM\.getHelloWorldNative",
+        r"elide\.runtime\.samples\.wasm\.HelloWorldWASM\.getHelloWorldNative",
     ],
     deps = [
         ":helloworld",
