@@ -15,7 +15,7 @@ crate-type = ["cdylib", "rlib"]
 path = "elide/runtime/rs/lib.rs"
 
 [features]
-default = ["console_error_panic_hook", "spans", "std"]
+default = ["console_error_panic_hook", "std"]
 spans = ["wasm-bindgen-macro/spans"]
 std = []
 serde-serialize = ["serde", "serde_json", "std"]

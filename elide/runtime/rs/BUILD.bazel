@@ -59,23 +59,23 @@ rust_wasm_bindgen(
 )
 
 
-# RUST_LIBS = [
-#     "@rules_rust//wasm_bindgen/3rdparty:wasm_bindgen",
-# ]
+RUST_LIBS = [
+    "@rules_rust//wasm_bindgen/3rdparty:wasm_bindgen",
+]
 
-# RUST_MODULES = RUST_LIBS + [
-#     "@crates//:js-sys",
-#     "@crates//:web-sys",
-# ]
+RUST_MODULES = RUST_LIBS + [
+    "@crates//:js-sys",
+    "@crates//:web-sys",
+]
 
-# rust_library(
-#     name = "lib",
-#     srcs = [
-#         "lib.rs",
-#         "utils.rs",
-#     ],
-#     deps = RUST_MODULES + [],
-# )
+rust_library(
+    name = "lib",
+    srcs = [
+        "lib.rs",
+        "utils.rs",
+    ],
+    deps = RUST_MODULES + [],
+)
 
 # rust_shared_library(
 #     name = "runtime-shared",
@@ -88,16 +88,33 @@ rust_wasm_bindgen(
 #     ],
 # )
 
-# rust_binary(
-#     name = "runtime",
-#     srcs = ["runtime.rs"],
-#     crate_features = ["console_error_panic_hook"],
-#     crate_name = "elide",
-#     crate_root = "runtime.rs",
-#     deps = RUST_MODULES + [
-#         ":lib",
-#     ],
-# )
+rust_binary(
+    name = "runtime",
+    srcs = ["runtime.rs"],
+    crate_features = ["console_error_panic_hook"],
+    crate_name = "elide",
+    crate_root = "runtime.rs",
+    rustc_flags = ["--emit=llvm-bc"],
+    deps = RUST_MODULES + [
+        ":lib",
+    ],
+    extra_outputs = [
+        "elide.bc",
+    ],
+)
+
+#filegroup(
+#    name = "bitcode",
+#    srcs = ["runtime.bc"],
+#)
+#
+#filegroup(
+#    name = "outs",
+#    srcs = [
+#        ":runtime",
+#        ":bitcode",
+#    ]
+#)
 
 #rust_wasm_bindgen(
 #    name = "runtime-wasm-bindgen",
@@ -129,5 +146,5 @@ rust_wasm_bindgen(
 
 alias(
     name = "rs",
-    actual = "hello_world_bundler_wasm_bindgen",
+    actual = "runtime",
 )

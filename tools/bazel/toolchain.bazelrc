@@ -5,14 +5,14 @@
 
 #build --incompatible_enable_cc_toolchain_resolution
 
-build:linux --repo_env=CC=/usr/lib/llvm-15/bin/clang
-build:linux --repo_env=CXX=/usr/lib/llvm-15/bin/clang++
-build:linux --repo_env=CPPFLAGS=-I/usr/lib/llvm-15/include
-build:linux --repo_env=LDFLAGS="-L/usr/lib/llvm-15/lib -Wl,-rpath,/usr/lib/llvm-15/lib"
+#build:linux --repo_env=CC=/usr/lib/llvm-15/bin/clang
+#build:linux --repo_env=CXX=/usr/lib/llvm-15/bin/clang++
+#build:linux --repo_env=CPPFLAGS=-I/usr/lib/llvm-15/include
+#build:linux --repo_env=LDFLAGS="-L/usr/lib/llvm-15/lib -Wl,-rpath,/usr/lib/llvm-15/lib"
 
-build --cxxopt=-std=c++17 --host_cxxopt=-std=c++17 --client_env=BAZEL_CXXOPTS=-std=c++17
+#build --cxxopt=-std=c++17 --host_cxxopt=-std=c++17 --client_env=BAZEL_CXXOPTS=-std=c++17
 
-build:bundler-wasm --platforms=@io_bazel_rules_go//go/toolchain:js_wasm
-build:rust-wasm --platforms=@rules_rust//rust/platform:wasm
-build:rust-wasm --@rules_rust//rust/toolchain/channel=nightly
-build:rust-nightly --@rules_rust//rust/toolchain/channel=nightly
+#build:bundler-wasm --platforms=@io_bazel_rules_go//go/toolchain:js_wasm
+#build:rust-wasm --platforms=@rules_rust//rust/platform:wasm
+#build:rust-wasm --@rules_rust//rust/toolchain/channel=nightly
+#build:rust-nightly --@rules_rust//rust/toolchain/channel=nightly

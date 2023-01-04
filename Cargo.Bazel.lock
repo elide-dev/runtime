@@ -1,5 +1,5 @@
 {
-  "checksum": "1a0716e60dff5b907cbb18ee0fa9452ad90dfd48d1f24aa127071906cca0b6f0",
+  "checksum": "a59d153e6e55e4b96210404e2670dcdee5b07379bd228962ed6c2cc8381007db",
   "crates": {
     "autocfg 1.1.0": {
       "name": "autocfg",
@@ -333,7 +333,6 @@
         "crate_features": [
           "console_error_panic_hook",
           "default",
-          "spans",
           "std"
         ],
         "deps": {

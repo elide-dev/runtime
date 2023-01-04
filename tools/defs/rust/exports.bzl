@@ -1,8 +1,11 @@
 """Defines the exported API surface of the Protocol Buffer Rules for Bazel."""
 
 load(
-    "@rules_rust//rust:defs.bzl",
+    "//tools/defs/rust:rust.bzl",
     _rust_binary = "rust_binary",
+)
+load(
+    "@rules_rust//rust:defs.bzl",
     _rust_library = "rust_library",
     _rust_shared_library = "rust_shared_library",
     _rust_static_library = "rust_static_library",
