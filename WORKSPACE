@@ -505,18 +505,20 @@ MAVEN_REPOSITORIES = [
 ]
 
 maven_install(
-    artifacts = THIRD_PARTY_ARTIFACTS + [],
+    artifacts = THIRD_PARTY_ARTIFACTS + [
+        "info.picocli:picocli:4.7.0",
+    ],
     fetch_javadoc = True,
     fetch_sources = True,
     generate_compat_repositories = True,
     repositories = MAVEN_REPOSITORIES,
     strict_visibility = True,
     version_conflict_policy = "pinned",
+    maven_install_json = "@//:maven_install.json",
 )
 
-#load("@maven//:defs.bzl", "pinned_maven_install")
-
-#pinned_maven_install()
+load("@maven//:defs.bzl", "pinned_maven_install")
+pinned_maven_install()
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
 

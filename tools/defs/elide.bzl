@@ -121,7 +121,16 @@ def _js_library(name, srcs = [], deps = [], ts_deps = [], **kwargs):
         actual = ":%s_js" % name,
     )
 
-def _js_runtime(name, main, entrypoint, deps, ts_deps = [], extra_production_args = [], esbuild_opt = None, **kwargs):
+def _js_runtime(
+        name,
+        main,
+        entrypoint,
+        deps,
+        ts_deps = [],
+        extra_production_args = [],
+        esbuild_opt = None,
+        extra_sources = [],
+        **kwargs):
     """Single-use target macro which defines the main application entry target for the Elide JavaScript runtime."""
 
     config = {}
@@ -175,7 +184,7 @@ def _js_runtime(name, main, entrypoint, deps, ts_deps = [], extra_production_arg
     )
     native.genrule(
         name = "%s.compressed.gen" % name,
-        srcs = ["%s.bin.js" % name],
+        srcs = ["%s.bin.js" % name] + (extra_sources or []),
         outs = ["runtime.gz"],
         cmd = "gzip --force --best --to-stdout $(SRCS) > $(OUTS)",
     )

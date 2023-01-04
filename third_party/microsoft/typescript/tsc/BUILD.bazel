@@ -1,0 +1,53 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load(
+    "//tools/defs/closure:exports.bzl",
+    "closure_js_binary",
+    "closure_js_library",
+)
+load(
+    "//tools/defs/esbuild:exports.bzl",
+    "esbuild",
+)
+
+closure_js_library(
+    name = "tsc_lib",
+    srcs = ["tsc.js"],
+    lenient = True,
+    suppress = [
+        "JSC_JSDOC_IN_BLOCK_COMMENT",
+        "JSC_BAD_JSDOC_ANNOTATION",
+        "JSC_MISPLACED_ANNOTATION",
+        "JSC_VAR_MULTIPLY_DECLARED_ERROR",
+        "JSC_USED_GLOBAL_THIS",
+        "JSC_INEXISTENT_PROPERTY",
+        "checkTypes",
+        "undefinedVars",
+        "uselessCode",
+        "suspiciousCode",
+    ],
+    visibility = ["//visibility:private"],
+)
+
+closure_js_binary(
+    name = "tsc.entry",
+    compilation_level = "SIMPLE",
+    deps = [":tsc_lib"],
+)
+
+esbuild(
+    name = "tsc.min",
+    srcs = ["tsc.entry.js"],
+    minify = True,
+    platform = "node",
+    entry_point = "tsc.entry.js",
+    format = "iife",
+    output = "tsc.min.js",
+)
+
+alias(
+    name = "tsc",
+    actual = ":tsc.min",
+)

@@ -1,0 +1,58 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load(
+    "//tools/defs/go:exports.bzl",
+    "go_binary",
+)
+load(
+    "//tools/defs/kt:exports.bzl",
+    "kt_jvm_binary",
+)
+
+go_binary(
+    name = "esbuild_bin",
+    basename = "bundler",
+    embed = [":bundler_lib"],
+    cgo = True,
+    linkmode = "c-shared",
+)
+
+go_library(
+    name = "bundler_lib",
+    srcs = [
+        "bundler.go",
+        "bundler_other.go",
+        "bundler_wasm.go",
+        "stdio_protocol.go",
+        "version.go",
+    ],
+    importpath = "github.com/elide-dev/runtime/elide/bundler",
+    deps = [
+        "//elide/esbuild/internal/api_helpers",
+        "//elide/esbuild/internal/logger",
+        "@com_github_evanw_esbuild//pkg/api:go_default_library",
+        "@com_github_evanw_esbuild//pkg/cli:go_default_library",
+    ],
+)
+
+kt_jvm_binary(
+    name = "esbuild_entry",
+    srcs = ["EsBuildEntry.kt"],
+    data = [":esbuild_bin"],
+    main_class = "elide.esbuild.EsBuildEntry",
+    resources = [
+        ":esbuild_bin",
+    ],
+    deps = [
+        "@maven//:info_picocli_picocli",
+    ],
+)
+
+alias(
+    name = "esbuild",
+    actual = "esbuild_entry",
+)

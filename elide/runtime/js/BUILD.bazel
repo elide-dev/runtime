@@ -60,6 +60,9 @@ js_runtime(
     deps = EXTERNS + [
         ":runtime_externs",
     ],
+    extra_sources = [
+        "//third_party/microsoft/typescript/tsc",
+    ],
 )
 
 ## -- Distribution -- ##
@@ -69,7 +72,4 @@ runtime_dist(
     language = "js",
     manifest = "MANIFEST.MF",
     target = ":runtime",
-    #    info = [],
-    #    configs = [],
-    #    extra_sources = [],
 )

@@ -5,3 +5,4 @@ bazel-*
 yarn-error.log
 target/
 .yarn/cache
+.DS_Store
