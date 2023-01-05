@@ -1,70 +1,68 @@
 import type {Blob} from "@elide/runtime/js/intrinsics/blob/Blob";
-import type {URLSearchParams} from "./URLSearchParams";
-import {installGlobal} from "@elide/runtime/js/intrinsics/base";
-import {IURL, URLInputs} from "./IURL";
+// import type {IURLSearchParams} from "./IURLSearchParams";
+// import type {URLSearchParams} from "./URLSearchParams";
+import type {IURL, URLInputs} from "./IURL";
 
 /** Main URL constructor instance. */
 declare global {
-    namespace Intrinsics {
-        /** Intrinsic URL implementation. */
-        const URL: {
-            prototype: IURL;
+    /** Intrinsic URL implementation. */
+    const URL: {
+        prototype: IURL;
 
-            /**
-             * Constructor: Absolute URL with a base URL.
-             *
-             * @param url URL string to parse, potentially as a relative URL.
-             */
-            new(url: URLInputs): IURL;
+        /**
+         * Constructor: Absolute URL with a base URL.
+         *
+         * @param url URL string to parse, potentially as a relative URL.
+         */
+        new(url: URLInputs): IURL;
 
-            /**
-             * Constructor: Potentially-relative URL with a base URL.
-             *
-             * @param url URL string to parse, potentially as a relative URL.
-             * @param base Base URL to use if `url` is relative.
-             */
-            new(url: URLInputs, base?: URLInputs): IURL;
+        /**
+         * Constructor: Potentially-relative URL with a base URL.
+         *
+         * @param url URL string to parse, potentially as a relative URL.
+         * @param base Base URL to use if `url` is relative.
+         */
+        new(url: URLInputs, base?: URLInputs): IURL;
 
-            /**
-             * Create a new `URL` object which references the provided [File] or [Blob] object.
-             *
-             * This method is not supported server-side.
-             *
-             * From [MDN](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL):
-             * "The URL.createObjectURL() static method creates a string containing a URL representing the object given
-             * in the parameter. The URL lifetime is tied to the document in the window on which it was created. The new
-             * object URL represents the specified File object or Blob object. To release an object URL, call
-             * revokeObjectURL()."
-             *
-             * @see createObjectURL to create a URL from a blob.
-             * @see revokeObjectURL to revoke a created object URL.
-             * @param obj `Blob`, or `File`, or `MediaSource` to create a URL for.
-             * @return URL reference for the provided resource.
-             */
-            createObjectURL(obj: Blob): string;
+        /**
+         * Create a new `URL` object which references the provided [File] or [Blob] object.
+         *
+         * This method is not supported server-side.
+         *
+         * From [MDN](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL):
+         * "The URL.createObjectURL() static method creates a string containing a URL representing the object given
+         * in the parameter. The URL lifetime is tied to the document in the window on which it was created. The new
+         * object URL represents the specified File object or Blob object. To release an object URL, call
+         * revokeObjectURL()."
+         *
+         * @see createObjectURL to create a URL from a blob.
+         * @see revokeObjectURL to revoke a created object URL.
+         * @param obj `Blob`, or `File`, or `MediaSource` to create a URL for.
+         * @return URL reference for the provided resource.
+         */
+        createObjectURL(obj: Blob): string;
 
-            /**
-             * Revoke a previously-issued temporary URL reference to a [File] or [Blob] object.
-             *
-             * This method is not supported server-side.
-             *
-             * From [MDN](https://developer.mozilla.org/en-US/docs/Web/API/URL/revokeObjectURL):
-             * "The `URL.revokeObjectURL()` static method releases an existing object `URL` which was previously created
-             * by calling `URL.createObjectURL()`. Call this method when you've finished using an object `URL` to let
-             * the browser know not to keep the reference to the file any longer."
-             *
-             * @see createObjectURL to create a URL from a file or blob.
-             * @param url URL which was previously created via [createObjectURL], which should be revoked.
-             */
-            revokeObjectURL(url: string): void;
-        };
-    }
+        /**
+         * Revoke a previously-issued temporary URL reference to a [File] or [Blob] object.
+         *
+         * This method is not supported server-side.
+         *
+         * From [MDN](https://developer.mozilla.org/en-US/docs/Web/API/URL/revokeObjectURL):
+         * "The `URL.revokeObjectURL()` static method releases an existing object `URL` which was previously created
+         * by calling `URL.createObjectURL()`. Call this method when you've finished using an object `URL` to let
+         * the browser know not to keep the reference to the file any longer."
+         *
+         * @see createObjectURL to create a URL from a file or blob.
+         * @param url URL which was previously created via [createObjectURL], which should be revoked.
+         */
+        revokeObjectURL(url: string): void;
+    };
 }
 
 /**
  * TBD.
  */
-interface ImmutableURL extends URL {
+export interface ImmutableURL extends IURL {
     /** @inheritDoc */
     readonly hash: string;
 
@@ -96,14 +94,14 @@ interface ImmutableURL extends URL {
     readonly origin: string;
 
     /** @inheritDoc */
-    readonly searchParams: URLSearchParams;
+    // readonly searchParams: IURLSearchParams;
 
     /** @inheritDoc */
     readonly username: string;
 }
 
 // Intrinsic-only API surface.
-interface IntrinsicURL extends ImmutableURL {
+export interface IntrinsicURL extends ImmutableURL {
     // Internal: get the `hash` value.
     getHash(): string;
 
@@ -132,7 +130,7 @@ interface IntrinsicURL extends ImmutableURL {
     getSearch(): string;
 
     // Internal: get the `searchParams` value.
-    getSearchParams(): URLSearchParams;
+    // getSearchParams(): IURLSearchParams;
 
     // Internal: get the `username` value.
     getUsername(): string;
@@ -142,7 +140,7 @@ interface IntrinsicURL extends ImmutableURL {
 }
 
 // Intrinsic-only API surface (mutable)
-interface IntrinsicMutableURL extends IURL {
+export interface IntrinsicMutableURL extends IURL {
     // Internal: set the `hash` value.
     setHash(hash: string): void;
 
@@ -173,160 +171,3 @@ interface IntrinsicMutableURL extends IURL {
     // Internal: set the `username` value.
     setUsername(username: string): void;
 }
-
-/**
- * TBD.
- */
-export class URL implements ImmutableURL {
-    // Intrinsic URL instance.
-    protected _intrinsic: IntrinsicURL;
-
-    /**
-     * TBD.
-     *
-     * @suppress {reportUnknownTypes}
-     */
-    constructor(url: URLInputs, base?: URLInputs) {
-        this._intrinsic = new Intrinsics.URL(url, base) as unknown as IntrinsicURL;
-    }
-
-    /** @inheritDoc */
-    get hash(): string {
-        return this._intrinsic.getHash();
-    }
-
-    /** @inheritDoc */
-    get host(): string {
-        return this._intrinsic.getHost();
-    }
-
-    /** @inheritDoc */
-    get hostname(): string {
-        return this._intrinsic.getHostname();
-    }
-
-    /** @inheritDoc */
-    get href(): string {
-        return this._intrinsic.getHref();
-    }
-
-    /** @inheritDoc */
-    get origin(): string {
-        return "";
-    }
-
-    /** @inheritDoc */
-    get password(): string {
-        return this._intrinsic.getPassword();
-    }
-
-    /** @inheritDoc */
-    get pathname(): string {
-        return this._intrinsic.getPathname();
-    }
-
-    /** @inheritDoc */
-    get port(): string {
-        return this._intrinsic.getPort().toString();
-    }
-
-    /** @inheritDoc */
-    get protocol(): string {
-        return this._intrinsic.getProtocol();
-    }
-
-    /** @inheritDoc */
-    get search(): string {
-        return this._intrinsic.getSearch();
-    }
-
-    /** @inheritDoc */
-    get searchParams(): URLSearchParams {
-        return this._intrinsic.getSearchParams();
-    }
-
-    /** @inheritDoc */
-    get username(): string {
-        return this._intrinsic.getUsername();
-    }
-
-    /** @inheritDoc */
-    toJSON(): string {
-        return this._intrinsic.toJSON();
-    }
-
-    /** @inheritDoc */
-    toString(): string {
-        return this._intrinsic.toString();
-    }
-}
-
-/**
- * TBD.
- */
-export class MutableURL extends URL implements IURL {
-    // Intrinsic URL instance.
-    private asMutable(): IntrinsicMutableURL {
-        // known to be mutable
-        return this._intrinsic as unknown as IntrinsicMutableURL;
-    }
-
-    /**
-     * TBD.
-     */
-    constructor(url: URLInputs, base?: URLInputs) {
-        super(url, base);
-    }
-
-    /** @inheritDoc */
-    override set hash(value: string) {
-        this.asMutable().setHash(value);
-    }
-
-    /** @inheritDoc */
-    override set host(value: string) {
-        this.asMutable().setHost(value);
-    }
-
-    /** @inheritDoc */
-    override set hostname(value: string) {
-        this.asMutable().setHostname(value);
-    }
-
-    /** @inheritDoc */
-    override set href(value: string) {
-        this.asMutable().setHref(value);
-    }
-
-    /** @inheritDoc */
-    override set password(value: string) {
-        this.asMutable().setPassword(value);
-    }
-
-    /** @inheritDoc */
-    override set pathname(value: string) {
-        this.asMutable().setPathname(value);
-    }
-
-    /** @inheritDoc */
-    override set port(value: string) {
-        this.asMutable().setPort(Number.parseInt(value, 10));  // @TODO(sgammon): type alignment
-    }
-
-    /** @inheritDoc */
-    override set protocol(value: string) {
-        this.asMutable().setProtocol(value);
-    }
-
-    /** @inheritDoc */
-    override set search(value: string) {
-        this.asMutable().setSearch(value);
-    }
-
-    /** @inheritDoc */
-    override set username(value: string) {
-        this.asMutable().setUsername(value);
-    }
-}
-
-installGlobal("URL", MutableURL);
