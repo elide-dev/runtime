@@ -9,7 +9,7 @@ module.exports = {
     footer: {
         js: (
             "// Elide JS Runtime. Copyright (c) 2022, Sam Gammon and the Elide Project Authors. All rights reserved." +
-            "\n// Components ofthis software are licensed separately. See https://github.com/elide-dev/v3 for more."
+            "\n// Components of this software are licensed separately. See https://github.com/elide-dev/v3 for more."
         ),
     }
 };

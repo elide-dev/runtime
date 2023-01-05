@@ -63,6 +63,9 @@ js_runtime(
     deps = EXTERNS + [
         ":runtime_externs",
     ],
+    extra_sources = [
+        "//elide/runtime/js/polyfills",
+    ],
 )
 
 ## -- Distribution -- ##

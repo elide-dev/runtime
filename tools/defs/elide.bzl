@@ -89,33 +89,41 @@ def _abstract_runtime_targets(name, srcs = [], deps = [], **kwargs):
         visibility = ["//visibility:private"],
     )
 
-def _js_library(name, srcs = [], deps = [], ts_deps = [], **kwargs):
+def _js_library(name, srcs = [], deps = [], ts_deps = [], exports = [], **kwargs):
     """Create a library target for code which implements some aspect of Elide JS runtime functionality."""
 
-    _abstract_runtime_targets(
-        name = "%s_src" % name,
-        srcs = srcs,
-        deps = deps,
-        **kwargs
-    )
-    config = {}
-    config.update(_common_js_library_config)
-    config.update(_base_js_library_config)
-    config.update(kwargs)
+    if len(srcs) == 0 and len(exports) > 0:
+        _closure_js_library(
+            name = name,
+            srcs = srcs,
+            exports = exports,
+            **kwargs
+        )
+    else:
+        _abstract_runtime_targets(
+            name = "%s_src" % name,
+            srcs = srcs,
+            deps = deps,
+            **kwargs
+        )
+        config = {}
+        config.update(_common_js_library_config)
+        config.update(_base_js_library_config)
+        config.update(kwargs)
 
-    deplist = [i for i in deps]
-    deplist += ["%s_js" % i for i in ts_deps]
+        deplist = [i for i in deps]
+        deplist += ["%s_js" % i for i in ts_deps]
 
-    _closure_js_library(
-        name = "%s_js" % name,
-        srcs = [":%s_src" % name],
-        deps = deplist,
-        **config
-    )
-    native.alias(
-        name = name,
-        actual = ":%s_js" % name,
-    )
+        _closure_js_library(
+            name = "%s_js" % name,
+            srcs = [":%s_src" % name],
+            deps = deplist,
+            **config
+        )
+        native.alias(
+            name = name,
+            actual = ":%s_js" % name,
+        )
 
 def _js_runtime(
         name,
@@ -180,21 +188,21 @@ def _js_runtime(
     )
     native.genrule(
         name = "%s.compressed.gen" % name,
-        srcs = ["%s.bin.js" % name] + (extra_sources or []),
-        outs = ["runtime.gz"],
+        srcs = (extra_sources or []) + ["%s.bin.js" % name],
+        outs = ["runtime.js.gz"],
         cmd = "gzip --force --best --to-stdout $(SRCS) > $(OUTS)",
     )
     native.genrule(
         name = "%s.compressed.sha256" % name,
-        srcs = ["runtime.gz"],
-        outs = ["runtime.gz.sha256"],
+        srcs = ["runtime.js.gz"],
+        outs = ["runtime.js.gz.sha256"],
         cmd = "shasum -a 256 $(SRCS) | cut -d ' ' -f 1 > $(OUTS)",
     )
     native.filegroup(
         name = "%s.compressed" % name,
         srcs = [
-            "runtime.gz",
-            "runtime.gz.sha256",
+            "runtime.js.gz",
+            "runtime.js.gz.sha256",
             ":%s.typings" % name,
         ],
     )
@@ -300,8 +308,8 @@ def _runtime_dist(name, language, target, manifest, info = [], configs = [], ext
     native.filegroup(
         name = "distfiles",
         srcs = [
-            "runtime.gz",
-            "runtime.gz.sha256",
+            "runtime.js.gz",
+            "runtime.js.gz.sha256",
         ] + configs + extra_sources,
     )
     _pkg_tar(
