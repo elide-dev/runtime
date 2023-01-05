@@ -61,13 +61,37 @@
     ],
 
     "paths": {
-      "@elide/*": ["./elide/*"],
+      "@elide/runtime/*": [
+        "./elide/runtime/*",
+        "./bazel-out/host/bin/elide/runtime/*",
+        "./bazel-out/k8-fastbuild/bin/elide/runtime/*",
+        "./bazel-out/k8-opt/bin/elide/runtime/*",
+        "./bazel-out/k8-dbg/bin/elide/runtime/*",
+        "./bazel-out/k8_amd64-fastbuild/bin/elide/runtime/*",
+        "./bazel-out/k8_amd64-opt/bin/elide/runtime/*",
+        "./bazel-out/k8_amd64-dbg/bin/elide/runtime/*",
+        "./bazel-out/darwin_amd64-opt/bin/elide/runtime/*",
+        "./bazel-out/darwin_amd64-dbg/bin/elide/runtime/*",
+        "./bazel-out/darwin_amd64-fastbuild/bin/elide/runtime/*",
+        "./bazel-out/darwin_arm64-opt/bin/elide/runtime/*",
+        "./bazel-out/darwin_arm64-dbg/bin/elide/runtime/*",
+        "./bazel-out/darwin_arm64-fastbuild/bin/elide/runtime/*"
+      ],
       "//*": [
-        "*",
-        "./dist/bin/elide/*",
-        "./dist/bin/*",
-        "./bazel-bin/elide/*",
-        "./bazel-bin/*"
+        "./*",
+        "./bazel-out/host/bin/*",
+        "./bazel-out/k8-fastbuild/bin/*",
+        "./bazel-out/k8-opt/bin/*",
+        "./bazel-out/k8-dbg/bin/*",
+        "./bazel-out/k8_amd64-fastbuild/bin/*",
+        "./bazel-out/k8_amd64-opt/bin/*",
+        "./bazel-out/k8_amd64-dbg/bin/*",
+        "./bazel-out/darwin_amd64-opt/bin/*",
+        "./bazel-out/darwin_amd64-dbg/bin/*",
+        "./bazel-out/darwin_amd64-fastbuild/bin/*",
+        "./bazel-out/darwin_arm64-opt/bin/*",
+        "./bazel-out/darwin_arm64-dbg/bin/*",
+        "./bazel-out/darwin_arm64-fastbuild/bin/*"
       ]
     },
 

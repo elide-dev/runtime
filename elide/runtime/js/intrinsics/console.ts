@@ -1,5 +1,5 @@
-import {globalContext, installGlobal} from "@elide/runtime/js/intrinsics/base";
-import type {IConsole} from "@elide/runtime/js/intrinsics/primordials";
+import {globalContext, installGlobal} from "./base";
+import type {IConsole} from "./primordials";
 
 /** Enumerates available log levels. */
 export enum LogLevel {

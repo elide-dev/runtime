@@ -22,7 +22,7 @@
         "./bazel-out/darwin_arm64-fastbuild/bin/elide/runtime/*"
       ],
       "//*": [
-        "*",
+        "../../*",
         "./bazel-out/host/bin/*",
         "./bazel-out/k8-fastbuild/bin/*",
         "./bazel-out/k8-opt/bin/*",
@@ -37,6 +37,21 @@
         "./bazel-out/darwin_arm64-dbg/bin/*",
         "./bazel-out/darwin_arm64-fastbuild/bin/*"
       ]
-    }
+    },
+    // Library Environment
+    "lib": [
+      "es5",
+      "es6",
+      "es2015",
+      "es2016",
+      "es2017",
+      "es2018",
+      "es2019",
+      "es2020",
+      "es2021",
+      "ES2021.Promise",
+      "es2021.intl",
+      "esnext"
+    ]
   }
 }

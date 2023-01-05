@@ -24,7 +24,6 @@ test_sources:
 
 ts_config_rules:
   //:tsconfig
-  //elide/runtime:tsconfig
   //elide/runtime/js:tsconfig
   //elide/runtime/ts:tsconfig
 

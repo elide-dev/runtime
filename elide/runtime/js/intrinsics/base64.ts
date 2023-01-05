@@ -1,5 +1,5 @@
-import {globalContext, installGlobal} from "@elide/runtime/js/intrinsics/base";
-import type {Base64} from "@elide/runtime/js/intrinsics/primordials";
+import {globalContext, installGlobal} from "./base";
+import type {Base64} from "./primordials";
 
 /**
  * @return Intrinsic Base64 bridge.

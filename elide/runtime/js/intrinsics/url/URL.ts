@@ -1,4 +1,6 @@
-import type {Blob} from "@elide/runtime/js/intrinsics/blob/Blob";
+// noinspection JSUnusedGlobalSymbols
+
+import type {Blob} from "../blob/Blob";
 // import type {IURLSearchParams} from "./IURLSearchParams";
 // import type {URLSearchParams} from "./URLSearchParams";
 import type {IURL, URLInputs} from "./IURL";
@@ -6,6 +8,7 @@ import type {IURL, URLInputs} from "./IURL";
 /** Main URL constructor instance. */
 declare global {
     /** Intrinsic URL implementation. */
+        // @ts-ignore
     const URL: {
         prototype: IURL;
 
