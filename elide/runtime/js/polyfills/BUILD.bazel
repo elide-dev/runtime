@@ -14,28 +14,21 @@ load(
 
 ## -- Polyfills -- ##
 
-filegroup(
-    name = "buffer",
-    srcs = [
-        "base64.js",
-        "buffer.js",
-        "ieee754.js",
-    ],
-)
+POLYFILLS = {
+    "abort-controller": ["abort-controller.js"],
+    "buffer": ["base64.js", "buffer.js", "ieee754.js"],
+    "event": ["event-target.js"],
+    "once": ["once.js"],
+    "text-encoder": ["textencoder.js"],
+}
 
-filegroup(
-    name = "abort-controller",
-    srcs = ["abort-controller.js"],
-)
+[filegroup(name = n[0], srcs = n[1]) for n in POLYFILLS.items()]
 
 ## -- Exports -- ##
 
 filegroup(
     name = "polyfills-srcs",
-    srcs = [
-        ":abort-controller",
-        ":buffer",
-    ],
+    srcs = [":%s" % n for n in POLYFILLS.keys()],
 )
 
 esbuild_config(
