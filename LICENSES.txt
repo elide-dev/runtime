@@ -1,0 +1,22 @@
+
+---------
+
+Event Target Polyfill, Function `once` Polyfill
+
+Copyright Andrea Giammarchi - ISC
+
+---------
+
+Buffer.
+
+Copyright Feross Aboukhadijeh - MIT License
+https://feross.org
+
+---------
+
+IEEE754.
+
+Copyright Feross Aboukhadijeh - BSD-3-Clause License
+https://feross.org
+
+---------
