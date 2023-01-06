@@ -1,0 +1,25 @@
+Category,Feature,Browser,Node,Deno,Workers,Elide
+HTML5,btoa/atob,✅,✅,✅,✅,✅
+WhatWG,console,✅,✅,✅,✅,✅
+WhatWG,URL,✅,✅,✅,✅,✅
+WhatWG,URLSearchParams,✅,✅,✅,✅,🔄
+WhatWG,URLPattern API,✅,⚠️,✅,✅,🔄
+Cancellation,AbortController,✅,✅,✅,✅,👍
+Cancellation,AbortSignal,✅,✅,✅,✅,👍
+Events,Event,✅,✅,✅,✅,👍
+Events,EventEmitter,?,?,?,?,?
+Events,EventTarget,✅,✅,✅,✅,👍
+Events,CustomEvent,✅,✅,✅,✅,👍
+Buffer,Buffer,-,✅,-,-,👍
+Buffer,TextEncoder,✅,✅,✅,✅,👍
+Buffer,TextDecoder,✅,✅,✅,✅,👍
+Buffer,TextEncoderStream,✅,✅,✅,✅,🔄
+Buffer,TextDecoderStream,✅,✅,✅,✅,🔄
+JSON,JSON.parse,✅,✅,✅,✅,✅
+JSON,JSON.stringify,✅,✅,✅,✅,✅
+Functions,once,⚠️,⚠️,⚠️,⚠️,👍
+Streams,Web Streams,✅,⚠️,✅,✅,🔄
+Timers,setInterval,✅,✅,✅,⚠️,🔄
+Timers,setTimeout,✅,✅,✅,⚠️,🔄
+Network,Headers,✅,✅,✅,✅,🔄
+Network,fetch,✅,✅,✅,✅,🔄
