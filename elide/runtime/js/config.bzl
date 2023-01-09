@@ -53,4 +53,7 @@ TS_MODULES = ["%s:%s" % (TS_MODULE_PACKAGE, t) for t in [
 ]] + ["%s/%s:%s" % (TS_MODULE_PACKAGE, t, t) for t in [
     # Sub-modules
     "url",
-]]
+]] + [
+    # General Modules
+    "//elide/runtime/js/bridge:js-error",
+]
