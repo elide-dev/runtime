@@ -15,10 +15,10 @@ ts_library(
     srcs = [
         "jserror.ts",
     ],
-    deps = [
-        "//elide/runtime/js/intrinsics/err:errors",
-    ],
     module = MODULE_NAME,
+    deps = [
+        "//elide/runtime/js/intrinsics/err",
+    ],
 )
 
 alias(

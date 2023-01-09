@@ -11,15 +11,10 @@ load(
 MODULE_NAME = "@elide/runtime/js/intrinsics/err"
 
 ts_library(
-    name = "errors",
+    name = "err",
     srcs = [
         "ValueError.ts",
         "index.ts",
     ],
     module = MODULE_NAME,
-)
-
-alias(
-    name = "err",
-    actual = "errors",
 )
