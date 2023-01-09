@@ -35,10 +35,10 @@ type ErrorOptions = {
  * Expected interface for JavaScript errors' constructors. This is included inline to explain to the Closure Compiler
  * how error constructors are expected to behave.
  */
-interface JsErrorConstructor {
-    new(message?: string): Error;
-    (message?: string): Error;
-    readonly prototype: Error;
+interface JsErrorConstructor<E extends Error> {
+    new(message?: string): E;
+    (message?: string): E;
+    readonly prototype: E;
 }
 
 /**
@@ -58,8 +58,10 @@ export interface IntrinsicErrorBridge {
      * @param errInfo Error info to use to create the type error.
      * @param options Options which apply to throwing this error.
      * @return Error which should be thrown or consumed.
+     * @export
+     * @public
      */
-    typeError(errInfo: ErrorInfo, options?: ErrorOptions): Error;
+    typeError(errInfo: string | ErrorInfo, options?: ErrorOptions): TypeError;
 
     /**
      * Create a `ValueError` with the provided `errInfo`.
@@ -67,8 +69,10 @@ export interface IntrinsicErrorBridge {
      * @param errInfo Error info to use to create the value error.
      * @param options Options which apply to throwing this error.
      * @return Error which should be thrown or consumed.
+     * @export
+     * @public
      */
-    valueError(errInfo: ErrorInfo, options?: ErrorOptions): Error;
+    valueError(errInfo: string | ErrorInfo, options?: ErrorOptions): ValueError;
 }
 
 /**
@@ -76,30 +80,47 @@ export interface IntrinsicErrorBridge {
  *
  * @template E Error type.
  * @param ctor Constructor for the error type.
- * @param info Error info.
+ * @param err Error info.
  * @param options Options which apply to throwing this error.
  * @return Error instance.
  * @suppress {checkTypes,reportUnknownTypes}
  */
-function errFromInfo<E extends Error>(ctor: JsErrorConstructor, info: ErrorInfo, options?: ErrorOptions): Error {
-    const err: Error = new ctor(info.message);
-    if (options?.immediate) {
-        throw err;
+function errFromInfo<E extends Error>(ctor: JsErrorConstructor<E>, err: string | ErrorInfo, options?: ErrorOptions): E {
+    let msg;
+    if (typeof err === "string") {
+        msg = err;
     } else {
-        return err;
+        msg = err.message;
+    }
+    const errObj: E = new ctor(msg);
+    if (options?.immediate == false) {
+        return errObj;
+    } else {
+        throw errObj;
     }
 }
 
 // Main implementation of the `IntrinsicErrorBridge` interface.
 class IntrinsicErrorBridgeImpl implements IntrinsicErrorBridge {
     /** @inheritDoc */
-    typeError(errInfo: ErrorInfo, options?: ErrorOptions): Error {
-        return errFromInfo(TypeError as unknown as JsErrorConstructor, errInfo, options);
+    typeError(errInfo: string | ErrorInfo, options?: ErrorOptions): TypeError {
+        return errFromInfo(TypeError as unknown as JsErrorConstructor<TypeError>, errInfo, options);
     }
 
     /** @inheritDoc */
-    valueError(errInfo: ErrorInfo, options?: ErrorOptions): Error {
-        return errFromInfo(ValueError as unknown as JsErrorConstructor, errInfo, options);
+    valueError(errInfo: string | ErrorInfo, options?: ErrorOptions): ValueError {
+        let msg;
+        if (typeof errInfo === "string") {
+            msg = errInfo;
+        } else {
+            msg = errInfo.message;
+        }
+        const exc = new ValueError(msg);
+        if (options?.immediate === false) {
+            return exc;
+        } else {
+            throw exc;
+        }
     }
 }
 

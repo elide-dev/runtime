@@ -52,6 +52,8 @@ TS_MODULES = ["%s:%s" % (TS_MODULE_PACKAGE, t) for t in [
     "console",
 ]] + ["%s/%s:%s" % (TS_MODULE_PACKAGE, t, t) for t in [
     # Sub-modules
+    "blob",
+    "err",
     "url",
 ]] + [
     # General Modules
