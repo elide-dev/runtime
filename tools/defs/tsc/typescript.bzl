@@ -55,7 +55,7 @@ def _fixup_shortlabel(label):
     elif ":" not in label:
         return (label + ":" + (label.split("/")[-1]))
     else:
-        label
+        return label
 
 def _wrapped_ts_library(
         name,
