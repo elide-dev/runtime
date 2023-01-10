@@ -20,6 +20,8 @@ load(
 )
 load(
     "//tools/defs/pkg:exports.bzl",
+    _pkg_filegroup = "pkg_filegroup",
+    _pkg_files = "pkg_files",
     _pkg_tar = "pkg_tar",
     _pkg_zip = "pkg_zip",
 )
@@ -57,11 +59,16 @@ _RUNTIME_JS_ARGS = _JS_ARGS + [
     "--rewrite_polyfills=true",
 ]
 
+_JS_MODULES_CLOSURE = False
+
 _RUNTIME_DEFINES = {}
 _RUNTIME_DEFINES.update(_DEFINES)
 _RUNTIME_DEFINES.update({
     # Additional runtime definitions here.
 })
+
+# Module prefix to apply for JS runtime "modules".
+_JS_MODULE_PREFIX = "@elide/runtime/module"
 
 _common_js_library_config = {
     "language": _JS_LANGUAGE,
@@ -124,6 +131,117 @@ def _js_library(name, srcs = [], deps = [], ts_deps = [], exports = [], **kwargs
             name = name,
             actual = ":%s_js" % name,
         )
+
+def _js_module(
+        name,
+        package_json = "package.json",
+        entry_point = None,
+        module = None,
+        js_srcs = [],
+        srcs = [],
+        deps = [],
+        ts_deps = [],
+        ts_args = {},
+        js_args = {},
+        **kwargs):
+    """Defines a JavaScript module target."""
+
+    outs = []
+    jsouts = []
+    module_path = "%s/%s" % (_JS_MODULE_PREFIX, module or name)
+    compiler_args = [] + _RUNTIME_JS_ARGS
+
+    if entry_point == None:
+        default_ext = len(srcs) > 0 and ".ts" or ".js"
+        entry_point = "index%s" % default_ext
+
+    if not _JS_MODULES_CLOSURE:
+        _esbuild(
+            name = "%s.jsopt" % name,
+            srcs = js_srcs + srcs,
+            entry_point = entry_point,
+            format = "esm",
+            output = "%s.mjs" % (module or name),
+            sourcemap = "external",
+            target = _JS_TARGET,
+        )
+        native.filegroup(
+            name = "%s_module_src" % name,
+            srcs = [
+                package_json,
+                "%s.mjs" % name,
+            ],
+        )
+    else:
+        if len(srcs) > 0:
+            _ts_library(
+                name = "%s_ts" % name,
+                srcs = srcs,
+                deps = ts_deps,
+                module = "/".join(module_path.split("/")[0:-1]),
+                **ts_args
+            )
+            native.filegroup(
+                name = "%s_types" % name,
+                srcs = [":%s_ts" % name],
+                output_group = "types",
+            )
+            native.filegroup(
+                name = "%s_tsdev" % name,
+                srcs = [":%s_ts" % name],
+                output_group = "es5_sources",
+            )
+            native.filegroup(
+                name = "%s_tsprod" % name,
+                srcs = [":%s_ts" % name],
+                output_group = "es6_sources",
+            )
+            outs.append("%s_types" % name)
+            jsouts.append("%s_tsdev" % name)
+
+        _closure_js_library(
+            name = "%s_js" % name,
+            srcs = js_srcs + jsouts,
+            deps = deps + [
+                "//third_party/google/tsickle:tslib",
+            ],
+            **js_args
+        )
+        _closure_js_binary(
+            name = "%s_jsbin" % name,
+            deps = [":%s_js" % name],
+            defs = compiler_args + (
+                ["-D%s=%s" % i for i in (_RUNTIME_DEFINES.items() if _RUNTIME_DEFINES else [])]
+            ),
+            **kwargs
+        )
+        native.filegroup(
+            name = "%s_module_src" % name,
+            srcs = [
+                package_json,
+                "%s_jsbin" % name,
+            ],
+        )
+
+    _pkg_files(
+        name = "%s.tarfiles" % name,
+        srcs = [":%s_module_src" % name],
+    )
+    _pkg_filegroup(
+        name = "%s.tarfilegroup" % name,
+        srcs = [":%s.tarfiles" % name],
+        prefix = "node_modules/%s/" % (module or name),
+    )
+    _pkg_tar(
+        name = "%s.tarball" % name,
+        out = "%s.tar" % name,
+        srcs = [":%s_module_src" % name],
+        package_dir = "node_modules/%s/" % (module or name),
+    )
+    native.alias(
+        name = name,
+        actual = "%s.tarfilegroup" % name,
+    )
 
 def _js_runtime(
         name,
@@ -302,8 +420,10 @@ def _ts_runtime(
         actual = "tsruntime.tarball",
     )
 
-def _runtime_dist(name, language, target, manifest, info = [], configs = [], extra_sources = []):
+def _runtime_dist(name, language, target, manifest, info = [], configs = [], modules = [], extra_sources = []):
     """ """
+
+    outs = []
 
     native.filegroup(
         name = "distfiles",
@@ -312,10 +432,17 @@ def _runtime_dist(name, language, target, manifest, info = [], configs = [], ext
             "runtime.js.gz.sha256",
         ] + configs + extra_sources,
     )
+    if len(modules) > 0:
+        _pkg_tar(
+            name = "%s.modules" % language,
+            out = "%s.modules.tar.gz" % language,
+            srcs = modules,
+        )
+        outs.append(":%s.modules" % language)
     _pkg_tar(
         name = "%s.tarball" % language,
         out = "%s.dist.tar" % language,
-        srcs = [":distfiles"],
+        srcs = [":distfiles"] + modules,
     )
     _jar_resources(
         name = "%s.runtime" % language,
@@ -336,10 +463,16 @@ def _runtime_dist(name, language, target, manifest, info = [], configs = [], ext
         out = "%s.dist-all.tar.gz" % language,
         srcs = [":distributions"],
     )
+    native.filegroup(
+        name = "dist-all-outs",
+        srcs = [
+            ":dist-all",
+        ] + outs
+    )
 
     native.alias(
         name = name,
-        actual = ":dist-all",
+        actual = ":dist-all-outs",
     )
     native.alias(
         name = language,
@@ -350,6 +483,7 @@ def _runtime_dist(name, language, target, manifest, info = [], configs = [], ext
 elide_test = _elide_test
 js_library = _js_library
 js_runtime = _js_runtime
+js_module = _js_module
 ts_library = _ts_library
 ts_config = _ts_config
 ts_runtime = _ts_runtime

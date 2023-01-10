@@ -75,4 +75,10 @@ runtime_dist(
     language = "js",
     manifest = "MANIFEST.MF",
     target = ":runtime",
+    modules = [
+        "//elide/runtime/js/modules/%s" % m for m in [
+            "buffer",
+            "fs",
+        ]
+    ],
 )
