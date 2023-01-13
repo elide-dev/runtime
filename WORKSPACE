@@ -205,9 +205,9 @@ http_archive(
 http_archive(
     name = "externs",
     build_file = "google/closure/externs.bzl",
-    sha256 = "f8a62a8ffe017159901693848fe40a8ca5a6205e4b5af783673fb181ef3c0e03",
-    strip_prefix = "closure-compiler-bb0e54d24103a3256b7c7f025a53ab73cbb077d3/externs",
-    url = "https://github.com/google/closure-compiler/archive/bb0e54d24103a3256b7c7f025a53ab73cbb077d3.tar.gz",
+    sha256 = "ef47d3e8f28f6be1061f09bd97c96043a6fcbaa510b870016129ae36f58b7f9f",
+    strip_prefix = "closure-compiler-72cf1e28b48fb80ee62f6203be1a9b530c7fe812/externs",
+    url = "https://github.com/google/closure-compiler/archive/72cf1e28b48fb80ee62f6203be1a9b530c7fe812.tar.gz",
 )
 
 guava_version = "30.1.1"
