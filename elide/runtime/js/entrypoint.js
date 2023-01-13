@@ -48,6 +48,15 @@ globalThis['window'] = undefined;
 globalThis['gc'] = null;
 
 /**
+ * Global application object.
+ *
+ * @type {!Object<string, *>}
+ */
+const App = {};
+globalThis['global'] = App;
+globalThis['self'] = App;
+
+/**
  * Global Elide object.
  *
  * @type {{
@@ -62,6 +71,7 @@ const Elide = {
     'context': {
         'build': false,
         'runtime': true
-    }
+    },
+    'App': App,
 };
 globalThis['Elide'] = Elide;
