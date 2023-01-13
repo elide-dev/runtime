@@ -298,9 +298,9 @@ http_archive(
 
 http_archive(
     name = "rules_foreign_cc",
-    sha256 = "69023642d5781c68911beda769f91fcbc8ca48711db935a75da7f6536b65047f",
-    strip_prefix = "rules_foreign_cc-0.6.0",
-    url = "https://github.com/bazelbuild/rules_foreign_cc/archive/0.6.0.tar.gz",
+    sha256 = "2a4d07cd64b0719b39a7c12218a3e507672b82a97b98c6a89d38565894cf7c51",
+    strip_prefix = "rules_foreign_cc-0.9.0",
+    url = "https://github.com/bazelbuild/rules_foreign_cc/archive/0.9.0.tar.gz",
 )
 
 # BAZEL_ZIG_CC_VERSION = "v0.9.2"
