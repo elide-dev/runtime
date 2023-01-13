@@ -78,9 +78,9 @@ http_archive(
 http_archive(
     name = "safe_html_types",
     build_file = "safe_html_types.bzl",
-    sha256 = "2356090e7632f49ea581bb6f8808fa038a7433d433f3e8d7045a36f81fb39d65",
-    strip_prefix = "safe-html-types-8507735457ea41a37dfa027fb176d49d5783c4ba",
-    urls = ["https://github.com/google/safe-html-types/archive/8507735457ea41a37dfa027fb176d49d5783c4ba.tar.gz"],
+    sha256 = "fe1c98b1dfbcd741fd4b4c39fb938c03f42b2cb48dacc13b92ac2edb5d970c77",
+    strip_prefix = "safe-html-types-a0fa702c497b7e201e48b52b5adf0259f1d381ca",
+    urls = ["https://github.com/google/safe-html-types/archive/a0fa702c497b7e201e48b52b5adf0259f1d381ca.tar.gz"],
 )
 
 http_archive(
