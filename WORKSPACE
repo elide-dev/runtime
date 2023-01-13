@@ -70,9 +70,9 @@ http_archive(
 http_archive(
     name = "proto_common",
     build_file = "proto_common.bzl",
-    sha256 = "215220fdbe924a338a789459dd630ce46f9195d3e73efeb3172e201b578a053d",
-    strip_prefix = "api-common-protos-e16c55b094638b43a97edd0847614ab91e2461f7",
-    urls = ["https://github.com/googleapis/api-common-protos/archive/e16c55b094638b43a97edd0847614ab91e2461f7.tar.gz"],
+    sha256 = "87e7426a92d252e01123be3b714a4f0cb711e5cb9b9477c099f653dc072a7321",
+    strip_prefix = "api-common-protos-3332dec527759859840a3a2ff108c67a54708130",
+    urls = ["https://github.com/googleapis/api-common-protos/archive/3332dec527759859840a3a2ff108c67a54708130.tar.gz"],
 )
 
 http_archive(
