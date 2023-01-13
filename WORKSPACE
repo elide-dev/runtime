@@ -155,9 +155,9 @@ http_archive(
 
 http_archive(
     name = "rules_java",
-    sha256 = "e3f2bd04e10ad3a29b2e4f6c6b2db44737ff94c5c1a436f65e2d3189cd29fb5f",
-    strip_prefix = "rules_java-9bc07d64012acfe53a316d07137683460add4ae3",
-    url = "https://github.com/bazelbuild/rules_java/archive/9bc07d64012acfe53a316d07137683460add4ae3.tar.gz",
+    sha256 = "76553618d088f0c417beaab2e29c393c839c9a7bf7a02b59936d5da324ad712a",
+    strip_prefix = "rules_java-14c1e62bf8a0b0d0c57ab2a1049e0505df12b59b",
+    url = "https://github.com/bazelbuild/rules_java/archive/14c1e62bf8a0b0d0c57ab2a1049e0505df12b59b.tar.gz",
 )
 
 http_archive(
