@@ -255,9 +255,9 @@ http_archive(
 
 http_archive(
     name = "aspect_bazel_lib",
-    sha256 = "20514864a32d94b2e3113dbf4d71572c908993d3235ea29a2d805a36195cd1e9",
-    strip_prefix = "bazel-lib-1.21.0",
-    url = "https://github.com/aspect-build/bazel-lib/archive/refs/tags/v1.21.0.tar.gz",
+    sha256 = "fc140d923229f7d9d6712c9cc0fb1611d6e3f6a4f98281d06140b87f7b72ef2c",
+    strip_prefix = "bazel-lib-1.21.3",
+    url = "https://github.com/aspect-build/bazel-lib/archive/refs/tags/v1.21.3.tar.gz",
 )
 
 http_archive(
