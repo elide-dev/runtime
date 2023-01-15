@@ -38,6 +38,16 @@ export interface Base64 {
  */
 export interface IConsole {
     /**
+     * ## Logging: `TRACE` (`trace`)
+     *
+     * Log a message to the console at the `TRACE` level.
+     *
+     * @param args Arguments of any type, which the developer wishes to emit to the console; any number of arguments may
+     *   be passed, and each argument will be emitted to the same console message call.
+     */
+    trace(...args: any[]): void;
+
+    /**
      * ## Logging: `DEBUG` (`log`)
      *
      * Log a message to the console at the `DEBUG` level.
@@ -46,6 +56,16 @@ export interface IConsole {
      *   be passed, and each argument will be emitted to the same console message call.
      */
     log(...args: any[]): void;
+
+    /**
+     * ## Logging: `DEBUG` (`log`)
+     *
+     * Log a message to the console at the `DEBUG` level.
+     *
+     * @param args Arguments of any type, which the developer wishes to emit to the console; any number of arguments may
+     *   be passed, and each argument will be emitted to the same console message call.
+     */
+    debug(...args: any[]): void;
 
     /**
      * ## Logging: `INFO` (`info`)

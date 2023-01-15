@@ -13,7 +13,6 @@ declare global {
 /**
  * Install a global value into the JavaScript VM.
  *
- * @param T type of value to install.
  * @param name Name to install the global value at.
  * @param value Value to install.
  * @suppress {reportUnknownTypes}
