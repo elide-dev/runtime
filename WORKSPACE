@@ -103,11 +103,11 @@ http_archive(
 
 http_archive(
     name = "typescript",
-    sha256 = "77b38250192b10d98a66783a69970a06e4f3f9ae531fd6fb5fa820edc917deab",
+    sha256 = "4753c00e9eb1c0647b75628bd83286a4a845626e7aed5a1b790c08caa162afbc",
     build_file = "microsoft/typescript.bzl",
-    strip_prefix = "TypeScript-4ba756fdc847115bc1ff5032ed06e9bed60f16b2",
+    strip_prefix = "TypeScript-67a3846fbf6b5fe75ee1ce2735a5b7d0ec91648b",
     urls = [
-        "https://github.com/microsoft/typescript/archive/4ba756fdc847115bc1ff5032ed06e9bed60f16b2.tar.gz",
+        "https://github.com/microsoft/typescript/archive/67a3846fbf6b5fe75ee1ce2735a5b7d0ec91648b.tar.gz",
     ],
 )
 
