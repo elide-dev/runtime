@@ -178,9 +178,9 @@ http_archive(
 
 http_archive(
     name = "rules_python",
-    sha256 = "d71f3574ed1756a9b8bab460175b9d01da093813d744658924eb5413d1edacba",
-    strip_prefix = "rules_python-07c1741b98ef07c8f7b566c838aaac1519a322ad",
-    url = "https://github.com/bazelbuild/rules_python/archive/07c1741b98ef07c8f7b566c838aaac1519a322ad.zip",
+    sha256 = "ea5126a1ad6ff4808b29e03af27d7776ca848dd31839ff2de7c9e3e726bb46d9",
+    strip_prefix = "rules_python-1722988cc407b08a4e7770295452076706823f9d",
+    url = "https://github.com/bazelbuild/rules_python/archive/1722988cc407b08a4e7770295452076706823f9d.zip",
 )
 
 http_archive(
