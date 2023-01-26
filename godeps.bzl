@@ -4,8 +4,8 @@ def go_dependencies():
     go_repository(
         name = "com_github_evanw_esbuild",
         importpath = "github.com/evanw/esbuild",
-        sum = "h1:B9hb5GRgRkGYmq582yGGPwSFks769bJOPksdKaEERXw=",
-        version = "v0.16.12",
+        sum = "h1:O1kmBW8O6lTJel3n1J8Hyp0WKulVE8vIvygF8AQQxhY=",
+        version = "v0.17.4",
     )
     go_repository(
         name = "org_golang_x_sys",

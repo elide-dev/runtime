@@ -26,11 +26,7 @@ const defaultTerminalWidth = 80
 type Log struct {
 	AddMsg    func(Msg)
 	HasErrors func() bool
-
-	// This is called after the build has finished but before writing to stdout.
-	// It exists to ensure that deferred warning messages end up in the terminal
-	// before the data written to stdout.
-	AlmostDone func()
+	Peek      func() []Msg
 
 	Done func() []Msg
 
@@ -455,6 +451,74 @@ func (s *Source) RangeOfLegacyOctalEscape(loc Loc) (r Range) {
 	return
 }
 
+func (s *Source) CommentTextWithoutIndent(r Range) string {
+	text := s.Contents[r.Loc.Start:r.End()]
+	if len(text) < 2 || !strings.HasPrefix(text, "/*") {
+		return text
+	}
+	prefix := s.Contents[:r.Loc.Start]
+
+	// Figure out the initial indent
+	indent := 0
+seekBackwardToNewline:
+	for len(prefix) > 0 {
+		c, size := utf8.DecodeLastRuneInString(prefix)
+		switch c {
+		case '\r', '\n', '\u2028', '\u2029':
+			break seekBackwardToNewline
+		}
+		prefix = prefix[:len(prefix)-size]
+		indent++
+	}
+
+	// Split the comment into lines
+	var lines []string
+	start := 0
+	for i, c := range text {
+		switch c {
+		case '\r', '\n':
+			// Don't double-append for Windows style "\r\n" newlines
+			if start <= i {
+				lines = append(lines, text[start:i])
+			}
+
+			start = i + 1
+
+			// Ignore the second part of Windows style "\r\n" newlines
+			if c == '\r' && start < len(text) && text[start] == '\n' {
+				start++
+			}
+
+		case '\u2028', '\u2029':
+			lines = append(lines, text[start:i])
+			start = i + 3
+		}
+	}
+	lines = append(lines, text[start:])
+
+	// Find the minimum indent over all lines after the first line
+	for _, line := range lines[1:] {
+		lineIndent := 0
+		for _, c := range line {
+			if c != ' ' && c != '\t' {
+				break
+			}
+			lineIndent++
+		}
+		if indent > lineIndent {
+			indent = lineIndent
+		}
+	}
+
+	// Trim the indent off of all lines after the first line
+	for i, line := range lines {
+		if i > 0 {
+			lines[i] = line[indent:]
+		}
+	}
+	return strings.Join(lines, "\n")
+}
+
 func plural(prefix string, count int, shown int, someAreMissing bool) string {
 	var text string
 	if count == 1 {
@@ -516,14 +580,8 @@ func NewStderrLog(options OutputOptions) Log {
 		remainingMessagesBeforeLimit = 0x7FFFFFFF
 	}
 	var deferredWarnings []Msg
-	didFinalizeLog := false
 
 	finalizeLog := func() {
-		if didFinalizeLog {
-			return
-		}
-		didFinalizeLog = true
-
 		// Print the deferred warning now if there was no error after all
 		for remainingMessagesBeforeLimit > 0 && len(deferredWarnings) > 0 {
 			shownWarnings++
@@ -622,17 +680,16 @@ func NewStderrLog(options OutputOptions) Log {
 			return hasErrors
 		},
 
-		AlmostDone: func() {
+		Peek: func() []Msg {
 			mutex.Lock()
 			defer mutex.Unlock()
-
-			finalizeLog()
+			sort.Stable(msgs)
+			return append([]Msg{}, msgs...)
 		},
 
 		Done: func() []Msg {
 			mutex.Lock()
 			defer mutex.Unlock()
-
 			finalizeLog()
 			sort.Stable(msgs)
 			return msgs
@@ -1001,7 +1058,10 @@ func NewDeferLog(kind DeferLogKind, overrides map[MsgID]LogLevel) Log {
 			return hasErrors
 		},
 
-		AlmostDone: func() {
+		Peek: func() []Msg {
+			mutex.Lock()
+			defer mutex.Unlock()
+			return append([]Msg{}, msgs...)
 		},
 
 		Done: func() []Msg {
@@ -1161,7 +1221,7 @@ func msgString(includeSource bool, terminalInfo TerminalInfo, id MsgID, kind Msg
 	}
 
 	if pluginName != "" {
-		pluginName = fmt.Sprintf("%s%s[plugin %s]%s ", colors.Bold, colors.Magenta, pluginName, colors.Reset)
+		pluginName = fmt.Sprintf(" %s%s[plugin %s]%s", colors.Bold, colors.Magenta, pluginName, colors.Reset)
 	}
 
 	msgID := MsgIDToString(id)
@@ -1172,8 +1232,7 @@ func msgString(includeSource bool, terminalInfo TerminalInfo, id MsgID, kind Msg
 	return fmt.Sprintf("%s%s %s[%s%s%s]%s %s%s%s%s%s\n%s",
 		iconColor, kind.Icon(),
 		kindColorBrackets, kindColorText, kind.String(), kindColorBrackets, colors.Reset,
-		pluginName,
-		colors.Bold, data.Text, colors.Reset, msgID,
+		colors.Bold, data.Text, colors.Reset, pluginName, msgID,
 		location,
 	)
 }
