@@ -1,17 +1,16 @@
 package main
 
-import "C"
-
 import (
 	"fmt"
-	"github.com/elide-dev/runtime/internal/api_helpers"
-	"github.com/elide-dev/runtime/internal/logger"
-	"github.com/evanw/esbuild/pkg/cli"
 	"io"
 	"os"
 	"runtime/debug"
 	"strings"
 	"time"
+
+	"github.com/elide-dev/runtime/internal/api_helpers"
+	"github.com/elide-dev/runtime/internal/logger"
+	"github.com/evanw/esbuild/pkg/cli"
 )
 
 var helpText = func(colors logger.Colors) string {
@@ -24,10 +23,13 @@ var helpText = func(colors logger.Colors) string {
 	return `
 ` + colors.Bold + `Usage:` + colors.Reset + `
   esbuild [options] [entry points]
+
 ` + colors.Bold + `Documentation:` + colors.Reset + `
   ` + colors.Underline + `https://esbuild.github.io/` + colors.Reset + `
+
 ` + colors.Bold + `Repository:` + colors.Reset + `
   ` + colors.Underline + `https://github.com/evanw/esbuild` + colors.Reset + `
+
 ` + colors.Bold + `Simple options:` + colors.Reset + `
   --bundle              Bundle all dependencies into the output files
   --define:K=V          Substitute K with V while parsing
@@ -50,6 +52,7 @@ var helpText = func(colors logger.Colors) string {
   --target=...          Environment target (e.g. es2017, chrome58, firefox57,
                         safari11, edge16, node10, ie9, opera45, default esnext)
   --watch               Watch mode: rebuild on file system changes
+
 ` + colors.Bold + `Advanced options:` + colors.Reset + `
   --allow-overwrite         Allow output files to overwrite input files
   --analyze                 Print a report about the contents of the bundle
@@ -58,6 +61,7 @@ var helpText = func(colors logger.Colors) string {
                             (default "[name]-[hash]")
   --banner:T=...            Text to be prepended to each output file of type T
                             where T is one of: css | js
+  --certfile=...            Certificate for serving HTTPS (see also "--keyfile")
   --charset=utf8            Do not escape UTF-8 code points
   --chunk-names=...         Path template to use for code splitting chunks
                             (default "[name]-[hash]")
@@ -81,6 +85,7 @@ var helpText = func(colors logger.Colors) string {
   --jsx=...                 Set to "automatic" to use React's automatic runtime
                             or to "preserve" to disable transforming JSX to JS
   --keep-names              Preserve "name" on functions and classes
+  --keyfile=...             Key for serving HTTPS (see also "--certfile")
   --legal-comments=...      Where to place legal comments (none | inline |
                             eof | linked | external, default eof when bundling
                             and inline otherwise)
@@ -95,6 +100,7 @@ var helpText = func(colors logger.Colors) string {
   --mangle-props=...        Rename all properties matching a regular expression
   --mangle-quoted=...       Enable renaming of quoted properties (true | false)
   --metafile=...            Write metadata about the build to a JSON file
+                            (see also: ` + colors.Underline + `https://esbuild.github.io/analyze/` + colors.Reset + `)
   --minify-whitespace       Remove whitespace in output files
   --minify-identifiers      Shorten identifiers in output files
   --minify-syntax           Use equivalent but shorter syntax in output files
@@ -117,26 +123,33 @@ var helpText = func(colors logger.Colors) string {
   --tree-shaking=...        Force tree shaking on or off (false | true)
   --tsconfig=...            Use this tsconfig.json file instead of other ones
   --version                 Print the current version (` + esbuildVersion + `) and exit
+
 ` + colors.Bold + `Examples:` + colors.Reset + `
   ` + colors.Dim + `# Produces dist/entry_point.js and dist/entry_point.js.map` + colors.Reset + `
   esbuild --bundle entry_point.js --outdir=dist --minify --sourcemap
+
   ` + colors.Dim + `# Allow JSX syntax in .js files` + colors.Reset + `
   esbuild --bundle entry_point.js --outfile=out.js --loader:.js=jsx
+
   ` + colors.Dim + `# Substitute the identifier RELEASE for the literal true` + colors.Reset + `
   esbuild example.js --outfile=out.js --define:RELEASE=true
+
   ` + colors.Dim + `# Provide input via stdin, get output via stdout` + colors.Reset + `
   esbuild --minify --loader=ts < input.ts > output.js
+
   ` + colors.Dim + `# Automatically rebuild when input files are changed` + colors.Reset + `
   esbuild app.ts --bundle --watch
+
   ` + colors.Dim + `# Start a local HTTP server for everything in "www"` + colors.Reset + `
   esbuild app.ts --bundle --servedir=www --outdir=www/js
+
 `
 }
 
-//export Java_elide_esbuild_EsBuildEntry_esbuildMain
-func Java_elide_esbuild_EsBuildEntry_esbuildMain(args []string) int {
+func main() {
 	logger.API = logger.CLIAPI
-	osArgs := args
+
+	osArgs := os.Args[1:]
 	heapFile := ""
 	traceFile := ""
 	cpuprofileFile := ""
@@ -149,12 +162,12 @@ func Java_elide_esbuild_EsBuildEntry_esbuildMain(args []string) int {
 		// Show help if a common help flag is provided
 		case arg == "-h", arg == "-help", arg == "--help", arg == "/?":
 			logger.PrintText(os.Stdout, logger.LevelSilent, os.Args, helpText)
-			return 0
+			os.Exit(0)
 
 		// Special-case the version flag here
 		case arg == "--version":
 			fmt.Printf("%s\n", esbuildVersion)
-			return 0
+			os.Exit(0)
 
 		case strings.HasPrefix(arg, "--heap="):
 			heapFile = arg[len("--heap="):]
@@ -169,6 +182,13 @@ func Java_elide_esbuild_EsBuildEntry_esbuildMain(args []string) int {
 
 		case strings.HasPrefix(arg, "--cpuprofile="):
 			cpuprofileFile = arg[len("--cpuprofile="):]
+
+		// This flag turns the process into a long-running service that uses
+		// message passing with the host process over stdin/stdout
+		case strings.HasPrefix(arg, "--service="):
+			logger.PrintErrorToStderr(osArgs,
+				"Cannot start service: Elide-embedded esbuild does not support it")
+			os.Exit(1)
 
 		default:
 			// Some people want to be able to run esbuild's watch mode such that it
@@ -197,7 +217,7 @@ func Java_elide_esbuild_EsBuildEntry_esbuildMain(args []string) int {
 	isStdinTTY := logger.GetTerminalInfo(os.Stdin).IsTTY
 	if len(osArgs) == 0 && isStdinTTY {
 		logger.PrintText(os.Stdout, logger.LevelSilent, osArgs, helpText)
-		return 0
+		os.Exit(0)
 	}
 
 	// Capture the defer statements below so the "done" message comes last
@@ -285,9 +305,9 @@ func Java_elide_esbuild_EsBuildEntry_esbuildMain(args []string) int {
 						if err != nil {
 							// Only exit cleanly if stdin was closed cleanly
 							if err == io.EOF {
-								exitCode = 0
+								os.Exit(0)
 							} else {
-								exitCode = 1
+								os.Exit(1)
 							}
 						}
 
@@ -304,8 +324,5 @@ func Java_elide_esbuild_EsBuildEntry_esbuildMain(args []string) int {
 		}
 	}()
 
-	return exitCode
+	os.Exit(exitCode)
 }
-
-// no-op
-func main() {}
