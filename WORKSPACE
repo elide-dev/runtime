@@ -197,9 +197,9 @@ http_archive(
 
 http_archive(
     name = "com_google_javascript_closure_library",
-    sha256 = "1cd8a4f6bffd34686de3148488b3d224ed9cb063fd81096292c03ad44d524c56",
-    strip_prefix = "closure-library-78d73f799d02225d1404f29013a589f35037a597",
-    url = "https://github.com/google/closure-library/archive/78d73f799d02225d1404f29013a589f35037a597.tar.gz",
+    sha256 = "b651e4cc298414daac329cf047a4b4e3ee0bfc83c1487086d92da02038f208d4",
+    strip_prefix = "closure-library-92517517fd4d40e865c4c79356243072e9bcba82",
+    url = "https://github.com/google/closure-library/archive/92517517fd4d40e865c4c79356243072e9bcba82.tar.gz",
 )
 
 http_archive(
