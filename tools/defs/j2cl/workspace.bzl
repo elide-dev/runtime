@@ -46,9 +46,9 @@ def setup_j2cl_workspace(kotlin_compiler = None, kotlin_toolchain = None, **kwar
     # We cannot replace com_google_jsinterop_annotations so choose a different name
     http_archive(
         name = "com_google_jsinterop_annotations-j2cl",
-        urls = ["https://github.com/google/jsinterop-annotations/archive/870c9ddb5801971be11dfb9f5ab803c35a1ca9fa.zip"],
-        strip_prefix = "jsinterop-annotations-870c9ddb5801971be11dfb9f5ab803c35a1ca9fa",
-        sha256 = "d1e0649d6cdd8f9eb0382c9dc71370d93824b574382f8291ac6002dad34c95a1",
+        urls = ["https://github.com/google/jsinterop-annotations/archive/f769a109983e16d9df22c5f96a3e2807d92a3295.zip"],
+        strip_prefix = "jsinterop-annotations-f769a109983e16d9df22c5f96a3e2807d92a3295",
+        sha256 = "a6a51522884318d122c32f459fadc20f24612ff95576fb5f647c83e62607acab",
     )
 
     jvm_maven_import_external(
