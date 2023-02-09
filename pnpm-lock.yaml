@@ -18,7 +18,7 @@ specifiers:
   karma-jasmine: 5.1.0
   karma-junit-reporter: 2.0.1
   karma-requirejs: 1.1.0
-  karma-sourcemap-loader: 0.3.8
+  karma-sourcemap-loader: 0.4.0
   protobufjs: 7.2.0
   source-map-support: 0.5.21
   tsickle: 0.46.3
@@ -29,7 +29,7 @@ specifiers:
 devDependencies:
   '@bazel/buildifier': 5.1.0
   '@bazel/buildozer': 5.1.0
-  '@bazel/concatjs': 4.6.2_dd4mkm5jsd3mopbv3en26zsz3e
+  '@bazel/concatjs': 4.6.2_u7qhnnctawyx6t4fz6z3wd6ena
   '@bazel/esbuild': 4.6.2
   '@bazel/ibazel': 0.16.2
   '@bazel/labs': 4.6.1
@@ -44,7 +44,7 @@ devDependencies:
   karma-jasmine: 5.1.0_karma@6.4.1
   karma-junit-reporter: 2.0.1_karma@6.4.1
   karma-requirejs: 1.1.0_karma@6.4.1
-  karma-sourcemap-loader: 0.3.8
+  karma-sourcemap-loader: 0.4.0
   protobufjs: 7.2.0
   source-map-support: 0.5.21
   tsickle: 0.46.3_typescript@4.9.5
@@ -64,7 +64,7 @@ packages:
     hasBin: true
     dev: true
 
-  /@bazel/concatjs/4.6.2_dd4mkm5jsd3mopbv3en26zsz3e:
+  /@bazel/concatjs/4.6.2_u7qhnnctawyx6t4fz6z3wd6ena:
     resolution: {integrity: sha512-5wpASLPgWU+ti7+/iHquym0mY1lFZkkNUlHPzCjSOBolzdSWO9yFO/S5k2agzULNbNrZInI9IErakyc6K3xvog==}
     requiresBuild: true
     peerDependencies:
@@ -82,7 +82,7 @@ packages:
       karma-jasmine: 5.1.0_karma@6.4.1
       karma-junit-reporter: 2.0.1_karma@6.4.1
       karma-requirejs: 1.1.0_karma@6.4.1
-      karma-sourcemap-loader: 0.3.8
+      karma-sourcemap-loader: 0.4.0
       protobufjs: 6.8.8
       source-map-support: 0.5.9
       tsutils: 3.21.0_typescript@4.9.5
@@ -1055,8 +1055,8 @@ packages:
       karma: 6.4.1
     dev: true
 
-  /karma-sourcemap-loader/0.3.8:
-    resolution: {integrity: sha512-zorxyAakYZuBcHRJE+vbrK2o2JXLFWK8VVjiT/6P+ltLBUGUvqTEkUiQ119MGdOrK7mrmxXHZF1/pfT6GgIZ6g==}
+  /karma-sourcemap-loader/0.4.0:
+    resolution: {integrity: sha512-xCRL3/pmhAYF3I6qOrcn0uhbQevitc2DERMPH82FMnG+4WReoGcGFZb1pURf2a5apyrOHRdvD+O6K7NljqKHyA==}
     dependencies:
       graceful-fs: 4.2.10
     dev: true
