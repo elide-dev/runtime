@@ -262,9 +262,9 @@ http_archive(
 
 http_archive(
     name = "com_google_jsinterop_generator",
-    sha256 = "cadb86c3d037d5a05ef73bb63d6e9ec2cc26e24c1dae50b37dfb73da36ed86f0",
-    strip_prefix = "jsinterop-generator-18c1c7f93959e839e64c418ed796356446d1d09b",
-    url = "https://github.com/google/jsinterop-generator/archive/18c1c7f93959e839e64c418ed796356446d1d09b.zip",
+    sha256 = "315d4c2c45e2e1ea60acc220a8c8c31e661e6b2eb1634d7c8fa654eb27e707b6",
+    strip_prefix = "jsinterop-generator-352bdc6740140c36e880d1d23efa6dc74a0fb7d3",
+    url = "https://github.com/google/jsinterop-generator/archive/352bdc6740140c36e880d1d23efa6dc74a0fb7d3.zip",
 )
 
 java_import_external(
