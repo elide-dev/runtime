@@ -56,8 +56,8 @@ devDependencies:
     specifier: 0.4.0
     version: 0.4.0
   protobufjs:
-    specifier: 7.2.0
-    version: 7.2.0
+    specifier: 7.2.3
+    version: 7.2.3
   source-map-support:
     specifier: 0.5.21
     version: 0.5.21
@@ -1324,8 +1324,8 @@ packages:
       long: 4.0.0
     dev: true
 
-  /protobufjs@7.2.0:
-    resolution: {integrity: sha512-hYCqTDuII4iJ4stZqiuGCSU8xxWl5JeXYpwARGtn/tWcKCAro6h3WQz+xpsNbXW0UYqpmTQFEyFWO0G0Kjt64g==}
+  /protobufjs@7.2.3:
+    resolution: {integrity: sha512-TtpvOqwB5Gdz/PQmOjgsrGH1nHjAQVCN7JG4A6r1sXRWESL5rNMAiRcBQlCAdKxZcAbstExQePYG8xof/JVRgg==}
     engines: {node: '>=12.0.0'}
     requiresBuild: true
     dependencies:
