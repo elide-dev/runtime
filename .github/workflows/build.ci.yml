@@ -22,7 +22,7 @@ jobs:
       pull-requests: "write"
     steps:
       - name: "Setup: Checkout"
-        uses: "actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c" # v3
+        uses: "actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab" # v3
       - name: "Check: Dependency Review"
         uses: "actions/dependency-review-action@c090f4e553673e6e505ea70d6a95362ee12adb94" # v3
         continue-on-error: true
@@ -55,7 +55,7 @@ jobs:
 
     steps:
       - name: "Setup: Checkout"
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
       - name: "Setup: GraalVM (Java 19)"
         uses: graalvm/setup-graalvm@b53bc17dd7dc3052d7c6751f6a5c34abdbf928b3 # v1
         with:
