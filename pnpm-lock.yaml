@@ -9,7 +9,7 @@ devDependencies:
     version: 5.1.0
   '@bazel/concatjs':
     specifier: 4.6.2
-    version: 4.6.2(karma-chrome-launcher@3.1.1)(karma-firefox-launcher@2.1.2)(karma-jasmine@5.1.0)(karma-junit-reporter@2.0.1)(karma-requirejs@1.1.0)(karma-sourcemap-loader@0.4.0)(karma@6.4.1)(typescript@4.9.5)
+    version: 4.6.2(karma-chrome-launcher@3.1.1)(karma-firefox-launcher@2.1.2)(karma-jasmine@5.1.0)(karma-junit-reporter@2.0.1)(karma-requirejs@1.1.0)(karma-sourcemap-loader@0.4.0)(karma@6.4.1)(typescript@5.0.4)
   '@bazel/esbuild':
     specifier: 4.6.2
     version: 4.6.2
@@ -21,7 +21,7 @@ devDependencies:
     version: 4.6.1
   '@bazel/typescript':
     specifier: 4.6.2
-    version: 4.6.2(typescript@4.9.5)
+    version: 4.6.2(typescript@5.0.4)
   '@types/node':
     specifier: 18.13.0
     version: 18.13.0
@@ -63,16 +63,16 @@ devDependencies:
     version: 0.5.21
   tsickle:
     specifier: 0.46.3
-    version: 0.46.3(typescript@4.9.5)
+    version: 0.46.3(typescript@5.0.4)
   tslib:
     specifier: 2.5.0
     version: 2.5.0
   tsutils:
     specifier: 3.21.0
-    version: 3.21.0(typescript@4.9.5)
+    version: 3.21.0(typescript@5.0.4)
   typescript:
-    specifier: 4.9.5
-    version: 4.9.5
+    specifier: 5.0.4
+    version: 5.0.4
 
 packages:
 
@@ -86,7 +86,7 @@ packages:
     hasBin: true
     dev: true
 
-  /@bazel/concatjs@4.6.2(karma-chrome-launcher@3.1.1)(karma-firefox-launcher@2.1.2)(karma-jasmine@5.1.0)(karma-junit-reporter@2.0.1)(karma-requirejs@1.1.0)(karma-sourcemap-loader@0.4.0)(karma@6.4.1)(typescript@4.9.5):
+  /@bazel/concatjs@4.6.2(karma-chrome-launcher@3.1.1)(karma-firefox-launcher@2.1.2)(karma-jasmine@5.1.0)(karma-junit-reporter@2.0.1)(karma-requirejs@1.1.0)(karma-sourcemap-loader@0.4.0)(karma@6.4.1)(typescript@5.0.4):
     resolution: {integrity: sha512-5wpASLPgWU+ti7+/iHquym0mY1lFZkkNUlHPzCjSOBolzdSWO9yFO/S5k2agzULNbNrZInI9IErakyc6K3xvog==}
     requiresBuild: true
     peerDependencies:
@@ -107,7 +107,7 @@ packages:
       karma-sourcemap-loader: 0.4.0
       protobufjs: 6.8.8
       source-map-support: 0.5.9
-      tsutils: 3.21.0(typescript@4.9.5)
+      tsutils: 3.21.0(typescript@5.0.4)
     transitivePeerDependencies:
       - typescript
     dev: true
@@ -126,7 +126,7 @@ packages:
     resolution: {integrity: sha512-7CRtjP9W3ywX6AvTAzV5is0LrXt3zxUSW5SzUGa+LhdsrDc3+VDyW7MOJlwMai2xmBb4J1tqaZKo8KSlr2H2tg==}
     dev: true
 
-  /@bazel/typescript@4.6.2(typescript@4.9.5):
+  /@bazel/typescript@4.6.2(typescript@5.0.4):
     resolution: {integrity: sha512-AUF7kq82bP6DX9Brihr/eQqvNccxVfSXosFxt80h94og5cmMyoc/euXha6rxlOBP3yWXmSo+/qjzO7o8PWJduQ==}
     deprecated: This package is from build_bazel_rules_nodejs which is no longer maintained. Consider using https://github.com/aspect-build/rules_ts instead.
     hasBin: true
@@ -138,8 +138,8 @@ packages:
       protobufjs: 6.8.8
       semver: 5.6.0
       source-map-support: 0.5.9
-      tsutils: 3.21.0(typescript@4.9.5)
-      typescript: 4.9.5
+      tsutils: 3.21.0(typescript@5.0.4)
+      typescript: 5.0.4
     dev: true
 
   /@bazel/worker@4.6.2:
@@ -1572,13 +1572,13 @@ packages:
     engines: {node: '>=0.6'}
     dev: true
 
-  /tsickle@0.46.3(typescript@4.9.5):
+  /tsickle@0.46.3(typescript@5.0.4):
     resolution: {integrity: sha512-9PDXxOrtn2AdpvDin6FLGveXVGg8ec3ga8fh8mPR5lz9KtitW6riVgxgagicdfF1rgiBxDeH+5hVowPXhmZbYQ==}
     peerDependencies:
       typescript: ~4.7.2
     dependencies:
       '@types/minimist': 1.2.2
-      typescript: 4.9.5
+      typescript: 5.0.4
     dev: true
 
   /tslib@1.14.1:
@@ -1589,14 +1589,14 @@ packages:
     resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
     dev: true
 
-  /tsutils@3.21.0(typescript@4.9.5):
+  /tsutils@3.21.0(typescript@5.0.4):
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     dependencies:
       tslib: 1.14.1
-      typescript: 4.9.5
+      typescript: 5.0.4
     dev: true
 
   /type-is@1.6.18:
@@ -1613,9 +1613,9 @@ packages:
     hasBin: true
     dev: true
 
-  /typescript@4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
+  /typescript@5.0.4:
+    resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
+    engines: {node: '>=12.20'}
     hasBin: true
     dev: true
 
