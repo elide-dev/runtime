@@ -285,9 +285,9 @@ http_archive(
 
 http_archive(
     name = "com_github_google_flatbuffers",
-    sha256 = "b6fc51763d17d3df6968e5db931561005a5decefec61382dbc90ce00597f74b9",
-    strip_prefix = "flatbuffers-4c71f87619438a9bdf0001dbab9ef12370033698",
-    urls = ["https://github.com/google/flatbuffers/archive/4c71f87619438a9bdf0001dbab9ef12370033698.tar.gz"],
+    sha256 = "3c0c270c3db1abdde88ebd57f7be68b447a752da5a71dd0b44f12a001a4807bb",
+    strip_prefix = "flatbuffers-197ae6cc7e52c8370b32d0b203a0c603eacc4f07",
+    urls = ["https://github.com/google/flatbuffers/archive/197ae6cc7e52c8370b32d0b203a0c603eacc4f07.tar.gz"],
 )
 
 http_archive(
