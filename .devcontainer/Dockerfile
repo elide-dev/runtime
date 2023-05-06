@@ -1,4 +1,4 @@
-FROM us-docker.pkg.dev/elide-fw/tools/codespace@sha256:3271a9cbb8026aefd75436492ccba95491d8b6b4f8a62ed243b3b8f36172cf9d
+FROM us-docker.pkg.dev/elide-fw/tools/codespace@sha256:c747a6727ff61e64afada3380bcc6389cd7e38e101a5a94805f270fb49333f9f
 
 ## install binaryen
 ADD install-binaryen.sh /tmp/install-binaryen.sh
