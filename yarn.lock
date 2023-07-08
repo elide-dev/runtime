@@ -1158,10 +1158,10 @@ protobufjs@6.8.8:
     "@types/node" "^10.1.0"
     long "^4.0.0"
 
-protobufjs@7.2.0:
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-7.2.0.tgz#ca6b1ceb9a9efe21186ba96178089ec563011a5e"
-  integrity sha512-hYCqTDuII4iJ4stZqiuGCSU8xxWl5JeXYpwARGtn/tWcKCAro6h3WQz+xpsNbXW0UYqpmTQFEyFWO0G0Kjt64g==
+protobufjs@7.2.4:
+  version "7.2.4"
+  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-7.2.4.tgz#3fc1ec0cdc89dd91aef9ba6037ba07408485c3ae"
+  integrity sha512-AT+RJgD2sH8phPmCf7OUZR8xGdcJRga4+1cOaXJ64hvcSkVhNcRHOwIxUatPH15+nj59WAGTDv3LSGZPEQbJaQ==
   dependencies:
     "@protobufjs/aspromise" "^1.1.2"
     "@protobufjs/base64" "^1.1.2"
