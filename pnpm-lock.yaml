@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 devDependencies:
   '@bazel/buildifier':
     specifier: 5.1.0
@@ -56,8 +60,8 @@ devDependencies:
     specifier: 0.4.0
     version: 0.4.0
   protobufjs:
-    specifier: 7.2.0
-    version: 7.2.0
+    specifier: 7.2.4
+    version: 7.2.4
   source-map-support:
     specifier: 0.5.21
     version: 0.5.21
@@ -1324,8 +1328,8 @@ packages:
       long: 4.0.0
     dev: true
 
-  /protobufjs@7.2.0:
-    resolution: {integrity: sha512-hYCqTDuII4iJ4stZqiuGCSU8xxWl5JeXYpwARGtn/tWcKCAro6h3WQz+xpsNbXW0UYqpmTQFEyFWO0G0Kjt64g==}
+  /protobufjs@7.2.4:
+    resolution: {integrity: sha512-AT+RJgD2sH8phPmCf7OUZR8xGdcJRga4+1cOaXJ64hvcSkVhNcRHOwIxUatPH15+nj59WAGTDv3LSGZPEQbJaQ==}
     engines: {node: '>=12.0.0'}
     requiresBuild: true
     dependencies:
