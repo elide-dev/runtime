@@ -63,7 +63,7 @@ def junit_jupiter_java_repositories(
                 artifact_id,
                 version,
             ),
-            server_urls = ["https://repo1.maven.org/maven2"],
+            server_urls = ["https://maven.pkg.st"],
             licenses = ["notice"],  # EPL 2.0 License
         )
 
@@ -71,7 +71,7 @@ def junit_jupiter_java_repositories(
         jvm_maven_import_external(
             name = _format_maven_jar_name(t[0], t[1]),
             artifact = "%s:%s:%s" % t,
-            server_urls = ["https://repo1.maven.org/maven2"],
+            server_urls = ["https://maven.pkg.st"],
             licenses = ["notice"],  # EPL 2.0 License
         )
 
@@ -86,7 +86,7 @@ def junit_platform_java_repositories(
                 artifact_id,
                 version,
             ),
-            server_urls = ["https://repo1.maven.org/maven2"],
+            server_urls = ["https://maven.pkg.st"],
             licenses = ["notice"],  # EPL 2.0 License
         )
 

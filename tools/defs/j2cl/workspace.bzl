@@ -7,7 +7,7 @@ load("@io_bazel_rules_closure//closure:repositories.bzl", "rules_closure_depende
 load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories")
 load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_register_toolchains")
 
-_MAVEN_CENTRAL_URLS = ["https://repo1.maven.org/maven2/"]
+_MAVEN_CENTRAL_URLS = ["https://maven.pkg.st/"]
 
 def setup_j2cl_workspace(kotlin_compiler = None, kotlin_toolchain = None, **kwargs):
     """Load all dependencies needed for J2CL."""
