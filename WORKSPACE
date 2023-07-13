@@ -103,8 +103,8 @@ http_archive(
 
 http_archive(
     name = "typescript",
-    sha256 = "ef620f5bb00702cc2cdc008119e66f5ff3b6ce0d66e08acfae7767fdfb79c8ac",
     build_file = "microsoft/typescript.bzl",
+    sha256 = "ef620f5bb00702cc2cdc008119e66f5ff3b6ce0d66e08acfae7767fdfb79c8ac",
     strip_prefix = "TypeScript-1c822c42a4d527c2f97a27cf1d5cfe2e5558e280",
     urls = [
         "https://github.com/microsoft/typescript/archive/1c822c42a4d527c2f97a27cf1d5cfe2e5558e280.tar.gz",
@@ -133,7 +133,7 @@ java_import_external(
     name = "org_graalvm_sdk",
     jar_sha256 = "6d3994e14cadba8ffb4b431899266dd19e84c7543eaf9190a0e530bc79dfaed1",
     jar_urls = [
-        "https://repo1.maven.org/maven2/org/graalvm/sdk/graal-sdk/%s/graal-sdk-%s.jar" % (GRAALVM_VERSION, GRAALVM_VERSION),
+        "https://maven.pkg.st/org/graalvm/sdk/graal-sdk/%s/graal-sdk-%s.jar" % (GRAALVM_VERSION, GRAALVM_VERSION),
     ],
 )
 
@@ -218,7 +218,7 @@ java_import_external(
     name = "com_google_guava",
     jar_sha256 = guava_sha256,
     jar_urls = [
-        "https://repo1.maven.org/maven2/com/google/guava/guava/%s-jre/guava-%s-jre.jar" % (guava_version, guava_version),
+        "https://maven.pkg.st/com/google/guava/guava/%s-jre/guava-%s-jre.jar" % (guava_version, guava_version),
     ],
     licenses = ["notice"],
     exports = [
@@ -234,7 +234,7 @@ java_import_external(
     name = "com_google_guava_failure_access",
     jar_sha256 = "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
     jar_urls = [
-        "https://repo1.maven.org/maven2/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",
+        "https://maven.pkg.st/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",
     ],
     licenses = ["notice"],
 )
@@ -271,7 +271,7 @@ java_import_external(
     name = "com_google_jsinterop_annotations",
     jar_sha256 = "b2cc45519d62a1144f8cd932fa0c2c30a944c3ae9f060934587a337d81b391c8",
     jar_urls = [
-        "https://repo1.maven.org/maven2/com/google/jsinterop/jsinterop-annotations/1.0.1/jsinterop-annotations-1.0.1.jar",
+        "https://maven.pkg.st/com/google/jsinterop/jsinterop-annotations/1.0.1/jsinterop-annotations-1.0.1.jar",
     ],
     licenses = ["notice"],  # GWT Terms
 )
@@ -490,7 +490,7 @@ node_repositories(
     ],
 )
 
-load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install", "npm_install")
+load("@build_bazel_rules_nodejs//:index.bzl", "npm_install", "yarn_install")
 
 yarn_install(
     name = "npm",
@@ -513,6 +513,7 @@ THIRD_PARTY_ARTIFACTS = (
 )
 
 MAVEN_REPOSITORIES = [
+    "https://maven.pkg.st/",
     "https://repo1.maven.org/maven2",
     "https://elide-snapshots.storage-download.googleapis.com/repository/v3/",
 ]
@@ -524,13 +525,14 @@ maven_install(
     fetch_javadoc = True,
     fetch_sources = True,
     generate_compat_repositories = True,
+    maven_install_json = "@//:maven_install.json",
     repositories = MAVEN_REPOSITORIES,
     strict_visibility = True,
     version_conflict_policy = "pinned",
-    maven_install_json = "@//:maven_install.json",
 )
 
 load("@maven//:defs.bzl", "pinned_maven_install")
+
 pinned_maven_install()
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
@@ -628,7 +630,6 @@ rules_rust_dependencies()
 
 rust_register_toolchains(
     edition = RUST_EDITION,
-    version = RUST_VERSION,
     extra_target_triples = [
         "x86_64-apple-darwin",
         "x86_64-unknown-linux-gnu",
@@ -636,6 +637,7 @@ rust_register_toolchains(
         "wasm32-unknown-unknown",
         "wasm32-wasi",
     ],
+    version = RUST_VERSION,
 )
 
 rust_repository_set(
