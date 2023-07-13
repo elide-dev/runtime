@@ -57,7 +57,7 @@ jobs:
       - name: "Setup: Checkout"
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
       - name: "Setup: GraalVM (Java ${{ vars.JVM_VERSION }})"
-        uses: graalvm/setup-graalvm@babc303d7e5b8f3062a94b90b49c3444cf291633 # v1
+        uses: graalvm/setup-graalvm@8ae40e7db98195001fcd3e4d5fbecae827196940 # v1
         with:
           components: "native-image,js"
           version: '22.3.1'
