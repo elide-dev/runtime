@@ -60,8 +60,8 @@ jobs:
         uses: graalvm/setup-graalvm@babc303d7e5b8f3062a94b90b49c3444cf291633 # v1
         with:
           components: "native-image,js"
-          version: ${{ vars.GVM_VERSION }}
-          java-version: ${{ vars.JVM_VERSION }}
+          version: '22.3.1'
+          java-version: ${{ vars.JVM_VERSION || '19' }}
           check-for-updates: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - id: "auth"
