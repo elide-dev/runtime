@@ -66,7 +66,7 @@ KOTLIN_SDK_VERSION = "1.7.22"
 ## ------------------------------------
 ## Sets the Kotlin compiler version to use.
 ## Repo to query: `@com_github_jetbrains_kotlin`
-KOTLIN_COMPILER_VERSION = "1.7.22"
+KOTLIN_COMPILER_VERSION = KOTLIN_SDK_VERSION
 
 ## Kotlin compiler fingerprint.
 ## ------------------------------------

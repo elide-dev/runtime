@@ -146,6 +146,13 @@ http_archive(
 )
 
 http_archive(
+    name = "google_bazel_common",
+    sha256 = "22bfc8de051be2f3c9f64fecb6d3ca195c49bdd7edb983f74b2c481ab604bf8b",
+    strip_prefix = "bazel-common-340a5edaf011f76568a6351984e090a8b202ebd6",
+    urls = ["https://github.com/google/bazel-common/archive/340a5edaf011f76568a6351984e090a8b202ebd6.zip"],
+)
+
+http_archive(
     name = "bazel_skylib",
     sha256 = "66ffd9315665bfaafc96b52278f57c7e2dd09f5ede279ea6d39b2be471e7e3aa",
     urls = [
@@ -337,6 +344,10 @@ http_archive(
 )
 
 ## -- Dependency Setup -- ##
+
+load("@google_bazel_common//:workspace_defs.bzl", "google_common_workspace_rules")
+
+google_common_workspace_rules()
 
 # toolchains
 
