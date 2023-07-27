@@ -1,0 +1,22 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load(
+    "//tools:defs.bzl",
+    "ts_library",
+)
+
+ts_library(
+    name = "express",
+    srcs = [
+        "core.d.ts",
+        "express.d.ts",
+    ],
+    module = "@elide/runtime/js/intrinsics/node",
+)
+
+alias(
+    name = "node",
+    actual = "express",
+)
