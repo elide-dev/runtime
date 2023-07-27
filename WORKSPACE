@@ -255,9 +255,9 @@ http_archive(
 
 http_archive(
     name = "com_google_elemental2",
-    sha256 = "f1d5966d24917ba124c5608374011aa947b9c086dbf082c435dabb939c84ce5f",
-    strip_prefix = "elemental2-498812d0e51fa35352ce2e5c15d88a1ad77763b3",
-    url = "https://github.com/google/elemental2/archive/498812d0e51fa35352ce2e5c15d88a1ad77763b3.tar.gz",
+    sha256 = "f659a94b1549e82a70b89b7a53ed9dc4a1c526117548bf527802c70d8efc9e3f",
+    strip_prefix = "elemental2-fa6f03b5156b6056601f02702105c30f14a3ce4b",
+    url = "https://github.com/google/elemental2/archive/fa6f03b5156b6056601f02702105c30f14a3ce4b.tar.gz",
 )
 
 http_archive(
