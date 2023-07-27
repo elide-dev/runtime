@@ -24,6 +24,64 @@ export interface Base64 {
 }
 
 /**
+ * ## API: RandomSource
+ *
+ * Defines the API surface of a random source, which is used to generate random bytes and UUIDs in a secure manner.
+ * This interface is a subset of the Web Crypto API `RandomSource` interface.
+ */
+export interface RandomSource {
+    /**
+     * TBD.
+     */
+    getRandomValues<T extends ArrayBufferView>(array: T): T;
+
+    /**
+     * TBD.
+     */
+    getRandomValues(array: Uint8Array): Uint8Array;
+
+    /**
+     * TBD.
+     */
+    getRandomValues(array: Uint16Array): Uint16Array;
+
+    /**
+     * TBD.
+     */
+    getRandomValues(array: Uint32Array): Uint32Array;
+
+    /**
+     * TBD.
+     */
+    getRandomValues(array: Int8Array): Int8Array;
+
+    /**
+     * TBD.
+     */
+    getRandomValues(array: Int16Array): Int16Array;
+
+    /**
+     * TBD.
+     */
+    getRandomValues(array: Int32Array): Int32Array;
+
+    /**
+     * TBD.
+     */
+    randomUuid(): string;
+}
+
+/**
+ * ## API: Crypto
+ *
+ * Top-level API interface for the Web Crypto API. Includes methods for generating raw bytes, and obtaining random UUIDs
+ * generated in a secure manner.
+ */
+export interface Crypto extends RandomSource {
+
+}
+
+/**
  * # API: Console
  *
  * Defines the surface of the Console API for Elide. Elide's console intrinsics are standards-compliant with the WhatWG
