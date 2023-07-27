@@ -78,6 +78,7 @@ runtime_dist(
     modules = [
         "//elide/runtime/js/modules/%s" % m for m in [
             "buffer",
+            "express",
             "fs",
         ]
     ],
