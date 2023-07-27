@@ -8,20 +8,14 @@ build --config=buildless
 
 build:buildless --remote_cache=https://bazel.less.build/cache/generic
 build:buildless --remote_timeout=300s
+build:buildless --remote_download_toplevel
+build:buildless --experimental_remote_cache_compression
 
 build:disk-cache --disk_cache=~/.cache/bazel
 
-build:remote-cache --remote_cache=grpcs://remote.buildbuddy.io
-build:remote-cache --remote_download_toplevel
-
-build:remote-cache --experimental_remote_cache_compression
-build:remote-cache --experimental_remote_cache_async
-
-build --experimental_remote_cache_async=true
 build --modify_execution_info=PackageTar=+no-remote
 build --experimental_remote_merkle_tree_cache
 build --remote_local_fallback
 build --incompatible_remote_results_ignore_disk
 build --noexperimental_check_output_files
 build --incompatible_default_to_explicit_init_py
-
