@@ -12,8 +12,8 @@ devDependencies:
     specifier: 5.1.0
     version: 5.1.0
   '@bazel/concatjs':
-    specifier: 4.6.2
-    version: 4.6.2(karma-chrome-launcher@3.2.0)(karma-firefox-launcher@2.1.2)(karma-jasmine@5.1.0)(karma-junit-reporter@2.0.1)(karma-requirejs@1.1.0)(karma-sourcemap-loader@0.4.0)(karma@6.4.2)(typescript@4.9.5)
+    specifier: 5.8.1
+    version: 5.8.1(karma-chrome-launcher@3.2.0)(karma-firefox-launcher@2.1.2)(karma-jasmine@5.1.0)(karma-junit-reporter@2.0.1)(karma-requirejs@1.1.0)(karma-sourcemap-loader@0.4.0)(karma@6.4.2)(typescript@4.9.5)
   '@bazel/esbuild':
     specifier: 4.6.2
     version: 4.6.2
@@ -90,8 +90,9 @@ packages:
     hasBin: true
     dev: true
 
-  /@bazel/concatjs@4.6.2(karma-chrome-launcher@3.2.0)(karma-firefox-launcher@2.1.2)(karma-jasmine@5.1.0)(karma-junit-reporter@2.0.1)(karma-requirejs@1.1.0)(karma-sourcemap-loader@0.4.0)(karma@6.4.2)(typescript@4.9.5):
-    resolution: {integrity: sha512-5wpASLPgWU+ti7+/iHquym0mY1lFZkkNUlHPzCjSOBolzdSWO9yFO/S5k2agzULNbNrZInI9IErakyc6K3xvog==}
+  /@bazel/concatjs@5.8.1(karma-chrome-launcher@3.2.0)(karma-firefox-launcher@2.1.2)(karma-jasmine@5.1.0)(karma-junit-reporter@2.0.1)(karma-requirejs@1.1.0)(karma-sourcemap-loader@0.4.0)(karma@6.4.2)(typescript@4.9.5):
+    resolution: {integrity: sha512-TkARsNUxgi3bjFeGwIGlffmQglNhuR9qK9uE7uKhdBZvQE5caAWVCjYiMTzo3viKDhwKn5QNRcHY5huuJMVFfA==}
+    hasBin: true
     requiresBuild: true
     peerDependencies:
       karma: '>=4.0.0'
