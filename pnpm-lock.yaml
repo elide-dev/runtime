@@ -15,8 +15,8 @@ devDependencies:
     specifier: 4.6.2
     version: 4.6.2(karma-chrome-launcher@3.2.0)(karma-firefox-launcher@2.1.2)(karma-jasmine@5.1.0)(karma-junit-reporter@2.0.1)(karma-requirejs@1.1.0)(karma-sourcemap-loader@0.4.0)(karma@6.4.2)(typescript@4.9.5)
   '@bazel/esbuild':
-    specifier: 4.6.2
-    version: 4.6.2
+    specifier: 5.8.1
+    version: 5.8.1
   '@bazel/ibazel':
     specifier: 0.16.2
     version: 0.16.2
@@ -116,8 +116,8 @@ packages:
       - typescript
     dev: true
 
-  /@bazel/esbuild@4.6.2:
-    resolution: {integrity: sha512-VqmeIlEDq7tVNpIk88zS3DZSAV1F1VN92IBPekKuQqIU6PTt3+iID/v4lkK80SwFBthF4pi/PG0PPaulIe/qGA==}
+  /@bazel/esbuild@5.8.1:
+    resolution: {integrity: sha512-8k4LL8P3ivCnFeBOcjiFxL8U+M5VtEGuOyIqm2hfEiP8xDWsZLS7YQ7KhshKJy7Elh2dlK9oGgMtl0D/x9kxxg==}
     requiresBuild: true
     dev: true
 
