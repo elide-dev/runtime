@@ -6,8 +6,8 @@ settings:
 
 devDependencies:
   '@bazel/buildifier':
-    specifier: 5.1.0
-    version: 5.1.0
+    specifier: 6.1.2
+    version: 6.1.2
   '@bazel/buildozer':
     specifier: 6.1.2
     version: 6.1.2
@@ -80,8 +80,8 @@ devDependencies:
 
 packages:
 
-  /@bazel/buildifier@5.1.0:
-    resolution: {integrity: sha512-gO0+//hkH+iE3AQ02mYttJAcWiE+rapP8IxmstDhwSqs+CmZJJI8Q1vAaIvMyJUT3NIf7lGljRNpzclkCPk89w==}
+  /@bazel/buildifier@6.1.2:
+    resolution: {integrity: sha512-psKePmRkP6acwyePOhXP67R/wdwN7BGJxHqp1j5myaO24feMsaXyyiO+oW49x8YAwOpKVSCujVzkTwX2auAc0A==}
     hasBin: true
     dev: true
 

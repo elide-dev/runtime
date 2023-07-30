@@ -4,7 +4,7 @@
   "version": "1.0.0-alpha1",
   "description": "Runtime userland intrinsics for Elide",
   "devDependencies": {
-    "@bazel/buildifier": "5.1.0",
+    "@bazel/buildifier": "6.1.2",
     "@bazel/buildozer": "6.1.2",
     "@bazel/concatjs": "4.6.2",
     "@bazel/esbuild": "4.6.2",
