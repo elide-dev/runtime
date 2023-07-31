@@ -31,7 +31,7 @@ serde = { version = "1.0", optional = true, features = ["derive"] }
 serde_json = { version = "1.0", optional = true }
 serde-wasm-bindgen = "0.4"
 workers = "0.1.0"
-flatbuffers = "22.10.26"
+flatbuffers = "23.5.26"
 protobuf = "3.2.0"
 jni = "0.20.0"
 js-sys = "0.3.60"
