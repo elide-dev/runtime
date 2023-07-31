@@ -6,7 +6,7 @@
   "devDependencies": {
     "@bazel/buildifier": "6.1.2",
     "@bazel/buildozer": "6.1.2",
-    "@bazel/concatjs": "4.6.2",
+    "@bazel/concatjs": "5.8.1",
     "@bazel/esbuild": "4.6.2",
     "@bazel/ibazel": "0.16.2",
     "@bazel/labs": "4.6.1",
