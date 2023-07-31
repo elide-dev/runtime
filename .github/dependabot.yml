@@ -8,3 +8,43 @@ updates:
       interval: "daily"
     assignees:
       - "sgammon"
+
+  - package-ecosystem: docker
+    directory: /.devcontainer
+    schedule:
+      interval: daily
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: cargo
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /elide/runtime/js/modules/buffer
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /elide/runtime/js/modules/express
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /elide/runtime/js/modules/fs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
