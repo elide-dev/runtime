@@ -29,7 +29,7 @@ wasm-bindgen-futures = "0.4.33"
 wasm-bindgen-macro = "0.2.83"
 serde = { version = "1.0", optional = true, features = ["derive"] }
 serde_json = { version = "1.0", optional = true }
-serde-wasm-bindgen = "0.4"
+serde-wasm-bindgen = "0.6"
 workers = "0.1.0"
 flatbuffers = "22.10.26"
 protobuf = "3.2.0"
