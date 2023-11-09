@@ -33,7 +33,7 @@ serde-wasm-bindgen = "0.4"
 workers = "0.1.0"
 flatbuffers = "22.10.26"
 protobuf = "3.2.0"
-jni = "0.20.0"
+jni = "0.21.1"
 js-sys = "0.3.60"
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
