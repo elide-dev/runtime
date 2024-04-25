@@ -59,3 +59,18 @@ TS_MODULES = ["%s:%s" % (TS_MODULE_PACKAGE, t) for t in [
     # General Modules
     "//elide/runtime/js/bridge:js-error",
 ]
+
+## Node Builtins
+## -------------
+## Registers each Node API built-in module.
+NODE_BUILTINS = [
+    "assert",
+    "buffer",
+    "express",
+    "fs",
+    "inspector",
+    "os",
+    "path",
+    "process",
+    "util",
+]

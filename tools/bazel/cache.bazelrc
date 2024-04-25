@@ -4,7 +4,6 @@
 #
 
 build --config=disk-cache
-build --config=buildless
 
 build:buildless --remote_cache=https://bazel.less.build/cache/generic
 build:buildless --remote_timeout=300s

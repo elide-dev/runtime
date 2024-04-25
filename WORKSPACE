@@ -345,9 +345,9 @@ http_archive(
 
 ## -- Dependency Setup -- ##
 
-load("@google_bazel_common//:workspace_defs.bzl", "google_common_workspace_rules")
+#load("@google_bazel_common//:workspace_defs.bzl", "google_common_workspace_rules")
 
-google_common_workspace_rules()
+#google_common_workspace_rules()
 
 # toolchains
 

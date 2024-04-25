@@ -7,12 +7,9 @@ load(
 )
 
 js_module(
-    name = "fs",
+    name = "assert",
     srcs = [
-        "fs.ts",
+        "assert.ts",
         "index.ts",
-    ],
-    deps = [
-        "//elide/runtime/js/modules/path",
     ],
 )

@@ -1,0 +1,12 @@
+{
+  "name": "assert",
+  "type": "module",
+  "module": "assert.mjs",
+  "main": "assert.cjs",
+  "exports": {
+    ".": {
+      "import": "./assert.mjs",
+      "require": "./assert.cjs"
+    }
+  }
+}

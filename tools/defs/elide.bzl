@@ -164,12 +164,24 @@ def _js_module(
             output = "%s.mjs" % (module or name),
             sourcemap = "external",
             target = _JS_TARGET,
+            config = "//elide/runtime/js/modules:esbuild-config",
+        )
+        _esbuild(
+            name = "%s.jsopt.cjs" % name,
+            srcs = js_srcs + srcs,
+            entry_point = entry_point,
+            format = "cjs",
+            output = "%s.cjs" % (module or name),
+            sourcemap = "external",
+            target = _JS_TARGET,
+            config = "//elide/runtime/js/modules:esbuild-config",
         )
         native.filegroup(
             name = "%s_module_src" % name,
             srcs = [
                 package_json,
                 "%s.mjs" % name,
+                "%s.cjs" % name,
             ],
         )
     else:
@@ -230,13 +242,13 @@ def _js_module(
     _pkg_filegroup(
         name = "%s.tarfilegroup" % name,
         srcs = [":%s.tarfiles" % name],
-        prefix = "node_modules/%s/" % (module or name),
+        prefix = "__runtime__/%s/" % (module or name),
     )
     _pkg_tar(
         name = "%s.tarball" % name,
         out = "%s.tar" % name,
         srcs = [":%s_module_src" % name],
-        package_dir = "node_modules/%s/" % (module or name),
+        package_dir = "__runtime__/%s/" % (module or name),
     )
     native.alias(
         name = name,
@@ -436,6 +448,7 @@ def _runtime_dist(name, language, target, manifest, info = [], configs = [], mod
         _pkg_tar(
             name = "%s.modules" % language,
             out = "%s.modules.tar.gz" % language,
+            extension = "tar.gz",
             srcs = modules,
         )
         outs.append(":%s.modules" % language)
@@ -460,7 +473,7 @@ def _runtime_dist(name, language, target, manifest, info = [], configs = [], mod
 
     _pkg_tar(
         name = "dist-all",
-        out = "%s.dist-all.tar.gz" % language,
+        out = "%s.dist-all.tar" % language,
         srcs = [":distributions"],
     )
     native.filegroup(

@@ -1,0 +1,12 @@
+load(
+    "//tools/defs/esbuild:exports.bzl",
+    "esbuild_config",
+)
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+esbuild_config(
+  name = "esbuild-config",
+  config_file = "esbuild.config.js",
+)

@@ -7,5 +7,6 @@
 /**
  * Export the intrinsic `Buffer` type as the main export, and also an export called `Buffer`.
  */
-export const Buffer = "hi";
+export const Buffer = globalThis['Buffer'];
+
 export default Buffer;

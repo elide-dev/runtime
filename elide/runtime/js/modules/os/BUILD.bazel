@@ -7,12 +7,9 @@ load(
 )
 
 js_module(
-    name = "fs",
+    name = "os",
     srcs = [
-        "fs.ts",
+        "os.ts",
         "index.ts",
-    ],
-    deps = [
-        "//elide/runtime/js/modules/path",
     ],
 )

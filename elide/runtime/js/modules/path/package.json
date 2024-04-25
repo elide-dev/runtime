@@ -1,0 +1,12 @@
+{
+  "name": "path",
+  "type": "module",
+  "main": "path.cjs",
+  "module": "path.mjs",
+  "exports": {
+    ".": {
+      "import": "./path.mjs",
+      "require": "./path.cjs"
+    }
+  }
+}
