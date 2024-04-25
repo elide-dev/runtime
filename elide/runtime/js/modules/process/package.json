@@ -1,0 +1,12 @@
+{
+  "name": "process",
+  "type": "module",
+  "main": "process.cjs",
+  "module": "process.mjs",
+  "exports": {
+    ".": {
+      "import": "./process.mjs",
+      "require": "./process.cjs"
+    }
+  }
+}

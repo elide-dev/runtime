@@ -1,6 +1,16 @@
 {
   "name": "fs",
   "type": "module",
-  "module": "fs",
-  "main": "fs.mjs"
+  "module": "fs.mjs",
+  "main": "fs.cjs",
+  "exports": {
+    "./promises": {
+      "import": "./fs/promises.mjs",
+      "require": "./fs/promises.cjs"
+    },
+    ".": {
+      "import": "./fs.mjs",
+      "require": "./fs.cjs"
+    }
+  }
 }

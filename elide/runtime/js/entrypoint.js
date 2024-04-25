@@ -15,7 +15,7 @@ goog.require('elide.runtime.js.intrinsics.url.URL');
  * Type structure of a Node process object.
  *
  * @typedef {{
- *   cwd: (function(): string),
+ *   cwd: string,
  *   NODE_DEBUG: boolean,
  *   noDeprecation: boolean,
  *   browser: boolean,
@@ -28,22 +28,69 @@ goog.require('elide.runtime.js.intrinsics.url.URL');
 let NodeProcess;
 
 /**
- * Global Node.js-style `process` object.
+ * Type structure of a Node process with extra Elide-provided properties.
  *
- * @type {!NodeProcess}
- */
-const process = {
-    'pid': -1,
-    'cwd': () => "",
-    'env': {},
-    'NODE_DEBUG': false,
-    'NODE_ENV': "production",
-    'noDeprecation': false,
-    'browser': false,
-    'version': 'v18.9.0'
-};
+ * @typedef {NodeProcess}
+*/
+let EnhancedNodeProcess;
 
-globalThis['process'] = process;
+/**
+ * Global symbol where application environment is injected.
+ *
+ * @const
+ * @type {!string}
+ */
+const APP_ENV = '__Elide_app_env__';
+
+/**
+ * Global symbol where Elide version is injected.
+ *
+ * @const
+ * @type {!string}
+ */
+const RUNTIME_VERSION = '__Elide_version__';
+
+/**
+ * Global symbol where the intrinsic process object is injected.
+ *
+ * @const
+ * @type {!string}
+ */
+const RUNTIME_PROCESS = '__Elide_node_process__';
+
+/**
+ * Application environment injected by the Elide runtime.
+ *
+ * @type {!Object<string, !string>}
+ */
+const injectedApplicationEnvironment = globalThis[APP_ENV];
+
+/**
+ * Elide version provided by the runtime.
+ *
+ * @type {!string}
+ */
+const elideVersion = globalThis[RUNTIME_VERSION];
+
+/**
+ * Intrinsic process object, injected by the runtime.
+ *
+ * @type {!EnhancedNodeProcess}
+ */
+const intrinsicProcess = globalThis[RUNTIME_PROCESS];
+
+/**
+ * Return the Node Process API to use.
+ *
+ * @returns {!EnhancedNodeProcess}
+ */
+function nodeProcessAPI() {
+    if (!intrinsicProcess) {
+        throw new Error('Node process API is not available.');
+    }
+    return intrinsicProcess;
+}
+
 globalThis['window'] = undefined;
 globalThis['gc'] = null;
 
@@ -60,18 +107,32 @@ globalThis['self'] = App;
  * Global Elide object.
  *
  * @type {{
- *   process: !NodeProcess,
- *   context: {build: boolean, runtime: boolean},
- *   self: *
+ *   version: !string,
+ *   process: !EnhancedNodeProcess,
+ *   context: {build: boolean, runtime: boolean}
  * }}
  */
 const Elide = {
-    'process': process,
-    'self': globalThis,
+    'process': nodeProcessAPI(),
+    'version': elideVersion,
     'context': {
         'build': false,
         'runtime': true
     },
-    'App': App,
 };
+
 globalThis['Elide'] = Elide;
+
+/**
+ * Global process proxy object.
+ *
+ * @type {!EnhancedNodeProcess}
+ */
+const process = /** @type {!EnhancedNodeProcess} */ ({
+    'pid': Elide.process.pid,
+    'cwd': Elide.process.cwd,
+    'env': Elide.process.env,
+    ...(Elide.process || {}),
+});
+
+globalThis['process'] = process;

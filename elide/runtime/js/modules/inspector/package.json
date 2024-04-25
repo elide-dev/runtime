@@ -1,0 +1,12 @@
+{
+  "name": "inspector",
+  "type": "module",
+  "module": "inspector.mjs",
+  "main": "inspector.cjs",
+  "exports": {
+    ".": {
+      "import": "./inspector.mjs",
+      "require": "./inspector.cjs"
+    }
+  }
+}

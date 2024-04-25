@@ -1,0 +1,12 @@
+{
+  "name": "os",
+  "type": "module",
+  "module": "os.mjs",
+  "main": "os.cjs",
+  "exports": {
+    ".": {
+      "import": "./os.mjs",
+      "require": "./os.cjs"
+    }
+  }
+}

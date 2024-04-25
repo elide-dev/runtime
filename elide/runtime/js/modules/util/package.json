@@ -1,0 +1,12 @@
+{
+  "name": "util",
+  "type": "module",
+  "main": "util.cjs",
+  "module": "util.mjs",
+  "exports": {
+    ".": {
+      "require": "./util.cjs",
+      "import": "./util.mjs"
+    }
+  }
+}

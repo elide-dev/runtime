@@ -1,5 +1,12 @@
 {
   "name": "express",
   "type": "module",
-  "module": "index.mjs"
+  "module": "express.mjs",
+  "main": "express.cjs",
+  "exports": {
+    ".": {
+      "import": "./express.mjs",
+      "require": "./express.cjs"
+    }
+  }
 }

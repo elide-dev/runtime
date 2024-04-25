@@ -16,6 +16,7 @@ load(
     "//elide/runtime/js:config.bzl",
     "BASE_JS_EXTERNS",
     "TS_MODULES",
+    "NODE_BUILTINS",
 )
 
 MODULE_NAME = "elide.runtime.js"
@@ -76,10 +77,6 @@ runtime_dist(
     manifest = "MANIFEST.MF",
     target = ":runtime",
     modules = [
-        "//elide/runtime/js/modules/%s" % m for m in [
-            "buffer",
-            "express",
-            "fs",
-        ]
+        "//elide/runtime/js/modules/%s" % m for m in NODE_BUILTINS
     ],
 )

@@ -1,5 +1,5 @@
-import {Router} from "../../intrinsics/node/core";
+import { Router } from "../../intrinsics/node/core";
 
-export default function express(): Router {
+export function express(): Router {
     return globalThis['express']();
 };
