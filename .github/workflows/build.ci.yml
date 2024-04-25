@@ -72,8 +72,6 @@ jobs:
       - name: "Setup: GraalVM (Java ${{ vars.JVM_VERSION }})"
         uses: graalvm/setup-graalvm@d1891786152ae96fee67f86c3a1eae596291bbed # v1
         with:
-          components: "native-image,js"
-          version: '22.3.1'
           java-version: ${{ vars.JVM_VERSION || '19' }}
           check-for-updates: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
