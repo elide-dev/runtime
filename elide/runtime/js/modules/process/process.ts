@@ -4,7 +4,14 @@
  * Provides a shim which offers a `process` module implementation that is compatible with Node.js-style imports.
  */
 
-const internals: any = globalThis['__Elide_node_process__'];
+function intrinsic(): any {
+  // @ts-expect-error intrinsic symbol
+  const api = __Elide_node_process__;
+  if (!api) {
+    throw new Error(`The 'process' module failed to load the intrinsic API.`);
+  }
+  return api || {};
+}
 
 /**
  * Intrinsic: Process.
@@ -84,7 +91,7 @@ export interface NodeProcessAPI {
 }
 
 function getProcessAPI(): NodeProcessAPI {
-  return internals as NodeProcessAPI || {};
+  return intrinsic() as NodeProcessAPI || {};
 }
 
 /**

@@ -30,6 +30,65 @@ export function access(path: string | Buffer | URL, mode: number = constants.F_O
   console.log('access fs', {path, mode, callback})
 }
 
+/**
+ * Read a file
+ *
+ * Asynchronously reads the entire contents of a file. The encoding option is ignored if data is a buffer.
+ *
+ * @param path Path to the file
+ * @param options Options for reading the file
+ * @param callback Callback function to dispatch with the file contents
+ */
+export function readFile(path: string | Buffer | URL, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void {
+  console.log('readFile fs', {path, options, callback})
+}
+
+/**
+ * Read a file synchronously
+ *
+ * Synchronously reads the entire contents of a file. The encoding option is ignored if data is a buffer.
+ *
+ * @param path Path to the file
+ * @param options Options for reading the file
+ * @returns The file contents
+ */
+export function readFileSync(path: string | Buffer | URL, options: { encoding: string; flag?: string; }): string {
+  console.log('readFileSync fs', {path, options})
+  return ''
+}
+
+/**
+ * Write a file
+ *
+ * Asynchronously writes data to a file, replacing the file if it already exists. data can be a string or a buffer.
+ *
+ * @param path Path to the file
+ * @param data Data to write to the file
+ * @param options Options for writing the file
+ * @param callback Callback function to dispatch with the file contents
+ */
+export function writeFile(path: string | Buffer | URL, data: any, options: { encoding: string; mode?: number; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void {
+  console.log('writeFile fs', {path, data, options, callback})
+}
+
+/**
+ * Write a file synchronously
+ *
+ * Synchronously writes data to a file, replacing the file if it already exists. data can be a string or a buffer.
+ *
+ * @param path Path to the file
+ * @param data Data to write to the file
+ * @param options Options for writing the file
+ */
+export function writeFileSync(path: string | Buffer | URL, data: any, options: { encoding: string; mode?: number; flag?: string; }): void {
+  console.log('writeFileSync fs', {path, data, options})
+}
+
 export default {
   access,
+  constants,
+  readFile,
+  readFileSync,
+  writeFile,
+  writeFileSync,
 };
