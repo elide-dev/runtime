@@ -1,6 +1,6 @@
 """Defines binary distribution endpoints for the Elide CLI."""
 
-_latest_version = "1.0-v3-alpha3-b1"
+_latest_version = "1.0-dev-19838"
 
 _download_domain = "dl.elide.dev"
 
@@ -21,6 +21,14 @@ _elide_version_configs = {
             "darwin-aarch64": "0b4679f57b644aefd11acb794e0044d83f49ddac0ef96e7a1417f36a1a297eba",
             "darwin-amd64": "d18f92effa617405dc18d42c203a02f5ace684095b8253b64201528c1bc26376",
             "linux-amd64": "f1fe32812fc1fa13c48e7ef1d96dfd0698e788767363cdd50edf332a2e1e688b",
+        },
+    },
+    "1.0-dev-19838": {
+        "urls": ["https://static.elide.dev/{version}/{platform}/elide-1.0.0-alpha8-{platform}.zip"],
+        "trim_prefix": "elide-1.0.0-alpha8-{platform}",
+        "sha256": {
+            "darwin-aarch64": "b4323e9f8d954ce5d70ca696948f98cf09a03cbace65b0c4b90ab17e9a8d12fa",
+            "linux-amd64": "79b248d03cc65f95c8140278ab4bb3b0b0fa6d9d74319ca0955c534be124b4f5",
         },
     },
 }
@@ -57,17 +65,26 @@ def _elide_bindist_repository_impl(ctx):
     config = _elide_version_configs[version]
     sha = config["sha256"][platform]
     urls = [url.format(**format_args) for url in config["urls"]]
+    trim_prefix = config.get("trim_prefix", None)
+    trim_prefix = trim_prefix.format(**format_args) if trim_prefix else None
 
     ctx.download_and_extract(
         url = urls,
         sha256 = sha,
+        stripPrefix = trim_prefix,
     )
 
     ctx.file("WORKSPACE", "workspace(name = \"{name}\")".format(name = ctx.name))
     ctx.file("BUILD", """
 package(default_visibility = ["//visibility:public"])
+
 exports_files(["elide"])
-filegroup(name = "elide_cli", srcs = ["elide"])
+
+filegroup(name = "libs", srcs = glob(["*"], exclude = ["elide"]))
+filegroup(name = "resources", srcs = glob(["resources/*"]))
+
+filegroup(name = "cli", srcs = ["elide", ":libs", ":resources"])
+alias(name = "elide_cli", actual = ":elide")
     """)
 
 elide_bindist_repository = repository_rule(
