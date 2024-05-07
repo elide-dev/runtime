@@ -1,0 +1,12 @@
+{
+  "name": "trace_events",
+  "type": "module",
+  "module": "trace_events.mjs",
+  "main": "trace_events.cjs",
+  "exports": {
+    ".": {
+      "import": "./trace_events.mjs",
+      "require": "./trace_events.cjs"
+    }
+  }
+}

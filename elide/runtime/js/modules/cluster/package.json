@@ -1,0 +1,12 @@
+{
+  "name": "cluster",
+  "type": "module",
+  "module": "cluster.mjs",
+  "main": "cluster.cjs",
+  "exports": {
+    ".": {
+      "import": "./cluster.mjs",
+      "require": "./cluster.cjs"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "web",
+  "type": "module",
+  "module": "web.mjs",
+  "main": "web.cjs",
+  "exports": {
+    ".": {
+      "import": "./web.mjs",
+      "require": "./web.cjs"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "crypto",
+  "type": "module",
+  "module": "crypto.mjs",
+  "main": "crypto.cjs",
+  "exports": {
+    ".": {
+      "import": "./crypto.mjs",
+      "require": "./crypto.cjs"
+    }
+  }
+}

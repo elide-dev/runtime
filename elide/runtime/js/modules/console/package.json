@@ -1,0 +1,12 @@
+{
+  "name": "console",
+  "type": "module",
+  "module": "console.mjs",
+  "main": "console.cjs",
+  "exports": {
+    ".": {
+      "import": "./console.mjs",
+      "require": "./console.cjs"
+    }
+  }
+}

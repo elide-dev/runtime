@@ -70,6 +70,8 @@ _RUNTIME_DEFINES.update({
 # Module prefix to apply for JS runtime "modules".
 _JS_MODULE_PREFIX = "@elide/runtime/module"
 
+_ARCHIVE_ROOT_PREFIX = "__runtime__"
+
 _common_js_library_config = {
     "language": _JS_LANGUAGE,
 }
@@ -137,6 +139,7 @@ def _js_module(
         package_json = "package.json",
         entry_point = None,
         module = None,
+        host_module = None,
         js_srcs = [],
         srcs = [],
         deps = [],
@@ -239,16 +242,21 @@ def _js_module(
         name = "%s.tarfiles" % name,
         srcs = [":%s_module_src" % name],
     )
+
+    archive_prefix = "%s/%s/" % (_ARCHIVE_ROOT_PREFIX, module or name)
+    if host_module:
+        archive_prefix = "%s/%s/%s/" % (_ARCHIVE_ROOT_PREFIX, host_module, module or name)
+
     _pkg_filegroup(
         name = "%s.tarfilegroup" % name,
         srcs = [":%s.tarfiles" % name],
-        prefix = "__runtime__/%s/" % (module or name),
+        prefix = archive_prefix,
     )
     _pkg_tar(
         name = "%s.tarball" % name,
         out = "%s.tar" % name,
         srcs = [":%s_module_src" % name],
-        package_dir = "__runtime__/%s/" % (module or name),
+        package_dir = "%s/%s/" % (_ARCHIVE_ROOT_PREFIX, module or name),
     )
     native.alias(
         name = name,

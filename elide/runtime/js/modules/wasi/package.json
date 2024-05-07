@@ -1,0 +1,12 @@
+{
+  "name": "wasi",
+  "type": "module",
+  "module": "wasi.mjs",
+  "main": "wasi.cjs",
+  "exports": {
+    ".": {
+      "import": "./wasi.mjs",
+      "require": "./wasi.cjs"
+    }
+  }
+}

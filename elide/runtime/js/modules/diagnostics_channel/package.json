@@ -1,0 +1,12 @@
+{
+  "name": "diagnostics_channel",
+  "type": "module",
+  "module": "diagnostics_channel.mjs",
+  "main": "diagnostics_channel.cjs",
+  "exports": {
+    ".": {
+      "import": "./diagnostics_channel.mjs",
+      "require": "./diagnostics_channel.cjs"
+    }
+  }
+}

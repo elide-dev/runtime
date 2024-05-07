@@ -1,0 +1,12 @@
+{
+  "name": "https",
+  "type": "module",
+  "module": "https.mjs",
+  "main": "https.cjs",
+  "exports": {
+    ".": {
+      "import": "./https.mjs",
+      "require": "./https.cjs"
+    }
+  }
+}

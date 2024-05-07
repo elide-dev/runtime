@@ -1,0 +1,12 @@
+{
+  "name": "perf_hooks",
+  "type": "module",
+  "module": "perf_hooks.mjs",
+  "main": "perf_hooks.cjs",
+  "exports": {
+    ".": {
+      "import": "./perf_hooks.mjs",
+      "require": "./perf_hooks.cjs"
+    }
+  }
+}

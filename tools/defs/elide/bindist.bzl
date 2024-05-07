@@ -1,8 +1,6 @@
 """Defines binary distribution endpoints for the Elide CLI."""
 
-_latest_version = "1.0-dev-19838"
-
-_download_domain = "dl.elide.dev"
+_latest_version = "1.0.0-alpha8"
 
 _elide_version_configs = {
     "1.0-v3-alpha3-b1": {
@@ -29,6 +27,14 @@ _elide_version_configs = {
         "sha256": {
             "darwin-aarch64": "b4323e9f8d954ce5d70ca696948f98cf09a03cbace65b0c4b90ab17e9a8d12fa",
             "linux-amd64": "79b248d03cc65f95c8140278ab4bb3b0b0fa6d9d74319ca0955c534be124b4f5",
+        },
+    },
+    "1.0.0-alpha8": {
+        "urls": ["https://elide.zip/cli/v1/snapshot/{platform}/{version}/elide-{version}-{platform}.zip"],
+        "trim_prefix": "elide-{version}-{platform}",
+        "sha256": {
+            "darwin-aarch64": "f2d5c3df78af6ccc992f529bfe87567bcdfd4e27564efbd1ef4bbe7ca2526b65",
+            "linux-amd64": "f31db2f789a021a06c083ff8b54b966af9fe4b408d72dca889b940a924fac2d6",
         },
     },
 }

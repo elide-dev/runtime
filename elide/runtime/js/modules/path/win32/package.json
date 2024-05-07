@@ -1,0 +1,12 @@
+{
+  "name": "win32",
+  "type": "module",
+  "module": "win32.mjs",
+  "main": "win32.cjs",
+  "exports": {
+    ".": {
+      "import": "./win32.mjs",
+      "require": "./win32.cjs"
+    }
+  }
+}

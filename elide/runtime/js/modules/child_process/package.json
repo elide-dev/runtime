@@ -1,0 +1,12 @@
+{
+  "name": "child_process",
+  "type": "module",
+  "module": "child_process.mjs",
+  "main": "child_process.cjs",
+  "exports": {
+    ".": {
+      "import": "./child_process.mjs",
+      "require": "./child_process.cjs"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "dns",
+  "type": "module",
+  "module": "dns.mjs",
+  "main": "dns.cjs",
+  "exports": {
+    ".": {
+      "import": "./dns.mjs",
+      "require": "./dns.cjs"
+    }
+  }
+}

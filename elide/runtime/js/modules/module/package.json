@@ -1,0 +1,12 @@
+{
+  "name": "module",
+  "type": "module",
+  "module": "module.mjs",
+  "main": "module.cjs",
+  "exports": {
+    ".": {
+      "import": "./module.mjs",
+      "require": "./module.cjs"
+    }
+  }
+}

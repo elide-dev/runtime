@@ -1,0 +1,12 @@
+{
+  "name": "v8",
+  "type": "module",
+  "module": "v8.mjs",
+  "main": "v8.cjs",
+  "exports": {
+    ".": {
+      "import": "./v8.mjs",
+      "require": "./v8.cjs"
+    }
+  }
+}

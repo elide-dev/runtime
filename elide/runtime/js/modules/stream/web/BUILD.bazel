@@ -1,0 +1,16 @@
+load(
+    "//tools/defs:elide.bzl",
+    "js_module",
+)
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+js_module(
+    name = "web",
+    host_module = "stream",
+    srcs = [
+        "stream-web.ts",
+        "index.ts",
+    ],
+)

@@ -1,0 +1,12 @@
+{
+  "name": "tls",
+  "type": "module",
+  "module": "tls.mjs",
+  "main": "tls.cjs",
+  "exports": {
+    ".": {
+      "import": "./tls.mjs",
+      "require": "./tls.cjs"
+    }
+  }
+}

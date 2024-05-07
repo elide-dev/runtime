@@ -1,0 +1,12 @@
+{
+  "name": "stream",
+  "type": "module",
+  "module": "stream.mjs",
+  "main": "stream.cjs",
+  "exports": {
+    ".": {
+      "import": "./stream.mjs",
+      "require": "./stream.cjs"
+    }
+  }
+}

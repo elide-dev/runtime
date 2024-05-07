@@ -5,8 +5,8 @@
   "main": "fs.cjs",
   "exports": {
     "./promises": {
-      "import": "./fs/promises.mjs",
-      "require": "./fs/promises.cjs"
+      "import": "./promises/promises.mjs",
+      "require": "./promises/promises.cjs"
     },
     ".": {
       "import": "./fs.mjs",

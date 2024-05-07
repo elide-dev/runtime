@@ -1,0 +1,12 @@
+{
+  "name": "string_decoder",
+  "type": "module",
+  "module": "string_decoder.mjs",
+  "main": "string_decoder.cjs",
+  "exports": {
+    ".": {
+      "import": "./string_decoder.mjs",
+      "require": "./string_decoder.cjs"
+    }
+  }
+}
