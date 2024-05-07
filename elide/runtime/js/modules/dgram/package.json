@@ -1,0 +1,12 @@
+{
+  "name": "dgram",
+  "type": "module",
+  "module": "dgram.mjs",
+  "main": "dgram.cjs",
+  "exports": {
+    ".": {
+      "import": "./dgram.mjs",
+      "require": "./dgram.cjs"
+    }
+  }
+}

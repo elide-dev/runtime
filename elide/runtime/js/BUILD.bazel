@@ -1,7 +1,3 @@
-package(
-    default_visibility = ["//visibility:public"],
-)
-
 load(
     "//tools:defs.bzl",
     "js_library",
@@ -18,8 +14,9 @@ load(
     "TS_MODULES",
     "NODE_BUILTINS",
 )
-
-MODULE_NAME = "elide.runtime.js"
+package(
+    default_visibility = ["//visibility:public"],
+)
 
 ## -- Externs & Types -- ##
 

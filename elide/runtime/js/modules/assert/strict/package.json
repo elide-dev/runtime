@@ -1,0 +1,12 @@
+{
+  "name": "strict",
+  "type": "module",
+  "module": "strict.mjs",
+  "main": "strict.cjs",
+  "exports": {
+    ".": {
+      "import": "./strict.mjs",
+      "require": "./strict.cjs"
+    }
+  }
+}

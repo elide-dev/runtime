@@ -1,0 +1,12 @@
+{
+  "name": "worker",
+  "type": "module",
+  "module": "worker.mjs",
+  "main": "worker.cjs",
+  "exports": {
+    ".": {
+      "import": "./worker.mjs",
+      "require": "./worker.cjs"
+    }
+  }
+}

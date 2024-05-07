@@ -1,0 +1,12 @@
+{
+  "name": "posix",
+  "type": "module",
+  "module": "posix.mjs",
+  "main": "posix.cjs",
+  "exports": {
+    ".": {
+      "import": "./posix.mjs",
+      "require": "./posix.cjs"
+    }
+  }
+}

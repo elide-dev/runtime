@@ -1,0 +1,12 @@
+{
+  "name": "tty",
+  "type": "module",
+  "module": "tty.mjs",
+  "main": "tty.cjs",
+  "exports": {
+    ".": {
+      "import": "./tty.mjs",
+      "require": "./tty.cjs"
+    }
+  }
+}

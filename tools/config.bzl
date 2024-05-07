@@ -91,7 +91,7 @@ GO_VERSION = "1.18"
 ## NodeJS version to use.
 ## ------------------------------------
 ## Sets the version of the Node JS runtime to use.
-NODE_VERSION = "16.6.2"
+NODE_VERSION = "21.7.3"
 
 ## Yarn version to use.
 ## ------------------------------------

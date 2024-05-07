@@ -1,0 +1,12 @@
+{
+  "name": "events",
+  "type": "module",
+  "module": "events.mjs",
+  "main": "events.cjs",
+  "exports": {
+    ".": {
+      "import": "./events.mjs",
+      "require": "./events.cjs"
+    }
+  }
+}

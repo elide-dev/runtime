@@ -1,13 +1,47 @@
-package(
-    default_visibility = ["//visibility:public"],
-)
-
 load(
     "//tools:defs.bzl",
     "elide_test",
 )
 
+package(
+    default_visibility = ["//visibility:public"],
+)
+
 ## -- Tests: Main -- ##
+
+JS_RUNTIME_TESTS = [
+    "asserts",
+    "fs",
+    "os",
+    "path",
+]
+
+EXTRA_DATA = {
+    "fs": [
+        ":sample-file-read.txt",
+    ],
+}
+
+elide_test(
+    name = "sanity",
+    test = ":sanity.js",
+)
+
+[
+    elide_test(
+        name = "%s-cjs" % x,
+        test = ":%s.cjs" % x,
+        data = EXTRA_DATA.get(x, []),
+    ) for x in JS_RUNTIME_TESTS
+]
+
+[
+    elide_test(
+        name = "%s-esm" % x,
+        test = ":%s.mjs" % x,
+        data = EXTRA_DATA.get(x, []),
+    ) for x in JS_RUNTIME_TESTS
+]
 
 ## Tests the main entrypoint for the built facade of the Elide runtime for JavaScript. This will consume the JavaScript
 ## output from the Closure Compiler, which is used to prime the guest-facing facade in Elide-hosted JS VMs.

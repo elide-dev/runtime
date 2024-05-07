@@ -1,0 +1,12 @@
+{
+  "name": "consumers",
+  "type": "module",
+  "module": "consumers.mjs",
+  "main": "consumers.cjs",
+  "exports": {
+    ".": {
+      "import": "./consumers.mjs",
+      "require": "./consumers.cjs"
+    }
+  }
+}

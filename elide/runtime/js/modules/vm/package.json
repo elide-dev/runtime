@@ -1,0 +1,12 @@
+{
+  "name": "vm",
+  "type": "module",
+  "module": "vm.mjs",
+  "main": "vm.cjs",
+  "exports": {
+    ".": {
+      "import": "./vm.mjs",
+      "require": "./vm.cjs"
+    }
+  }
+}

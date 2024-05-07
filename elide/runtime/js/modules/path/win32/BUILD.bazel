@@ -1,0 +1,16 @@
+load(
+    "//tools/defs:elide.bzl",
+    "js_module",
+)
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+js_module(
+    name = "win32",
+    host_module = "path",
+    srcs = [
+        "path-win32.ts",
+        "index.ts",
+    ],
+)

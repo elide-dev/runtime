@@ -1,8 +1,23 @@
+/*
+ * Copyright (c) 2024 Elide Technologies, Inc.
+ *
+ * Licensed under the MIT license (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ *
+ *   https://opensource.org/license/mit/
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under the License.
+ */
+
 /**
  * Intrinsic: Filesystem.
  *
  * Provides a shim which offers a `fs` module implementation that is compatible with Node.js-style imports.
  */
+
+const internals: any = globalThis['__Elide_node_fs__'];
 
 /**
  * File system constants
@@ -27,7 +42,7 @@ const constants = {
  * @param callback Callback function to dispatch with failures
  */
 export function access(path: string | Buffer | URL, mode: number = constants.F_OK, callback: (err: NodeJS.ErrnoException) => void): void {
-  console.log('access fs', {path, mode, callback})
+  internals.access(path, callback);
 }
 
 /**
@@ -40,7 +55,7 @@ export function access(path: string | Buffer | URL, mode: number = constants.F_O
  * @param callback Callback function to dispatch with the file contents
  */
 export function readFile(path: string | Buffer | URL, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void {
-  console.log('readFile fs', {path, options, callback})
+  internals.readFile(path, options, callback);
 }
 
 /**
@@ -53,8 +68,7 @@ export function readFile(path: string | Buffer | URL, options: { encoding: strin
  * @returns The file contents
  */
 export function readFileSync(path: string | Buffer | URL, options: { encoding: string; flag?: string; }): string {
-  console.log('readFileSync fs', {path, options})
-  return ''
+  return internals.readFileSync(path, options);
 }
 
 /**
@@ -68,7 +82,7 @@ export function readFileSync(path: string | Buffer | URL, options: { encoding: s
  * @param callback Callback function to dispatch with the file contents
  */
 export function writeFile(path: string | Buffer | URL, data: any, options: { encoding: string; mode?: number; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void {
-  console.log('writeFile fs', {path, data, options, callback})
+  internals.writeFile(path, data, options, callback);
 }
 
 /**
@@ -81,7 +95,7 @@ export function writeFile(path: string | Buffer | URL, data: any, options: { enc
  * @param options Options for writing the file
  */
 export function writeFileSync(path: string | Buffer | URL, data: any, options: { encoding: string; mode?: number; flag?: string; }): void {
-  console.log('writeFileSync fs', {path, data, options})
+  internals.writeFileSync(path, data, options);
 }
 
 export default {

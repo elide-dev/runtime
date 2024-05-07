@@ -1,0 +1,12 @@
+{
+  "name": "readline",
+  "type": "module",
+  "module": "readline.mjs",
+  "main": "readline.cjs",
+  "exports": {
+    ".": {
+      "import": "./readline.mjs",
+      "require": "./readline.cjs"
+    }
+  }
+}

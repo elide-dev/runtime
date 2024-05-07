@@ -10,40 +10,23 @@ workspace(
 load(
     "@bazel_tools//tools/build_defs/repo:http.bzl",
     "http_archive",
-    "http_file",
-)
-load(
-    "@bazel_tools//tools/build_defs/repo:git.bzl",
-    "git_repository",
+    "http_jar",
 )
 load(
     "@bazel_tools//tools/build_defs/repo:java.bzl",
     "java_import_external",
 )
 load(
-    "@bazel_tools//tools/build_defs/repo:jvm.bzl",
-    "jvm_maven_import_external",
-)
-load(
-    "@bazel_tools//tools/build_defs/repo:utils.bzl",
-    "maybe",
-)
-load(
     "//tools:config.bzl",
     "BUF_VERSION",
-    "ENABLE_J2CL",
-    "ENABLE_J2WASM",
     "GO_VERSION",
     "GRAALVM_VERSION",
     "JAVA_LANGUAGE_LEVEL",
-    "KOTLIN_COMPILER_FINGERPRINT",
     "KOTLIN_COMPILER_VERSION",
-    "KOTLIN_SDK_VERSION",
     "NODE_VERSION",
     "PROTOBUF_VERSION",
     "RUST_EDITION",
     "RUST_VERSION",
-    "YARN_VERSION",
 )
 
 http_archive(
@@ -399,7 +382,7 @@ load("@com_google_j2cl//build_defs:repository.bzl", "load_j2cl_repo_deps")
 
 load_j2cl_repo_deps()
 
-load("@com_google_j2cl//build_defs:rules.bzl", "setup_j2cl_workspace")
+load("@com_google_j2cl//build_defs:rules.bzl", "setup_j2cl_workspace", "j2cl_maven_import_external")
 load("//tools/defs/closure:compiler.bzl", "setup_closure_compiler")
 
 setup_closure_compiler()
@@ -455,8 +438,7 @@ rules_java_toolchains()
 
 # protocol buffers
 
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-load("@com_google_protobuf//:protobuf_deps.bzl", "PROTOBUF_MAVEN_ARTIFACTS")
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps", "PROTOBUF_MAVEN_ARTIFACTS")
 
 protobuf_deps()
 
@@ -491,17 +473,21 @@ browser_repositories(
 
 # rules_nodejs
 
-load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories")
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
 
 node_repositories(
     node_version = NODE_VERSION,
+    node_repositories = {
+        "21.7.3-darwin_amd64": ("node-v21.7.3-darwin-x64.tar.gz", "node-v21.7.3-darwin-x64", "58d0212e169764c3424d2d5bec73e8a098d34b4e82fca6e1dd54083ea3049c5f"),
+        "21.7.3-darwin_arm64": ("node-v21.7.3-darwin-arm64.tar.gz", "node-v21.7.3-darwin-arm64", "165d3ba3500cfc8708f85d3815aaaa21ce418164c933d5419c30825ccad3a99c"),
+        "21.7.3-linux_amd64": ("node-v21.7.3-linux-x64.tar.xz", "node-v21.7.3-linux-x64", "19e17a77e59044de169cd19be3f3bccae686982fba022f9634421b44724ee90c"),
+        "21.7.3-windows_amd64": ("node-v21.7.3-win-x64.zip", "node-v21.7.3-win-x64", "d2314f496782b53ad2fe5fa82fca6ff7f39f07fe59dd007116404ad92179c78e"),
+    },
     package_json = [
         "//:package.json",
         "@typescript//:package.json",
     ],
 )
-
-load("@build_bazel_rules_nodejs//:index.bzl", "npm_install", "yarn_install")
 
 yarn_install(
     name = "npm",
@@ -517,7 +503,6 @@ esbuild_repositories(npm_repository = "npm")
 # JVM dependencies
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
-load("@rules_jvm_external//:specs.bzl", "maven")
 
 THIRD_PARTY_ARTIFACTS = (
     PROTOBUF_MAVEN_ARTIFACTS
@@ -546,8 +531,6 @@ load("@maven//:defs.bzl", "pinned_maven_install")
 
 pinned_maven_install()
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
-
 LOMBOK_VERSION = "1.18.16"
 
 LOMBOK_JAR_SHA256 = "7206cbbfd6efd5e85bceff29545633645650be58d58910a23b0d4835fbd15ed7"
@@ -565,8 +548,6 @@ new_local_repository(
 )
 
 # J2CL dependencies
-
-load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_maven_import_external")
 
 j2cl_maven_import_external(
     name = "org_projectlombok_lombok-j2cl",

@@ -1,0 +1,12 @@
+{
+  "name": "domain",
+  "type": "module",
+  "module": "domain.mjs",
+  "main": "domain.cjs",
+  "exports": {
+    ".": {
+      "import": "./domain.mjs",
+      "require": "./domain.cjs"
+    }
+  }
+}

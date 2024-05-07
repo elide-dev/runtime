@@ -1,7 +1,3 @@
-package(
-    default_visibility = ["//visibility:public"],
-)
-
 load(
     "//tools/defs/esbuild:exports.bzl",
     "esbuild",
@@ -10,6 +6,9 @@ load(
 load(
     "//elide/runtime/js:config.bzl",
     "JS_TARGET",
+)
+package(
+    default_visibility = ["//visibility:public"],
 )
 
 ## -- Polyfills -- ##

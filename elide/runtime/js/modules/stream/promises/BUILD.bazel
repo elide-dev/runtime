@@ -1,0 +1,16 @@
+load(
+    "//tools/defs:elide.bzl",
+    "js_module",
+)
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+js_module(
+    name = "promises",
+    host_module = "stream",
+    srcs = [
+        "stream-async.ts",
+        "index.ts",
+    ],
+)

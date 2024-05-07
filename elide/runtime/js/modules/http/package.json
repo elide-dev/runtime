@@ -1,0 +1,12 @@
+{
+  "name": "http",
+  "type": "module",
+  "module": "http.mjs",
+  "main": "http.cjs",
+  "exports": {
+    ".": {
+      "import": "./http.mjs",
+      "require": "./http.cjs"
+    }
+  }
+}

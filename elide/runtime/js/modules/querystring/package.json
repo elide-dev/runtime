@@ -1,0 +1,12 @@
+{
+  "name": "querystring",
+  "type": "module",
+  "module": "querystring.mjs",
+  "main": "querystring.cjs",
+  "exports": {
+    ".": {
+      "import": "./querystring.mjs",
+      "require": "./querystring.cjs"
+    }
+  }
+}

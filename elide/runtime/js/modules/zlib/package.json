@@ -1,0 +1,12 @@
+{
+  "name": "zlib",
+  "type": "module",
+  "module": "zlib.mjs",
+  "main": "zlib.cjs",
+  "exports": {
+    ".": {
+      "import": "./zlib.mjs",
+      "require": "./zlib.cjs"
+    }
+  }
+}

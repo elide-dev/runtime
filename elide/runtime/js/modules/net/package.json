@@ -1,0 +1,12 @@
+{
+  "name": "net",
+  "type": "module",
+  "module": "net.mjs",
+  "main": "net.cjs",
+  "exports": {
+    ".": {
+      "import": "./net.mjs",
+      "require": "./net.cjs"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "promises",
+  "type": "module",
+  "module": "promises.mjs",
+  "main": "promises.cjs",
+  "exports": {
+    ".": {
+      "import": "./promises.mjs",
+      "require": "./promises.cjs"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "http2",
+  "type": "module",
+  "module": "http2.mjs",
+  "main": "http2.cjs",
+  "exports": {
+    ".": {
+      "import": "./http2.mjs",
+      "require": "./http2.cjs"
+    }
+  }
+}

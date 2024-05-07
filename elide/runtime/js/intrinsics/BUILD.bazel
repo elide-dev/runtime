@@ -1,11 +1,10 @@
-package(
-    default_visibility = ["//visibility:public"],
-)
-
 load(
     "//tools:defs.bzl",
-    "ts_config",
     "ts_library",
+)
+
+package(
+    default_visibility = ["//visibility:public"],
 )
 
 MODULE_NAME = "@elide/runtime/js/intrinsics"
@@ -43,6 +42,14 @@ ts_library(
     name = "console",
     srcs = [
         "console.ts",
+    ],
+    module = MODULE_NAME,
+)
+
+ts_library(
+    name = "timers",
+    srcs = [
+        "timers.ts",
     ],
     module = MODULE_NAME,
 )
