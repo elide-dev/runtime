@@ -339,6 +339,16 @@ export function existsSync(path: string | Buffer | URL): boolean {
 }
 
 /**
+ * Directory create callback.
+ */
+export type MkdirCallback = (err: NodeJS.ErrnoException) => void
+
+/**
+ * Options for creating a directory.
+ */
+export type MkdirOptions = { recursive?: boolean; mode?: number; }
+
+/**
  * Make a directory
  *
  * Asynchronously creates a directory.
@@ -347,8 +357,12 @@ export function existsSync(path: string | Buffer | URL): boolean {
  * @param options Options for creating the directory
  * @param callback Callback function to dispatch with failures
  */
-export function mkdir(path: string | Buffer | URL, options: { recursive: boolean; mode?: number; }, callback: (err: NodeJS.ErrnoException) => void): void {
-  internals.mkdir(path, options, callback);
+export function mkdir(path: string | Buffer | URL, optionsOrCallback: MkdirCallback | MkdirOptions, callback?: MkdirCallback): void {
+  if (callback) {
+    internals.mkdir(path, optionsOrCallback as MkdirOptions, callback);
+  } else {
+    internals.mkdir(path, optionsOrCallback as MkdirCallback);
+  }
 }
 
 /**
@@ -359,7 +373,7 @@ export function mkdir(path: string | Buffer | URL, options: { recursive: boolean
  * @param path Path to the directory
  * @param options Options for creating the directory
  */
-export function mkdirSync(path: string | Buffer | URL, options: { recursive: boolean; mode?: number; }): void {
+export function mkdirSync(path: string | Buffer | URL, options?: { recursive: boolean; mode?: number; }): void {
   internals.mkdirSync(path, options);
 }
 

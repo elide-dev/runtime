@@ -58,8 +58,39 @@ export function readFile(path: string | Buffer | URL, options: { encoding: strin
   return internals.readFile(path, options);
 }
 
+/**
+ * Write a file
+ *
+ * Asynchronously writes data to a file, replacing the file if it already exists. data can be a string or a buffer.
+ *
+ * @param path Path to the file
+ * @param data Data to write to the file
+ * @param options Options for writing the file
+ * @returns A promise that resolves when the file is written
+ */
+export function writeFile(path: string | Buffer | URL, data: string | Buffer | Uint8Array, options: { encoding: string; flag?: string; }): Promise<void> {
+  return internals.writeFile(path, data, options);
+}
+
+/**
+ * Make a directory
+ *
+ * Asynchronously creates a directory. The optional options argument can be a number that specifies the mode (permission
+ * and sticky bits), or an object. If the recursive option is set to false, the directory must be empty. The mode
+ * defaults to 0o777.
+ *
+ * @param path Path to the directory
+ * @param options Options for creating the directory
+ * @returns A promise that resolves when the directory is created
+ */
+export function mkdir(path: string | Buffer | URL, options: { recursive: boolean; }): Promise<void> {
+  return internals.mkdir(path, options);
+}
+
 export default {
   access,
   constants,
   readFile,
+  writeFile,
+  mkdir,
 };
