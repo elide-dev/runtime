@@ -18,11 +18,8 @@
  */
 
 function intrinsic(): any {
-  // @ts-expect-error intrinsic symbol
-  const api = __Elide_node_process__;
-  if (!api) {
-    throw new Error(`The 'process' module failed to load the intrinsic API.`);
-  }
+  const api = globalThis['__Elide_node_process__'];
+  if (!api) throw new Error(`The 'process' module failed to load the intrinsic API.`);
   return api || {};
 }
 
@@ -82,11 +79,39 @@ export interface NodeProcessAPI {
   pid: number;
 
   /**
+   * Property: `stdout`.
+   *
+   * Access to standard output.
+   */
+  stdout: any;
+
+  /**
+   * Property: `stderr`.
+   *
+   * Access to standard error output.
+   */
+  stderr: any;
+
+  /**
+   * Property: `stdin`.
+   *
+   * Access to standard input.
+   */
+  stdin: any;
+
+  /**
+   * Property: `title`.
+   *
+   * Access to the current process title.
+   */
+  title: string;
+
+  /**
    * Property: `cwd`.
    *
    * The current working directory.
    */
-  cwd: string;
+  cwd: () => string;
 
   /**
    * Property: `exit`.
@@ -162,6 +187,34 @@ export const pid = getProcessAPI().pid;
  * The current working directory.
  */
 export const cwd = getProcessAPI().cwd;
+
+/**
+ * Property: `stdout`.
+ *
+ * Standard output stream.
+ */
+export const stdout = getProcessAPI().stdout;
+
+/**
+ * Property: `stderr`.
+ *
+ * Standard error output stream.
+ */
+export const stderr = getProcessAPI().stderr;
+
+/**
+ * Property: `stdin`.
+ *
+ * Standard input stream.
+ */
+export const stdin = getProcessAPI().stdin;
+
+/**
+ * Property: `title`.
+ *
+ * Standard input stream.
+ */
+export const title = getProcessAPI().title;
 
 /**
  * Property: `exit`.
