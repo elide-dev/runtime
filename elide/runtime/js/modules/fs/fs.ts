@@ -399,8 +399,8 @@ export function readFile(path: string | Buffer | URL, options: { encoding: strin
  * @param options Options for reading the file
  * @returns The file contents
  */
-export function readFileSync(path: string | Buffer | URL, options: { encoding: string; flag?: string; }): string {
-  return internals.readFileSync(path, options);
+export function readFileSync(path: string | Buffer | URL, options?: string | { encoding?: string; flag?: string; }): string {
+  return internals.readFileSync(path, options || null);
 }
 
 /**
