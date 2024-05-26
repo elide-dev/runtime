@@ -509,9 +509,9 @@ THIRD_PARTY_ARTIFACTS = (
 )
 
 MAVEN_REPOSITORIES = [
-    "https://maven.pkg.st/",
+    "https://maven.pkg.st",
+    "https://maven.elide.dev",
     "https://repo1.maven.org/maven2",
-    "https://elide-snapshots.storage-download.googleapis.com/repository/v3/",
 ]
 
 maven_install(
