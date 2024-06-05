@@ -4,31 +4,34 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  esbuild: 0.21.2
+
 importers:
 
   .:
     devDependencies:
       '@bazel/buildifier':
         specifier: 6.1.2
-        version: 7.1.1
+        version: 6.1.2
       '@bazel/buildozer':
         specifier: 6.1.2
-        version: 7.1.1
+        version: 6.1.2
       '@bazel/concatjs':
         specifier: 4.6.2
-        version: 5.8.1(karma-chrome-launcher@3.2.0)(karma-firefox-launcher@2.1.3)(karma-jasmine@5.1.0(karma@6.4.3))(karma-junit-reporter@2.0.1(karma@6.4.3))(karma-requirejs@1.1.0(karma@6.4.3)(requirejs@2.3.6))(karma-sourcemap-loader@0.4.0)(karma@6.4.3)(typescript@5.4.5)
+        version: 4.6.2(karma-chrome-launcher@3.2.0)(karma-firefox-launcher@2.1.3)(karma-jasmine@5.1.0(karma@6.4.3))(karma-junit-reporter@2.0.1(karma@6.4.3))(karma-requirejs@1.1.0(karma@6.4.3)(requirejs@2.3.6))(karma-sourcemap-loader@0.4.0)(karma@6.4.3)(typescript@4.9.5)
       '@bazel/esbuild':
         specifier: 4.6.2
-        version: 5.8.1
+        version: 4.6.2
       '@bazel/ibazel':
         specifier: 0.16.2
-        version: 0.25.0
+        version: 0.16.2
       '@bazel/labs':
         specifier: 4.6.1
         version: 4.6.1
       '@bazel/typescript':
         specifier: 4.6.2
-        version: 5.8.1(typescript@5.4.5)
+        version: 4.6.2(typescript@4.9.5)
       '@types/node':
         specifier: 20.12.11
         version: 20.12.11
@@ -70,30 +73,29 @@ importers:
         version: 0.5.21
       tsickle:
         specifier: 0.46.3
-        version: 0.46.3(typescript@5.4.5)
+        version: 0.46.3(typescript@4.9.5)
       tslib:
         specifier: 2.6.2
         version: 2.6.2
       tsutils:
         specifier: 3.21.0
-        version: 3.21.0(typescript@5.4.5)
+        version: 3.21.0(typescript@4.9.5)
       typescript:
         specifier: 4.9.5
-        version: 5.4.5
+        version: 4.9.5
 
 packages:
 
-  '@bazel/buildifier@7.1.1':
-    resolution: {integrity: sha512-Up4m88XqBea01zvejR/1dNfFtEJp64f7kgodPUNtVOzHKt+CguVG8yTnyWAb/N0mI2ImrXVxgxglIWymfQRjqQ==, tarball: https://registry.npmjs.org/@bazel/buildifier/-/buildifier-7.1.1.tgz}
+  '@bazel/buildifier@6.1.2':
+    resolution: {integrity: sha512-psKePmRkP6acwyePOhXP67R/wdwN7BGJxHqp1j5myaO24feMsaXyyiO+oW49x8YAwOpKVSCujVzkTwX2auAc0A==, tarball: https://registry.npmjs.org/@bazel/buildifier/-/buildifier-6.1.2.tgz}
     hasBin: true
 
-  '@bazel/buildozer@7.1.1':
-    resolution: {integrity: sha512-2hA13haX4+euWnyHSjIW5e24bGc3ZohyUX2Z+M74I6vCyDd+1chMoWdH+BKOz7EDBhznrazHKN+IRPD5N49V+w==, tarball: https://registry.npmjs.org/@bazel/buildozer/-/buildozer-7.1.1.tgz}
+  '@bazel/buildozer@6.1.2':
+    resolution: {integrity: sha512-Ev9yXHMw93CF3k/gyHwOA3UCZCQ9qPry0WHxD+wjUSf8go3PqMbtq9sWWiyBlZP5KtRWUF/aQxmtF/AHdFdniQ==, tarball: https://registry.npmjs.org/@bazel/buildozer/-/buildozer-6.1.2.tgz}
     hasBin: true
 
-  '@bazel/concatjs@5.8.1':
-    resolution: {integrity: sha512-TkARsNUxgi3bjFeGwIGlffmQglNhuR9qK9uE7uKhdBZvQE5caAWVCjYiMTzo3viKDhwKn5QNRcHY5huuJMVFfA==, tarball: https://registry.npmjs.org/@bazel/concatjs/-/concatjs-5.8.1.tgz}
-    hasBin: true
+  '@bazel/concatjs@4.6.2':
+    resolution: {integrity: sha512-5wpASLPgWU+ti7+/iHquym0mY1lFZkkNUlHPzCjSOBolzdSWO9yFO/S5k2agzULNbNrZInI9IErakyc6K3xvog==, tarball: https://registry.npmjs.org/@bazel/concatjs/-/concatjs-4.6.2.tgz}
     peerDependencies:
       karma: '>=4.0.0'
       karma-chrome-launcher: '>=2.0.0'
@@ -103,25 +105,25 @@ packages:
       karma-requirejs: '>=1.0.0'
       karma-sourcemap-loader: '>=0.3.0'
 
-  '@bazel/esbuild@5.8.1':
-    resolution: {integrity: sha512-8k4LL8P3ivCnFeBOcjiFxL8U+M5VtEGuOyIqm2hfEiP8xDWsZLS7YQ7KhshKJy7Elh2dlK9oGgMtl0D/x9kxxg==, tarball: https://registry.npmjs.org/@bazel/esbuild/-/esbuild-5.8.1.tgz}
+  '@bazel/esbuild@4.6.2':
+    resolution: {integrity: sha512-VqmeIlEDq7tVNpIk88zS3DZSAV1F1VN92IBPekKuQqIU6PTt3+iID/v4lkK80SwFBthF4pi/PG0PPaulIe/qGA==, tarball: https://registry.npmjs.org/@bazel/esbuild/-/esbuild-4.6.2.tgz}
 
-  '@bazel/ibazel@0.25.0':
-    resolution: {integrity: sha512-dtosfsuZCSaqlUe5EyxNdaN7Gow0Y+ZJixdlciytcSieUcB/1lXPFTx6OihxhjgtTHkeFovlQ/QbvArRPnk+nQ==, tarball: https://registry.npmjs.org/@bazel/ibazel/-/ibazel-0.25.0.tgz}
+  '@bazel/ibazel@0.16.2':
+    resolution: {integrity: sha512-KgqAWMH0emL6f3xH6nqyTryoBMqlJ627LBIe9PT1PRRQPz2FtHib3FIHJPukp1slzF3hJYZvdiVwgPnHbaSOOA==, tarball: https://registry.npmjs.org/@bazel/ibazel/-/ibazel-0.16.2.tgz}
     hasBin: true
 
   '@bazel/labs@4.6.1':
     resolution: {integrity: sha512-7CRtjP9W3ywX6AvTAzV5is0LrXt3zxUSW5SzUGa+LhdsrDc3+VDyW7MOJlwMai2xmBb4J1tqaZKo8KSlr2H2tg==, tarball: https://registry.npmjs.org/@bazel/labs/-/labs-4.6.1.tgz}
 
-  '@bazel/typescript@5.8.1':
-    resolution: {integrity: sha512-NAJ8WQHZL1WE1YmRoCrq/1hhG15Mvy/viWh6TkvFnBeEhNUiQUsA5GYyhU1ztnBIYW03nATO3vwhAEfO7Q0U5g==, tarball: https://registry.npmjs.org/@bazel/typescript/-/typescript-5.8.1.tgz}
+  '@bazel/typescript@4.6.2':
+    resolution: {integrity: sha512-AUF7kq82bP6DX9Brihr/eQqvNccxVfSXosFxt80h94og5cmMyoc/euXha6rxlOBP3yWXmSo+/qjzO7o8PWJduQ==, tarball: https://registry.npmjs.org/@bazel/typescript/-/typescript-4.6.2.tgz}
     deprecated: No longer maintained, https://github.com/aspect-build/rules_ts is the recommended replacement
     hasBin: true
     peerDependencies:
-      typescript: '>=3.0.0'
+      typescript: '>=3.0.0 <4.4.0'
 
-  '@bazel/worker@5.8.1':
-    resolution: {integrity: sha512-GMyZSNW3F34f9GjbJqvs1aHyed5BNrNeiDzNJhC1fIizo/UeBM21oBBONIYLBDoBtq936U85VyPZ76JaP/83hw==, tarball: https://registry.npmjs.org/@bazel/worker/-/worker-5.8.1.tgz}
+  '@bazel/worker@4.6.2':
+    resolution: {integrity: sha512-DLpN6iQAH6uiUraAs4CESyqs60u55fcKmYgOOVObGuLSQQuX49Lw7XRIN90NibRPwpbBDQichWE3zfra0yKTTw==, tarball: https://registry.npmjs.org/@bazel/worker/-/worker-4.6.2.tgz}
 
   '@colors/colors@1.5.0':
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==, tarball: https://registry.npmjs.org/@colors/colors/-/colors-1.5.0.tgz}
@@ -568,6 +570,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==, tarball: https://registry.npmjs.org/glob/-/glob-7.2.3.tgz}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   google-closure-library-types@0.1.17:
     resolution: {integrity: sha512-zFTLlQTt0nQiSK+fbx//rHYGkK628FOH5XSsIuGqA/yaMlZExS62GdmpphQxUFJ5spUNYTXi/e4FmnlX9NWZew==, tarball: https://registry.npmjs.org/google-closure-library-types/-/google-closure-library-types-0.1.17.tgz}
@@ -617,6 +620,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==, tarball: https://registry.npmjs.org/inflight/-/inflight-1.0.6.tgz}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==, tarball: https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz}
@@ -858,10 +862,12 @@ packages:
 
   rimraf@2.7.1:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==, tarball: https://registry.npmjs.org/rimraf/-/rimraf-2.7.1.tgz}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==, tarball: https://registry.npmjs.org/rimraf/-/rimraf-3.0.2.tgz}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   safer-buffer@2.1.2:
@@ -985,9 +991,9 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
 
-  typescript@5.4.5:
-    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==, tarball: https://registry.npmjs.org/typescript/-/typescript-5.4.5.tgz}
-    engines: {node: '>=14.17'}
+  typescript@4.9.5:
+    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==, tarball: https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz}
+    engines: {node: '>=4.2.0'}
     hasBin: true
 
   ua-parser-js@0.7.37:
@@ -1070,11 +1076,11 @@ packages:
 
 snapshots:
 
-  '@bazel/buildifier@7.1.1': {}
+  '@bazel/buildifier@6.1.2': {}
 
-  '@bazel/buildozer@7.1.1': {}
+  '@bazel/buildozer@6.1.2': {}
 
-  '@bazel/concatjs@5.8.1(karma-chrome-launcher@3.2.0)(karma-firefox-launcher@2.1.3)(karma-jasmine@5.1.0(karma@6.4.3))(karma-junit-reporter@2.0.1(karma@6.4.3))(karma-requirejs@1.1.0(karma@6.4.3)(requirejs@2.3.6))(karma-sourcemap-loader@0.4.0)(karma@6.4.3)(typescript@5.4.5)':
+  '@bazel/concatjs@4.6.2(karma-chrome-launcher@3.2.0)(karma-firefox-launcher@2.1.3)(karma-jasmine@5.1.0(karma@6.4.3))(karma-junit-reporter@2.0.1(karma@6.4.3))(karma-requirejs@1.1.0(karma@6.4.3)(requirejs@2.3.6))(karma-sourcemap-loader@0.4.0)(karma@6.4.3)(typescript@4.9.5)':
     dependencies:
       karma: 6.4.3
       karma-chrome-launcher: 3.2.0
@@ -1085,25 +1091,26 @@ snapshots:
       karma-sourcemap-loader: 0.4.0
       protobufjs: 6.8.8
       source-map-support: 0.5.9
-      tsutils: 3.21.0(typescript@5.4.5)
+      tsutils: 3.21.0(typescript@4.9.5)
     transitivePeerDependencies:
       - typescript
 
-  '@bazel/esbuild@5.8.1': {}
+  '@bazel/esbuild@4.6.2': {}
 
-  '@bazel/ibazel@0.25.0': {}
+  '@bazel/ibazel@0.16.2': {}
 
   '@bazel/labs@4.6.1': {}
 
-  '@bazel/typescript@5.8.1(typescript@5.4.5)':
+  '@bazel/typescript@4.6.2(typescript@4.9.5)':
     dependencies:
-      '@bazel/worker': 5.8.1
+      '@bazel/worker': 4.6.2
+      protobufjs: 6.8.8
       semver: 5.6.0
       source-map-support: 0.5.9
-      tsutils: 3.21.0(typescript@5.4.5)
-      typescript: 5.4.5
+      tsutils: 3.21.0(typescript@4.9.5)
+      typescript: 4.9.5
 
-  '@bazel/worker@5.8.1':
+  '@bazel/worker@4.6.2':
     dependencies:
       google-protobuf: 3.21.2
 
@@ -1953,19 +1960,19 @@ snapshots:
 
   toidentifier@1.0.1: {}
 
-  tsickle@0.46.3(typescript@5.4.5):
+  tsickle@0.46.3(typescript@4.9.5):
     dependencies:
       '@types/minimist': 1.2.2
-      typescript: 5.4.5
+      typescript: 4.9.5
 
   tslib@1.14.1: {}
 
   tslib@2.6.2: {}
 
-  tsutils@3.21.0(typescript@5.4.5):
+  tsutils@3.21.0(typescript@4.9.5):
     dependencies:
       tslib: 1.14.1
-      typescript: 5.4.5
+      typescript: 4.9.5
 
   type-is@1.6.18:
     dependencies:
@@ -1974,7 +1981,7 @@ snapshots:
 
   typescript@3.9.10: {}
 
-  typescript@5.4.5: {}
+  typescript@4.9.5: {}
 
   ua-parser-js@0.7.37: {}
 

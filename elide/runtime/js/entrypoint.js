@@ -98,9 +98,6 @@ const intrinsicProcess = globalThis[RUNTIME_PROCESS];
  * @returns {!EnhancedNodeProcess}
  */
 function nodeProcessAPI() {
-    if (!intrinsicProcess) {
-        throw new Error('Node process API is not available.');
-    }
     return intrinsicProcess;
 }
 
@@ -142,9 +139,9 @@ globalThis['Elide'] = Elide;
  * @type {!EnhancedNodeProcess}
  */
 const process = /** @type {!EnhancedNodeProcess} */ ({
-    'pid': Elide.process.pid,
-    'cwd': Elide.process.cwd,
-    'env': Elide.process.env,
+    'pid': Elide.process ? Elide.process.pid : -1,
+    'cwd': Elide.process ? Elide.process.cwd : '/',
+    'env': Elide.process ? Elide.process.env : {},
     ...(Elide.process || {}),
 });
 

@@ -71,6 +71,8 @@ _RUNTIME_DEFINES.update({
 _JS_MODULE_PREFIX = "@elide/runtime/module"
 
 _ARCHIVE_ROOT_PREFIX = "__runtime__"
+_ELIDE_MODULE_ROOT_PREFIX = "node_modules"
+_ELIDE_MODULE_PREFIX = "elide"
 
 _common_js_library_config = {
     "language": _JS_LANGUAGE,
@@ -140,6 +142,7 @@ def _js_module(
         entry_point = None,
         module = None,
         host_module = None,
+        elide_module = False,
         js_srcs = [],
         srcs = [],
         deps = [],
@@ -246,6 +249,11 @@ def _js_module(
     archive_prefix = "%s/%s/" % (_ARCHIVE_ROOT_PREFIX, module or name)
     if host_module:
         archive_prefix = "%s/%s/%s/" % (_ARCHIVE_ROOT_PREFIX, host_module, module or name)
+    if elide_module:
+        if host_module:
+            archive_prefix = "%s/%s:%s/%s/" % (_ELIDE_MODULE_ROOT_PREFIX, _ELIDE_MODULE_PREFIX, host_module, module or name)
+        else:
+            archive_prefix = "%s/%s:%s/" % (_ELIDE_MODULE_ROOT_PREFIX, _ELIDE_MODULE_PREFIX, module or name)
 
     _pkg_filegroup(
         name = "%s.tarfilegroup" % name,
@@ -261,6 +269,47 @@ def _js_module(
     native.alias(
         name = name,
         actual = "%s.tarfilegroup" % name,
+    )
+
+def _py_library(
+        name,
+        srcs,
+        module = None,
+        deps = [],
+        data = [],
+        **kwargs):
+    """Defines a Python package."""
+
+    native.filegroup(
+        name = "%s.files" % name,
+        srcs = srcs + deps,
+        data = data,
+    )
+    _pkg_tar(
+        name = "%s.archive" % name,
+        out = "%s.tar" % name,
+        srcs = [":%s.files" % name],
+        package_dir = "%s/python/%s/" % (_ARCHIVE_ROOT_PREFIX, module or name),
+    )
+    native.alias(
+        name = name,
+        actual = "%s.archive" % name,
+    )
+
+def _py_runtime(
+        name,
+        deps,
+        extra_sources = [],
+        **kwargs):
+    """Single-use target macro which defines the main application entry target for the Elide Python runtime."""
+
+    native.filegroup(
+        name = "%s.files" % name,
+        srcs = extra_sources + deps,
+    )
+    native.alias(
+        name = name,
+        actual = "%s.files" % name,
     )
 
 def _js_runtime(
@@ -440,56 +489,101 @@ def _ts_runtime(
         actual = "tsruntime.tarball",
     )
 
-def _runtime_dist(name, language, target, manifest, info = [], configs = [], modules = [], extra_sources = []):
+def _runtime_dist(name, language, target, manifest, info = [], configs = [], modules = [], elide_modules = [], extra_sources = []):
     """ """
 
     outs = []
 
-    native.filegroup(
-        name = "distfiles",
-        srcs = [
-            "runtime.js.gz",
-            "runtime.js.gz.sha256",
-        ] + configs + extra_sources,
-    )
-    if len(modules) > 0:
+    if language == "js":
+        native.filegroup(
+            name = "distfiles",
+            srcs = [
+                "runtime.js.gz",
+                "runtime.js.gz.sha256",
+            ] + configs + extra_sources,
+        )
+        if len(modules) > 0:
+            _pkg_tar(
+                name = "%s.elide-modules" % language,
+                out = "%s.elide-modules.tar" % language,
+                extension = "tar",
+                srcs = elide_modules,
+            )
+            _pkg_tar(
+                name = "%s.modules" % language,
+                out = "%s.modules.tar.gz" % language,
+                extension = "tar.gz",
+                srcs = modules,
+                deps = ["%s.elide-modules" % language],
+            )
+            outs.append(":%s.modules" % language)
         _pkg_tar(
-            name = "%s.modules" % language,
-            out = "%s.modules.tar.gz" % language,
-            extension = "tar.gz",
+            name = "%s.tarball" % language,
+            out = "%s.dist.tar" % language,
+            srcs = [":distfiles"] + modules,
+        )
+        _jar_resources(
+            name = "%s.runtime" % language,
+            language = language,
+            manifest = manifest,
+            srcs = [":distfiles"],
+        )
+        native.filegroup(
+            name = "distributions",
+            srcs = [
+                ":%s.tarball" % language,
+                ":%s.runtime" % language,
+            ] + info,
+        )
+
+        _pkg_zip(
+            name = "dist-all",
+            out = "%s.dist-all.zip" % language,
+            srcs = [":distributions"],
+        )
+        native.filegroup(
+            name = "dist-all-outs",
+            srcs = [
+                ":dist-all",
+            ] + outs
+        )
+
+    elif language == "py":
+        if len(modules) > 0:
+            _pkg_tar(
+                name = "%s.modules" % language,
+                out = "%s.modules.tar.gz" % language,
+                extension = "tar.gz",
+                deps = modules,
+            )
+            outs.append(":%s.modules" % language)
+
+        _pkg_tar(
+            name = "%s.tarball" % language,
+            out = "%s.dist.tar" % language,
             srcs = modules,
         )
-        outs.append(":%s.modules" % language)
-    _pkg_tar(
-        name = "%s.tarball" % language,
-        out = "%s.dist.tar" % language,
-        srcs = [":distfiles"] + modules,
-    )
-    _jar_resources(
-        name = "%s.runtime" % language,
-        language = language,
-        manifest = manifest,
-        srcs = [":distfiles"],
-    )
-    native.filegroup(
-        name = "distributions",
-        srcs = [
-            ":%s.tarball" % language,
-            ":%s.runtime" % language,
-        ] + info,
-    )
+        native.filegroup(
+            name = "distributions",
+            srcs = [
+                ":%s.tarball" % language,
+            ] + info,
+        )
+        _pkg_tar(
+            name = "dist-all",
+            out = "%s.dist-all.tar" % language,
+            srcs = [":distributions"],
+        )
+        native.filegroup(
+            name = "dist-all-outs",
+            srcs = [
+                ":dist-all",
+            ] + outs
+        )
 
-    _pkg_tar(
-        name = "dist-all",
-        out = "%s.dist-all.tar" % language,
-        srcs = [":distributions"],
-    )
-    native.filegroup(
-        name = "dist-all-outs",
-        srcs = [
-            ":dist-all",
-        ] + outs
-    )
+
+    else:
+        fail("Unrecognized language: %s" % language)
 
     native.alias(
         name = name,
@@ -509,3 +603,5 @@ ts_library = _ts_library
 ts_config = _ts_config
 ts_runtime = _ts_runtime
 runtime_dist = _runtime_dist
+py_library = _py_library
+py_runtime = _py_runtime

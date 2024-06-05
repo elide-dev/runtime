@@ -117,3 +117,10 @@ NODE_BUILTINS = [
     "worker",
     "zlib",
 ]
+
+## Elide Builtins
+## --------------
+## Registers modules which are provided by Elide, but not Node.
+ELIDE_BUILTINS = [
+    "sqlite",
+]

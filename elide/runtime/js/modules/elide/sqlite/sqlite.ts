@@ -11,19 +11,17 @@
  * License for the specific language governing permissions and limitations under the License.
  */
 
-module.exports = {
-  charset: "utf8",
-  drop: ["debugger"],  // @TODO: disable console once we have code in each module
-  minify: true,
-  target: "es2021",
-  treeShaking: false,
-  legalComments: "external",
-  keepNames: true,
-  platform: "neutral",
-  footer: {
-      js: (
-          "// Elide JS Builtins. Copyright (c) 2023-2024, Sam Gammon and Elide Technologies, Inc. All rights reserved." +
-          "\n// Components of this software are licensed separately. See https://github.com/elide-dev/elide for more."
-      ),
-  }
-};
+/**
+ * Intrinsic: SQLite.
+ *
+ * Provides access to SQLite databases via a proprietary API.
+ */
+
+const intrinsic: any = globalThis['__Elide_sqlite__'];
+
+/**
+ * Class: `Database`.
+ *
+ * Main database handle class.
+ */
+export const Database = globalThis['__Elide_sqlite_Database__'];
