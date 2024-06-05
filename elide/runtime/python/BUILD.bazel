@@ -1,0 +1,24 @@
+load(
+    "//tools/defs:elide.bzl",
+    "py_runtime",
+    "runtime_dist",
+)
+
+PYTHON_BUILTINS = [
+  "sqlite3",
+]
+
+py_runtime(
+    name = "runtime",
+    deps = ["//elide/runtime/python/%s" % m for m in PYTHON_BUILTINS],
+)
+
+## -- Distribution -- ##
+
+runtime_dist(
+    name = "dist",
+    language = "py",
+    manifest = "MANIFEST.MF",
+    target = ":runtime",
+    modules = ["//elide/runtime/python/%s" % m for m in PYTHON_BUILTINS],
+)

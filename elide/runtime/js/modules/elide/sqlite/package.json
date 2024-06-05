@@ -1,0 +1,12 @@
+{
+  "name": "elide:sqlite",
+  "type": "module",
+  "module": "sqlite.mjs",
+  "main": "sqlite.cjs",
+  "exports": {
+    ".": {
+      "import": "./sqlite.mjs",
+      "require": "./sqlite.cjs"
+    }
+  }
+}

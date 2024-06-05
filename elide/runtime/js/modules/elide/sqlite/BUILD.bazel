@@ -1,0 +1,16 @@
+load(
+    "//tools/defs:elide.bzl",
+    "js_module",
+)
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+js_module(
+    name = "sqlite",
+    elide_module = True,
+    srcs = [
+        "sqlite.ts",
+        "index.ts",
+    ],
+)

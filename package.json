@@ -28,5 +28,8 @@
     "tslib": "2.6.2",
     "tsutils": "3.21.0",
     "typescript": "4.9.5"
+  },
+  "resolutions": {
+    "esbuild": "0.21.2"
   }
 }

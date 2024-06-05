@@ -13,6 +13,7 @@ load(
     "BASE_JS_EXTERNS",
     "TS_MODULES",
     "NODE_BUILTINS",
+    "ELIDE_BUILTINS",
 )
 package(
     default_visibility = ["//visibility:public"],
@@ -75,5 +76,8 @@ runtime_dist(
     target = ":runtime",
     modules = [
         "//elide/runtime/js/modules/%s" % m for m in NODE_BUILTINS
+    ],
+    elide_modules = [
+        "//elide/runtime/js/modules/elide/%s" % m for m in ELIDE_BUILTINS
     ],
 )

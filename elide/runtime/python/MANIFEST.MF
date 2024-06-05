@@ -4,11 +4,11 @@ Specification-Title: Elide Runtime
 Specification-Version: 1.0
 Specification-Vendor: Elide Ventures, Inc.
 Sealed: true
-Elide-Runtime-ID: JS
+Elide-Runtime-ID: PY
 Elide-Runtime-Version: 3.0
-Name: elide/runtime/js/
-Specification-Title: Elide Runtime for JavaScript
+Name: elide/runtime/python/
+Specification-Title: Elide Runtime for Python
 Specification-Version: 1.0
 Specification-Vendor: Elide Ventures, Inc.
-Name: elide/runtime/js/js.runtime.tar.gz
-Content-Type: application/javascript;encoding=gzip;elide-runtime
+Name: elide/runtime/python/py.runtime.tar.gz
+Content-Type: application/python;encoding=gzip;elide-runtime

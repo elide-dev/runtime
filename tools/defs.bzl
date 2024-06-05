@@ -4,11 +4,11 @@
 load(
     "@elide//tools/defs/closure:externs.bzl",
     _closure_extern = "closure_extern",
-    _extern = "extern",
     _js_extern = "js_extern",
 )
 load(
     "@elide//tools/defs:elide.bzl",
+    _py_library = "py_library",
     _js_library = "js_library",
     _ts_library = "ts_library",
     _ts_config = "ts_config",
@@ -21,6 +21,7 @@ extern = _js_extern
 js_extern = _js_extern
 
 ## Elide: Macros.
+py_library = _py_library
 js_library = _js_library
 ts_library = _ts_library
 ts_config = _ts_config
