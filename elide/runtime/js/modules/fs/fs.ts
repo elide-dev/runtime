@@ -17,7 +17,7 @@
  * Provides a shim which offers a `fs` module implementation that is compatible with Node.js-style imports.
  */
 
-const internals: any = globalThis['__Elide_node_fs__'];
+const internals: any = globalThis['__Elide_node_fs__']();
 
 /**
  * File system constants
