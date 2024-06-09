@@ -138,11 +138,6 @@ globalThis['Elide'] = Elide;
  *
  * @type {!EnhancedNodeProcess}
  */
-const process = /** @type {!EnhancedNodeProcess} */ ({
-    'pid': Elide.process ? Elide.process.pid : -1,
-    'cwd': Elide.process ? Elide.process.cwd : '/',
-    'env': Elide.process ? Elide.process.env : {},
-    ...(Elide.process || {}),
-});
+const process = Elide.process;
 
 globalThis['process'] = process;
