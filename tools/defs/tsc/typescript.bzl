@@ -37,6 +37,7 @@ _BASE_JS_DEPS = [
 
 _BASE_SUPPRESSIONS = [
     "JSC_UNREACHABLE_CODE",
+    "JSC_UNKNOWN_EXPR_TYPE",
 ]
 
 _BASE_TS_ARGS = {
@@ -47,6 +48,8 @@ _BASE_TS_ARGS = {
     "compiler": "//tools/defs/tsc/compiler:tsc_wrapped",
     "tsconfig": "//elide/runtime/js:tsconfig",
 }
+
+_TS_GLOBAL_TYPES = ["//types"]
 
 def _fixup_shortlabel(label):
     """Fixup a short-label which has no target."""
@@ -66,6 +69,7 @@ def _wrapped_ts_library(
         lib_kwargs = {},
         suppress = [],
         include_tools = True,
+        include_types = True,
         nowrap = False,
         *args,
         **kwargs):
@@ -94,6 +98,8 @@ def _wrapped_ts_library(
     else:
         ts_deps_resolved = _BASE_TS_DEPS + ["%s_ts" % _fixup_shortlabel(i) for i in deps]
         closure_deps_resolved = ["%s_js" % _fixup_shortlabel(i) for i in closure_deps]
+        if include_types:
+            ts_deps_resolved += _TS_GLOBAL_TYPES
         if include_tools:
             ts_deps_resolved += _BASE_TS_TOOLS
 

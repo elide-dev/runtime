@@ -52,6 +52,8 @@
       "ES2021.Promise",
       "es2021.intl",
       "esnext"
-    ]
+    ],
+    // Mount local type declarations.
+    "typeRoots": ["./types"],
   }
 }

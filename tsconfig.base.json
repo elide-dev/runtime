@@ -17,6 +17,7 @@
       "es2021",
       "ES2021.Promise",
       "es2021.intl",
+      "es2022",
       "esnext"
     ],
 
@@ -98,7 +99,10 @@
     // Explicitly set types settings so typescript doesn't auto-discover types.
     // If all types are discovered then all types need to be included as deps
     // or typescript may error out with TS2688: Cannot find type definition file for 'foo'.
-    "types": []
+    "types": [],
+
+    // Mount local type declarations.
+    "typeRoots": ["./types"]
   },
   "exclude": [
     "node_modules"

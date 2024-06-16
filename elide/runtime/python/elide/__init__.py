@@ -12,8 +12,7 @@
 #  License for the specific language governing permissions and limitations under the License.
 
 """
- Defines the Python-side SQLite3 API for use in Elide; roughly follows the standardized
- Python `sqlite3` module API.
+ Defines Elide-specific APIs.
 """
 
 hello = "hi"

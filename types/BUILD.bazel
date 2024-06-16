@@ -1,0 +1,40 @@
+load(
+    "//tools:defs.bzl",
+    "ts_library",
+)
+load(
+    "@elide//tools:defs.bzl",
+    "js_extern",
+)
+
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+filegroup(
+  name = "srcs",
+  srcs = ["primordials.d.ts"],
+)
+
+ts_library(
+  name = "ts",
+  srcs = [":srcs"],
+  module = "primordials",
+  include_types = False,
+  include_tools = False,
+)
+
+filegroup(
+  name = "externs",
+  srcs = ["internals.extern.js"],
+)
+
+js_extern(
+    name = "internals",
+    srcs = [":externs"],
+)
+
+alias(
+  name = "types",
+  actual = ":ts",
+)

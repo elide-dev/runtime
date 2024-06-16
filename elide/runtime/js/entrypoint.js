@@ -132,12 +132,3 @@ const Elide = {
 };
 
 globalThis['Elide'] = Elide;
-
-/**
- * Global process proxy object.
- *
- * @type {!EnhancedNodeProcess}
- */
-const process = Elide.process;
-
-globalThis['process'] = process;
