@@ -45,7 +45,7 @@ ts_config(
 ## -- Entrypoints -- ##
 
 EXTERNS = BASE_JS_EXTERNS + [
-    "//types:internals",
+    # Nothing at this time.
 ]
 
 js_library(
