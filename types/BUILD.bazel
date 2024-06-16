@@ -1,10 +1,6 @@
 load(
-    "//tools:defs.bzl",
-    "ts_library",
-)
-load(
-    "@elide//tools:defs.bzl",
-    "js_extern",
+    "@npm//@bazel/typescript:index.bzl",
+    _pure_ts_library = "ts_library",
 )
 
 package(
@@ -16,23 +12,11 @@ filegroup(
   srcs = ["primordials.d.ts"],
 )
 
-ts_library(
+_pure_ts_library(
   name = "ts",
   srcs = [":srcs"],
-  module = "primordials",
-  include_types = False,
-  include_tools = False,
 )
 
-filegroup(
-  name = "externs",
-  srcs = ["internals.extern.js"],
-)
-
-js_extern(
-    name = "internals",
-    srcs = [":externs"],
-)
 
 alias(
   name = "types",

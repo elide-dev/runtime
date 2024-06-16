@@ -19,6 +19,15 @@
  * @author samuel.gammon@gmail.com (Sam Gammon)
  */
 
+// Primordials are provided to runtime internals from the host VM.
+
+/**
+ * Host-provided bindins.
+ *
+ * @type {!Object<string, ?>}
+ */
+const primordials = {};
+
 /**
  * Console base.
  *
