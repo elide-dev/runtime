@@ -1,13 +1,12 @@
-
-package(
-    default_visibility = ["//visibility:public"],
-)
-
 load(
     "@elide//tools:defs.bzl",
     "closure_extern",
     "extern",
     "js_extern",
+)
+
+package(
+    default_visibility = ["//visibility:public"],
 )
 
 ## Externs: ECMAScript 3, 5, and 6.

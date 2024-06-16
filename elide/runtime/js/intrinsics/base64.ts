@@ -11,14 +11,16 @@
  * License for the specific language governing permissions and limitations under the License.
  */
 
-import {globalContext, installGlobal} from "./base";
-import type {Base64} from "./primordials";
+const { Base64: Base64Intrinsic } = primordials;
+
+import { installGlobal } from "./base";
+import type { Base64 } from "./primordials";
 
 /**
  * @return Intrinsic Base64 bridge.
  */
 function resolveIntrinsic(): Base64 {
-    return globalContext['Base64'] as Base64;
+    return Base64Intrinsic as Base64;
 }
 
 /**
