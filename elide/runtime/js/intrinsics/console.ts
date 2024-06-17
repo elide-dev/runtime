@@ -355,16 +355,19 @@ abstract class AbstractConsole implements IConsole {
     }
 }
 
+// Acquire the intrinsic console so that we can proxy to it.
+function acquireIntrinsic(): IConsole {
+    return globalContext["Console"] as IConsole;
+}
+
 /** JS bridge to the console intrinsics. */
 export class ConsoleBridge extends AbstractConsole {
-    // Acquire the intrinsic console so that we can proxy to it.
-    private acquireIntrinsic(): IConsole {
-        return globalContext["Console"] as IConsole;
-    }
-
     /** @inheritDoc */
     deliverLog(level: string, args: any[]) {
-        const intrinsic = this.acquireIntrinsic();
+        const intrinsic = acquireIntrinsic();
+        if (!intrinsic) {
+            throw new Error('No intrinsic console available');
+        }
         switch (level) {
             case 'trace': intrinsic.log(args); break;
             case 'debug': intrinsic.log(args); break;

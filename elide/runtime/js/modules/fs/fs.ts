@@ -17,7 +17,7 @@
  * Provides a shim which offers a `fs` module implementation that is compatible with Node.js-style imports.
  */
 
-const internals: any = globalThis['__Elide_node_fs__']();
+const internalsAccessor: any = globalThis['__Elide_node_fs__'];
 
 /**
  * File system constants
@@ -138,7 +138,7 @@ export const StatWatcher = globalThis['StatWatcher'];
  * @param callback Callback function to dispatch with failures
  */
 export function access(path: string | Buffer | URL, mode: number = constants.F_OK, callback: (err: NodeJS.ErrnoException) => void): void {
-  internals.access(path, callback);
+  internalsAccessor().access(path, callback);
 }
 
 /**
@@ -153,7 +153,7 @@ export function access(path: string | Buffer | URL, mode: number = constants.F_O
  * @param mode Mode to check; defaults to `fs.constants.F_OK`
  */
 export function accessSync(path: string | Buffer | URL, mode: number = constants.F_OK): void {
-  internals.accessSync(path, mode);
+  internalsAccessor().accessSync(path, mode);
 }
 
 /**
@@ -167,7 +167,7 @@ export function accessSync(path: string | Buffer | URL, mode: number = constants
  * @param callback Callback function to dispatch with the file contents
  */
 export function appendFile(path: string | Buffer | URL, data: any, options: { encoding: string; mode?: number; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void {
-  internals.appendFile(path, data, options, callback);
+  internalsAccessor().appendFile(path, data, options, callback);
 }
 
 /**
@@ -180,7 +180,7 @@ export function appendFile(path: string | Buffer | URL, data: any, options: { en
  * @param options Options for appending to the file
  */
 export function appendFileSync(path: string | Buffer | URL, data: any, options: { encoding: string; mode?: number; flag?: string; }): void {
-  internals.appendFileSync(path, data, options);
+  internalsAccessor().appendFileSync(path, data, options);
 }
 
 /**
@@ -193,7 +193,7 @@ export function appendFileSync(path: string | Buffer | URL, data: any, options: 
  * @param callback Callback function to dispatch with failures
  */
 export function chmod(path: string | Buffer | URL, mode: number, callback: (err: NodeJS.ErrnoException) => void): void {
-  internals.chmod(path, mode, callback);
+  internalsAccessor().chmod(path, mode, callback);
 }
 
 /**
@@ -205,7 +205,7 @@ export function chmod(path: string | Buffer | URL, mode: number, callback: (err:
  * @param mode Mode to set
  */
 export function chmodSync(path: string | Buffer | URL, mode: number): void {
-  internals.chmodSync(path, mode);
+  internalsAccessor().chmodSync(path, mode);
 }
 
 /**
@@ -219,7 +219,7 @@ export function chmodSync(path: string | Buffer | URL, mode: number): void {
  * @param callback Callback function to dispatch with failures
  */
 export function chown(path: string | Buffer | URL, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void {
-  internals.chown(path, uid, gid, callback);
+  internalsAccessor().chown(path, uid, gid, callback);
 }
 
 /**
@@ -232,7 +232,7 @@ export function chown(path: string | Buffer | URL, uid: number, gid: number, cal
  * @param gid Group ID to set
  */
 export function chownSync(path: string | Buffer | URL, uid: number, gid: number): void {
-  internals.chownSync(path, uid, gid);
+  internalsAccessor().chownSync(path, uid, gid);
 }
 
 /**
@@ -247,7 +247,7 @@ export function chownSync(path: string | Buffer | URL, uid: number, gid: number)
  * @param callback Callback function to dispatch with failures
  */
 export function open(path: string | Buffer | URL, flags: string | number, mode: number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void {
-  internals.open(path, flags, mode, callback);
+  internalsAccessor().open(path, flags, mode, callback);
 }
 
 /**
@@ -261,7 +261,7 @@ export function open(path: string | Buffer | URL, flags: string | number, mode: 
  * @returns The file descriptor
  */
 export function openSync(path: string | Buffer | URL, flags: string | number, mode: number): number {
-  return internals.openSync(path, flags, mode);
+  return internalsAccessor().openSync(path, flags, mode);
 }
 
 /**
@@ -273,7 +273,7 @@ export function openSync(path: string | Buffer | URL, flags: string | number, mo
  * @param callback Callback function to dispatch with failures
  */
 export function close(fd: number, callback: (err: NodeJS.ErrnoException) => void): void {
-  internals.close(fd, callback);
+  internalsAccessor().close(fd, callback);
 }
 
 /**
@@ -284,7 +284,7 @@ export function close(fd: number, callback: (err: NodeJS.ErrnoException) => void
  * @param fd File descriptor to close
  */
 export function closeSync(fd: number): void {
-  internals.closeSync(fd);
+  internalsAccessor().closeSync(fd);
 }
 
 /**
@@ -298,7 +298,7 @@ export function closeSync(fd: number): void {
  * @param callback Callback function to dispatch with failures
  */
 export function copyFile(src: string | Buffer | URL, dest: string | Buffer | URL, flags: number, callback: (err: NodeJS.ErrnoException) => void): void {
-  internals.copyFile(src, dest, flags, callback);
+  internalsAccessor().copyFile(src, dest, flags, callback);
 }
 
 /**
@@ -311,7 +311,7 @@ export function copyFile(src: string | Buffer | URL, dest: string | Buffer | URL
  * @param flags Flags for copying the file
  */
 export function copyFileSync(src: string | Buffer | URL, dest: string | Buffer | URL, flags: number): void {
-  internals.copyFileSync(src, dest, flags);
+  internalsAccessor().copyFileSync(src, dest, flags);
 }
 
 /**
@@ -323,7 +323,7 @@ export function copyFileSync(src: string | Buffer | URL, dest: string | Buffer |
  * @param callback Callback function to dispatch with the result
  */
 export function exists(path: string | Buffer | URL, callback: (exists: boolean) => void): void {
-  internals.exists(path, callback);
+  internalsAccessor().exists(path, callback);
 }
 
 /**
@@ -335,7 +335,7 @@ export function exists(path: string | Buffer | URL, callback: (exists: boolean) 
  * @returns Whether the path exists
  */
 export function existsSync(path: string | Buffer | URL): boolean {
-  return internals.existsSync(path);
+  return internalsAccessor().existsSync(path);
 }
 
 /**
@@ -359,9 +359,9 @@ export type MkdirOptions = { recursive?: boolean; mode?: number; }
  */
 export function mkdir(path: string | Buffer | URL, optionsOrCallback: MkdirCallback | MkdirOptions, callback?: MkdirCallback): void {
   if (callback) {
-    internals.mkdir(path, optionsOrCallback as MkdirOptions, callback);
+    internalsAccessor().mkdir(path, optionsOrCallback as MkdirOptions, callback);
   } else {
-    internals.mkdir(path, optionsOrCallback as MkdirCallback);
+    internalsAccessor().mkdir(path, optionsOrCallback as MkdirCallback);
   }
 }
 
@@ -374,7 +374,7 @@ export function mkdir(path: string | Buffer | URL, optionsOrCallback: MkdirCallb
  * @param options Options for creating the directory
  */
 export function mkdirSync(path: string | Buffer | URL, options?: { recursive: boolean; mode?: number; }): void {
-  internals.mkdirSync(path, options);
+  internalsAccessor().mkdirSync(path, options);
 }
 
 /**
@@ -387,7 +387,7 @@ export function mkdirSync(path: string | Buffer | URL, options?: { recursive: bo
  * @param callback Callback function to dispatch with the file contents
  */
 export function readFile(path: string | Buffer | URL, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void {
-  internals.readFile(path, options, callback);
+  internalsAccessor().readFile(path, options, callback);
 }
 
 /**
@@ -400,7 +400,7 @@ export function readFile(path: string | Buffer | URL, options: { encoding: strin
  * @returns The file contents
  */
 export function readFileSync(path: string | Buffer | URL, options?: string | { encoding?: string; flag?: string; }): string {
-  return internals.readFileSync(path, options || null);
+  return internalsAccessor().readFileSync(path, options || null);
 }
 
 /**
@@ -414,7 +414,7 @@ export function readFileSync(path: string | Buffer | URL, options?: string | { e
  * @param callback Callback function to dispatch with the file contents
  */
 export function writeFile(path: string | Buffer | URL, data: any, options: { encoding: string; mode?: number; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void {
-  internals.writeFile(path, data, options, callback);
+  internalsAccessor().writeFile(path, data, options, callback);
 }
 
 /**
@@ -427,7 +427,7 @@ export function writeFile(path: string | Buffer | URL, data: any, options: { enc
  * @param options Options for writing the file
  */
 export function writeFileSync(path: string | Buffer | URL, data: any, options: { encoding: string; mode?: number; flag?: string; }): void {
-  internals.writeFileSync(path, data, options);
+  internalsAccessor().writeFileSync(path, data, options);
 }
 
 export default {

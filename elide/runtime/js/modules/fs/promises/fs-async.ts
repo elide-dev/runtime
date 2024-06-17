@@ -17,7 +17,7 @@
  * Provides a shim which offers a `fs/promises` module implementation that is compatible with Node.js-style imports.
  */
 
-const internals: any = globalThis['__Elide_node_fs_promises__']();
+const internalsAccessor: any = globalThis['__Elide_node_fs_promises__'];
 
 /**
  * File system constants
@@ -42,7 +42,7 @@ const constants = {
  * @returns A promise that resolves if the file is accessible
  */
 export function access(path: string | Buffer | URL, mode: number = constants.F_OK): Promise<void> {
-  return internals.access(path, mode);
+  return internalsAccessor().access(path, mode);
 }
 
 /**
@@ -55,7 +55,7 @@ export function access(path: string | Buffer | URL, mode: number = constants.F_O
  * @returns A promise that resolves with the file contents
  */
 export function readFile(path: string | Buffer | URL, options: { encoding: string; flag?: string; }): Promise<string> {
-  return internals.readFile(path, options);
+  return internalsAccessor().readFile(path, options);
 }
 
 /**
@@ -69,7 +69,7 @@ export function readFile(path: string | Buffer | URL, options: { encoding: strin
  * @returns A promise that resolves when the file is written
  */
 export function writeFile(path: string | Buffer | URL, data: string | Buffer | Uint8Array, options: { encoding: string; flag?: string; }): Promise<void> {
-  return internals.writeFile(path, data, options);
+  return internalsAccessor().writeFile(path, data, options);
 }
 
 /**
@@ -84,7 +84,7 @@ export function writeFile(path: string | Buffer | URL, data: string | Buffer | U
  * @returns A promise that resolves when the directory is created
  */
 export function mkdir(path: string | Buffer | URL, options: { recursive: boolean; }): Promise<void> {
-  return internals.mkdir(path, options);
+  return internalsAccessor().mkdir(path, options);
 }
 
 export default {
