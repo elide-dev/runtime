@@ -1,0 +1,12 @@
+{
+  "name": "timers",
+  "type": "module",
+  "module": "timers.mjs",
+  "main": "timers.cjs",
+  "exports": {
+    ".": {
+      "import": "./timers.mjs",
+      "require": "./timers.cjs"
+    }
+  }
+}
