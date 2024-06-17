@@ -105,6 +105,7 @@ NODE_BUILTINS = [
     "stream/web",
     "string_decoder",
     "test",
+    "timers",
     "timers/promises",
     "tls",
     "trace_events",
