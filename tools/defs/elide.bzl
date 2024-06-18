@@ -511,8 +511,8 @@ def _runtime_dist(name, language, target, manifest, info = [], configs = [], mod
             )
             _pkg_tar(
                 name = "%s.modules" % language,
-                out = "%s.modules.tar.gz" % language,
-                extension = "tar.gz",
+                out = "%s.modules.tar" % language,
+                extension = "tar",
                 srcs = modules,
                 deps = ["%s.elide-modules" % language],
             )
@@ -552,8 +552,8 @@ def _runtime_dist(name, language, target, manifest, info = [], configs = [], mod
         if len(modules) > 0:
             _pkg_tar(
                 name = "%s.modules" % language,
-                out = "%s.modules.tar.gz" % language,
-                extension = "tar.gz",
+                out = "%s.modules.tar" % language,
+                extension = "tar",
                 deps = modules,
             )
             outs.append(":%s.modules" % language)
