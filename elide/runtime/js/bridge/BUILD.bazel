@@ -17,6 +17,10 @@ ts_library(
     deps = [
         "//elide/runtime/js/intrinsics/err",
     ],
+    suppress = [
+        "JSC_INEXISTENT_PROPERTY",
+        "JSC_UNRECOGNIZED_TYPE_ERROR",
+    ],
 )
 
 alias(
