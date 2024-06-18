@@ -13,7 +13,8 @@
 
 // noinspection JSUnusedGlobalSymbols
 
-import type {Blob} from "../blob/Blob";
+import {Blob} from "../blob/Blob";
+
 // import type {IURLSearchParams} from "./IURLSearchParams";
 // import type {URLSearchParams} from "./URLSearchParams";
 import type {IURL, URLInputs} from "./IURL";
@@ -56,7 +57,7 @@ declare global {
          * @param obj `Blob`, or `File`, or `MediaSource` to create a URL for.
          * @return URL reference for the provided resource.
          */
-        createObjectURL(obj: Blob): string;
+        createObjectURL(obj: typeof Blob): string;
 
         /**
          * Revoke a previously-issued temporary URL reference to a [File] or [Blob] object.
