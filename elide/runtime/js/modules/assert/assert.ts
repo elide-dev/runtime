@@ -17,14 +17,23 @@
  * Provides assertion primitives for use in testing and debugging.
  */
 
-const intrinsic: any = globalThis['__Elide_node_assert__'];
+const {
+  node_assert,
+  AssertionError: AssertionErrorSymbol,
+} = primordials;
+
+if (!node_assert) {
+  throw new Error(`The 'assert' module failed to load its intrinsic API.`);
+}
+
+const intrinsic: any = node_assert;
 
 /**
  * Type: `AssertionError`
  *
  * Represents an assertion failure.
  */
-export const AssertionError = globalThis['AssertionError'];
+export const AssertionError = AssertionErrorSymbol;
 
 /**
  * Type: `AssertionErrorOptions`.
@@ -57,19 +66,7 @@ export interface AssertionErrorOptions {
  * @see https://nodejs.org/api/assert.html#assertokvalue-message
  */
 export function ok(condition: any, message?: string): void {
-  if (intrinsic) {
-    intrinsic.ok(condition, message);
-  } else {
-    if (!condition) {
-      throw new AssertionError({
-        message: message || 'Assertion failed',
-        actual: condition,
-        expected: true,
-        operator: '==',
-        stackStartFn: ok
-      });
-    }
-  }
+  intrinsic.ok(condition, message);
 }
 
 /**

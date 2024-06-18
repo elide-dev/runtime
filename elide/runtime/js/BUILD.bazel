@@ -52,6 +52,10 @@ js_library(
     name = "entrypoint-js",
     srcs = ["entrypoint.js"],
     ts_deps = TS_MODULES,
+    suppress = [
+        "JSC_UNKNOWN_EXPR_TYPE",
+        "JSC_INEXISTENT_PROPERTY",
+    ],
 )
 
 js_runtime(

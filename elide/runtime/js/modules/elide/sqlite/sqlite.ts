@@ -11,17 +11,14 @@
  * License for the specific language governing permissions and limitations under the License.
  */
 
-/**
- * Intrinsic: SQLite.
- *
- * Provides access to SQLite databases via a proprietary API.
- */
-
-const intrinsic: any = globalThis['__Elide_sqlite__'];
+const { sqlite_Database } = primordials;
+if (!sqlite_Database) {
+  throw new Error(`The 'sqlite' module failed to load its intrinsic API.`);
+}
 
 /**
  * Class: `Database`.
  *
  * Main database handle class.
  */
-export const Database = globalThis['__Elide_sqlite_Database__'];
+export const Database = sqlite_Database;

@@ -39,14 +39,6 @@ ts_library(
 )
 
 ts_library(
-    name = "console",
-    srcs = [
-        "console.ts",
-    ],
-    module = MODULE_NAME,
-)
-
-ts_library(
     name = "timers",
     srcs = [
         "timers.ts",

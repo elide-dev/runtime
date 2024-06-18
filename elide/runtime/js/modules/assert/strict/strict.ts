@@ -17,7 +17,12 @@
  * Provides assertion primitives for use in testing and debugging.
  */
 
-const intrinsic: any = globalThis['__Elide_node_assert_strict__'];
+const { node_assert_strict } = primordials;
+if (!node_assert_strict) {
+  throw new Error(`The 'assert/strict' module failed to load the intrinsic API.`);
+}
+
+const intrinsic: any = node_assert_strict;
 
 /**
  * Type: `AssertionError`

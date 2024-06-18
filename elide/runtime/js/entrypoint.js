@@ -20,9 +20,14 @@ goog.module('elide.runtime.js.entry');
 // Top-level Intrinsics.
 goog.require('elide.runtime.js.bridge.jserror');
 goog.require('elide.runtime.js.intrinsics.base64');
-goog.require('elide.runtime.js.intrinsics.console');
 goog.require('elide.runtime.js.intrinsics.err.ValueError');
 goog.require('elide.runtime.js.intrinsics.url.URL');
+
+const {
+    app_env,
+    version,
+    node_process,
+} = primordials;
 
 /**
  * Type structure of a Node process object.
@@ -53,7 +58,7 @@ let EnhancedNodeProcess;
  * @const
  * @type {!string}
  */
-const APP_ENV = '__Elide_app_env__';
+const APP_ENV = app_env;
 
 /**
  * Global symbol where Elide version is injected.
@@ -61,7 +66,7 @@ const APP_ENV = '__Elide_app_env__';
  * @const
  * @type {!string}
  */
-const RUNTIME_VERSION = '__Elide_version__';
+const RUNTIME_VERSION = version;
 
 /**
  * Global symbol where the intrinsic process object is injected.
@@ -69,7 +74,7 @@ const RUNTIME_VERSION = '__Elide_version__';
  * @const
  * @type {!string}
  */
-const RUNTIME_PROCESS = '__Elide_node_process__';
+const RUNTIME_PROCESS = node_process;
 
 /**
  * Application environment injected by the Elide runtime.

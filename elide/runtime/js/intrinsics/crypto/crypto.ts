@@ -11,14 +11,15 @@
  * License for the specific language governing permissions and limitations under the License.
  */
 
-import {globalContext, installGlobal} from "../base";
+import {installGlobal} from "../base";
 import type {Crypto} from "../primordials";
+const { crypto } = primordials;
 
 /**
  * @return Crypto Intrinsic `Crypto` bridge.
  */
 function resolveIntrinsic(): Crypto {
-    return globalContext['__elide_crypto'] as Crypto;
+    return crypto;
 }
 
 declare global {
