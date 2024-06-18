@@ -19,9 +19,9 @@ goog.module('elide.runtime.js.entry');
 goog.require('elide.runtime.js.bridge.jserror');
 
 const {
-    app_env,
-    version,
-    node_process,
+  app_env,
+  version,
+  node_process,
 } = primordials;
 
 /**
@@ -122,7 +122,7 @@ globalThis['self'] = App;
  *   context: {build: boolean, runtime: boolean}
  * }}
  */
-const Elide = {
+const ElideInfo = {
     'process': nodeProcessAPI(),
     'version': elideVersion,
     'context': {
@@ -131,4 +131,6 @@ const Elide = {
     },
 };
 
-globalThis['Elide'] = Elide;
+const ElideBase = globalThis['Elide'] || {};
+Object.assign(ElideBase, ElideInfo);
+globalThis['Elide'] = ElideBase;

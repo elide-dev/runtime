@@ -21,7 +21,6 @@ const {
   node_buffer_module: node_buffer,
   node_buffer_Blob,
   node_buffer_File,
-  node_buffer_Buffer
 } = primordials;
 
 /**
@@ -45,7 +44,7 @@ export const constants = {
 /**
  * Export the intrinsic `Buffer` type as the main export, and also an export called `Buffer`.
  */
-export const Buffer = node_buffer_Buffer;
+export const Buffer = globalThis['Buffer'];
 
 /**
  * Export the intrinsic `SlowBuffer` type.
