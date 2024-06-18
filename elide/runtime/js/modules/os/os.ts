@@ -17,13 +17,13 @@
  * Provides a shim which offers a `os` module implementation that is compatible with Node.js-style imports.
  */
 
+const { node_os } = primordials;
+if (!node_os) {
+  throw new Error(`The 'os' module failed to load the intrinsic API.`);
+}
+
 function intrinsic(): any {
-  // @ts-expect-error intrinsic symbol
-  const api = __Elide_node_os__;
-  if (!api) {
-    throw new Error(`The 'os' module failed to load the intrinsic API.`);
-  }
-  return api || {};
+  return node_os;
 }
 
 /**

@@ -17,7 +17,13 @@
  * Provides a shim which offers a `path` module implementation that is compatible with Node.js-style imports.
  */
 
-const internals: any = globalThis['__Elide_node_path__'];
+const { node_path } = primordials;
+
+if (!node_path) {
+  throw new Error(`The 'path' module failed to load its intrinsic API.`);
+}
+
+const internals: any = node_path;
 
 /**
  * Represents an object with path properties.

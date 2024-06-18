@@ -17,7 +17,8 @@
  * Implements URL parsing and formatting.
  */
 
-const internals: any = globalThis['__Elide_node_url__'];
+const { node_url } = primordials;
+const internals: any = node_url;
 
 // Re-export built-in URL intrinsic.
 export const URL = globalThis['URL'];

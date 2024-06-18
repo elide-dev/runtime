@@ -17,7 +17,17 @@
  * Provides a shim which offers a `fs` module implementation that is compatible with Node.js-style imports.
  */
 
-const internalsAccessor: any = globalThis['__Elide_node_fs__'];
+const { node_fs } = primordials;
+
+if (!node_fs) {
+  throw new Error(`The 'fs' module failed to load its intrinsic API.`);
+}
+
+const intrinsic: any = node_fs();
+
+function internalsAccessor(): any {
+  return intrinsic;
+}
 
 /**
  * File system constants

@@ -17,10 +17,14 @@
  * Provides a shim which offers a `process` module implementation that is compatible with Node.js-style imports.
  */
 
+const { node_process } = primordials;
+
+if (!node_process) {
+  throw new Error(`The 'process' module failed to load its intrinsic API.`);
+}
+
 function intrinsic(): any {
-  const api = globalThis['__Elide_node_process__'];
-  if (!api) throw new Error(`The 'process' module failed to load the intrinsic API.`);
-  return api || {};
+  return node_process;
 }
 
 /**

@@ -24,7 +24,7 @@
 /**
  * Host-provided bindins.
  *
- * @type {!Object<string, ?>}
+ * @type {!Object<string, *>}
  */
 const primordials = {};
 

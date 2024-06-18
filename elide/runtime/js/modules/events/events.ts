@@ -17,7 +17,13 @@
  * Provides event handling primitives.
  */
 
-const intrinsic: any = globalThis['__Elide_node_events__'];
+const { node_events } = primordials;
+
+if (!node_events) {
+  throw new Error(`The 'events' module failed to load its intrinsic API.`);
+}
+
+const intrinsic: any = node_events;
 
 /**
  * The `Event` class.

@@ -1,11 +1,6 @@
-package(
-    default_visibility = ["//visibility:public"],
-)
-
 load(
     "//tools:defs.bzl",
     "ts_config",
-    "ts_library",
 )
 load(
     "//tools/defs:elide.bzl",
@@ -14,6 +9,10 @@ load(
 load(
     "//elide/runtime/js:config.bzl",
     "TS_MODULES",
+)
+
+package(
+    default_visibility = ["//visibility:public"],
 )
 
 MODULE_NAME = "elide.runtime.ts"
@@ -45,7 +44,6 @@ ts_runtime(
         "//third_party/google/tsickle:tslib",
     ] + [
         "//elide/runtime/js/intrinsics:base64_js",
-        "//elide/runtime/js/intrinsics:console_js",
         "//elide/runtime/js/intrinsics/url:url_js",
     ],
     extra_sources = [
