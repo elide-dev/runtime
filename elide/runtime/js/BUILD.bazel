@@ -49,8 +49,18 @@ EXTERNS = BASE_JS_EXTERNS + [
 ]
 
 js_library(
+    name = "preload-js",
+    srcs = ["preload.js"],
+    suppress = [
+        "JSC_UNKNOWN_EXPR_TYPE",
+        "JSC_UNDEFINED_VARIABLE",
+    ],
+)
+
+js_library(
     name = "entrypoint-js",
     srcs = ["entrypoint.js"],
+    deps = [":preload-js"],
     ts_deps = TS_MODULES,
     suppress = [
         "JSC_UNKNOWN_EXPR_TYPE",
