@@ -16,12 +16,7 @@
 /*global goog*/
 
 goog.module('elide.runtime.js.entry');
-
-// Top-level Intrinsics.
 goog.require('elide.runtime.js.bridge.jserror');
-goog.require('elide.runtime.js.intrinsics.base64');
-goog.require('elide.runtime.js.intrinsics.err.ValueError');
-goog.require('elide.runtime.js.intrinsics.url.URL');
 
 const {
     app_env,
