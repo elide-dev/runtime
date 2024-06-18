@@ -11,9 +11,5 @@
  * License for the specific language governing permissions and limitations under the License.
  */
 
-/**
- * TBD.
- */
-export interface Blob {
-    // Not yet implemented.
-}
+// @ts-ignore
+export const Blob = globalThis['Blob'];

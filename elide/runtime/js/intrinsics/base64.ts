@@ -11,35 +11,7 @@
  * License for the specific language governing permissions and limitations under the License.
  */
 
-const { Base64: Base64Intrinsic } = primordials;
-
-import { installGlobal } from "./base";
-import type { Base64 } from "./primordials";
-
-/**
- * @return Intrinsic Base64 bridge.
- */
-function resolveIntrinsic(): Base64 {
-    return Base64Intrinsic as Base64;
-}
-
-/**
- * Standard DOM `btoa` function which encodes a string to Base64.
- *
- * @param input Input string to encode.
- */
-function base64Encode(input: string): string {
-    return resolveIntrinsic().encode(input);
-}
-
-/**
- * Standard DOM `atob` function which decodes a string from base64.
- *
- * @param input Input string to decode.
- */
-function base64Decode(input: string): string {
-    return resolveIntrinsic().decode(input);
-}
+export {};
 
 declare global {
     /**
@@ -60,6 +32,3 @@ declare global {
     // @ts-ignore
     export const atob: (input: string) => string;
 }
-
-installGlobal('btoa', base64Encode);
-installGlobal('atob', base64Decode);
