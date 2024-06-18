@@ -17,6 +17,13 @@
  * Provides a shim which offers a `Buffer` implementation that is compatible with Node.js-style imports.
  */
 
+const {
+  node_buffer_module: node_buffer,
+  node_buffer_Blob,
+  node_buffer_File,
+  node_buffer_Buffer
+} = primordials;
+
 /**
  * Maximum buffer size.
  */
@@ -38,7 +45,7 @@ export const constants = {
 /**
  * Export the intrinsic `Buffer` type as the main export, and also an export called `Buffer`.
  */
-export const Buffer = globalThis['Buffer'];
+export const Buffer = node_buffer_Buffer;
 
 /**
  * Export the intrinsic `SlowBuffer` type.
@@ -48,12 +55,12 @@ export const SlowBuffer = Buffer;
 /**
  * Export the intrinsic `Blob` type.
  */
-export const Blob = globalThis['Blob'];
+export const Blob = node_buffer_Blob;
 
 /**
  * Export the intrinsic `File` type.
  */
-export const File = globalThis['File'];
+export const File = node_buffer_File;
 
 /**
  * Resolves a 'blob:nodedata:...' to an associated <Blob> object registered using a prior call to
@@ -92,7 +99,7 @@ export function resolveObjectURL(blob: Blob): string {
  * @returns The transcoded buffer.
  */
 export function transcode(buffer: Buffer | Uint8Array, fromEnc: string, toEnc: string): Buffer {
-  throw new Error('Not implemented'); 
+  return node_buffer.transcode(buffer, fromEnc, toEnc);
 }
 
 /**
@@ -102,7 +109,7 @@ export function transcode(buffer: Buffer | Uint8Array, fromEnc: string, toEnc: s
  * @returns `true` if the buffer is valid UTF-8, otherwise `false`.
  */
 export function isUtf8(buffer: Buffer | Uint8Array): boolean {
-  throw new Error('Not implemented');
+  return node_buffer.isUtf8(buffer);
 }
 
 /**
@@ -112,7 +119,7 @@ export function isUtf8(buffer: Buffer | Uint8Array): boolean {
  * @returns `true` if the buffer is valid ASCII, otherwise `false`.
  */
 export function isAscii(buffer: Buffer | Uint8Array): boolean {
-  throw new Error('Not implemented');
+  return node_buffer.isAscii(buffer);
 }
 
 /**
