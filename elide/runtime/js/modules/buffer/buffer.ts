@@ -17,11 +17,7 @@
  * Provides a shim which offers a `Buffer` implementation that is compatible with Node.js-style imports.
  */
 
-const {
-  node_buffer_module: node_buffer,
-  node_buffer_Blob,
-  node_buffer_File,
-} = primordials;
+const { node_buffer_module: node_buffer } = primordials;
 
 /**
  * Maximum buffer size.
@@ -54,12 +50,12 @@ export const SlowBuffer = Buffer;
 /**
  * Export the intrinsic `Blob` type.
  */
-export const Blob = node_buffer_Blob;
+export const Blob = globalThis['Blob'];
 
 /**
  * Export the intrinsic `File` type.
  */
-export const File = node_buffer_File;
+export const File = globalThis['File'];
 
 /**
  * Resolves a 'blob:nodedata:...' to an associated <Blob> object registered using a prior call to
@@ -132,7 +128,7 @@ export function isAscii(buffer: Buffer | Uint8Array): boolean {
  * For code running using Node.js APIs, converting between base64-encoded strings and binary data should be performed
  * using Buffer.from(str, 'base64') and buf.toString('base64').
  */
-export const btoa = globalThis['btoa'];
+export const btoa = node_buffer.btoa;
 
 /**
  * Decodes a string of Base64-encoded data into bytes, and encodes those bytes into a string using Latin-1 (ISO-8859-1).
@@ -144,7 +140,7 @@ export const btoa = globalThis['btoa'];
  * code running using Node.js APIs, converting between base64-encoded strings and binary data should be performed
  * using Buffer.from(str, 'base64') and buf.toString('base64').
  */
-export const atob = globalThis['atob'];
+export const atob = node_buffer.atob;
 
 // `Buffer` is assigned as the default export.
 export default Buffer;
