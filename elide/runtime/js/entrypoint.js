@@ -103,34 +103,3 @@ function nodeProcessAPI() {
 
 globalThis['window'] = undefined;
 globalThis['gc'] = null;
-
-/**
- * Global application object.
- *
- * @type {!Object<string, *>}
- */
-const App = {};
-globalThis['global'] = App;
-globalThis['self'] = App;
-
-/**
- * Global Elide object.
- *
- * @type {{
- *   version: !string,
- *   process: !EnhancedNodeProcess,
- *   context: {build: boolean, runtime: boolean}
- * }}
- */
-const ElideInfo = {
-    'process': nodeProcessAPI(),
-    'version': elideVersion,
-    'context': {
-        'build': false,
-        'runtime': true
-    },
-};
-
-const ElideBase = globalThis['Elide'] || {};
-Object.assign(ElideBase, ElideInfo);
-globalThis['Elide'] = ElideBase;
