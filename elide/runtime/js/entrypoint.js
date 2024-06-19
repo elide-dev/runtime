@@ -16,7 +16,6 @@
 /*global goog*/
 
 goog.module('elide.runtime.js.entry');
-goog.require('elide.runtime.js.bridge.jserror');
 
 const {
   app_env,
