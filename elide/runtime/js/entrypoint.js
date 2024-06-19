@@ -48,49 +48,25 @@ let NodeProcess;
 let EnhancedNodeProcess;
 
 /**
- * Global symbol where application environment is injected.
- *
- * @const
- * @type {!string}
- */
-const APP_ENV = app_env;
-
-/**
- * Global symbol where Elide version is injected.
- *
- * @const
- * @type {!string}
- */
-const RUNTIME_VERSION = version;
-
-/**
- * Global symbol where the intrinsic process object is injected.
- *
- * @const
- * @type {!string}
- */
-const RUNTIME_PROCESS = node_process;
-
-/**
  * Application environment injected by the Elide runtime.
  *
  * @type {!Object<string, !string>}
  */
-const injectedApplicationEnvironment = globalThis[APP_ENV];
+const injectedApplicationEnvironment = app_env;
 
 /**
  * Elide version provided by the runtime.
  *
  * @type {!string}
  */
-const elideVersion = globalThis[RUNTIME_VERSION];
+const elideVersion = version;
 
 /**
  * Intrinsic process object, injected by the runtime.
  *
  * @type {!EnhancedNodeProcess}
  */
-const intrinsicProcess = globalThis[RUNTIME_PROCESS];
+const intrinsicProcess = node_process;
 
 /**
  * Return the Node Process API to use.
