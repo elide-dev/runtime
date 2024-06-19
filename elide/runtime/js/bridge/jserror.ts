@@ -12,44 +12,7 @@
  */
 
 import { installGlobal } from "../intrinsics/base";
-const { NativeTypeError, NativeValueError } = primordials;
-
-/**
- * # JS: Value Error
- *
- * Wraps a native value error.
- */
-class ValueError extends NativeValueError {
-    protected __valueError__: boolean = true;
-
-    constructor(message?: string) {
-        super(message || '`ValueError` was thrown');
-    }
-
-    /** @suppress {reportUnknownTypes} */
-    static [Symbol.hasInstance](instance: any | ValueError): boolean {
-        return (instance && instance.__valueError__ === true) || false;
-    }
-}
-
-/**
- * # JS: Type Error
- *
- * Wraps a native value error.
- */
-class TypeError extends NativeTypeError {
-    protected __valueError__: boolean = true;
-
-    constructor(message?: string) {
-        super(message || '`ValueError` was thrown');
-    }
-
-    /** @suppress {reportUnknownTypes} */
-    static [Symbol.hasInstance](instance: any | ValueError): boolean {
-        return (instance && instance.__valueError__ === true) || false;
-    }
-}
+const NativeValueError = primordials['NativeValueError'];
 
 // Install as global.
-installGlobal("ValueError", ValueError);
-installGlobal("TypeError", TypeError);
+installGlobal("ValueError", NativeValueError);
