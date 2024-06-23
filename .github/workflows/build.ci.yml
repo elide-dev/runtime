@@ -96,7 +96,7 @@ jobs:
       - uses: bazelbuild/setup-bazelisk@95c9bf48d0c570bb3e28e57108f3450cd67c1a44 # v2
       - name: "🛠️ Build"
         id: bazelbuild
-        run: bazel build --config=adc --config=ci //elide/runtime/ts //elide/runtime/js
+        run: bazel build --config=adc --config=ci //elide/runtime/...
       - name: "🛠️ Test"
         id: bazeltest
         env:
