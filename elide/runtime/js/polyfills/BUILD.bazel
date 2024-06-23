@@ -18,9 +18,9 @@ POLYFILLS = {
     "buffer": ["base64.js", "buffer.js", "ieee754.js"],
     "once": ["once.js"],
     "readable-stream": ["readable-stream.mjs"],
-    "text-encoder": ["textencoder.js"],
     # --- Disabled (Implemented Natively) -------
     # "event": ["event-target.js"],
+    # "text-encoder": ["textencoder.js"],
 }
 
 [filegroup(name = n[0], srcs = n[1]) for n in POLYFILLS.items()]
