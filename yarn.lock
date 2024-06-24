@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@bazel/buildifier/-/buildifier-6.1.2.tgz#c151df52d2537937911f8f7802f96611d63a90b7"
   integrity sha512-psKePmRkP6acwyePOhXP67R/wdwN7BGJxHqp1j5myaO24feMsaXyyiO+oW49x8YAwOpKVSCujVzkTwX2auAc0A==
 
-"@bazel/buildozer@6.1.2":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@bazel/buildozer/-/buildozer-6.1.2.tgz#fb53f7ab8afcf953dacd765d72ca38aa88ab156d"
-  integrity sha512-Ev9yXHMw93CF3k/gyHwOA3UCZCQ9qPry0WHxD+wjUSf8go3PqMbtq9sWWiyBlZP5KtRWUF/aQxmtF/AHdFdniQ==
+"@bazel/buildozer@7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@bazel/buildozer/-/buildozer-7.1.2.tgz#4c3dc2f3746d89866c9efbf9bde9da5bc87b58bc"
+  integrity sha512-xpJ32FtjT9Jk0GifusetLx+p0OJiHIdxqFs2TmjL3uJzOrKAuv6lg5vPXzp7D/m73WfX5vmA8008jBjh3DTRqQ==
 
 "@bazel/concatjs@4.6.2":
   version "4.6.2"
