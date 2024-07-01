@@ -13,7 +13,7 @@
     "@bazel/typescript": "4.6.2",
     "@types/node": "20.14.2",
     "@types/source-map-support": "0.5.10",
-    "esbuild": "0.21.2",
+    "esbuild": "0.22.0",
     "google-closure-library-types": "0.1.17",
     "karma": "6.4.3",
     "karma-chrome-launcher": "3.2.0",
@@ -30,6 +30,6 @@
     "typescript": "4.9.5"
   },
   "resolutions": {
-    "esbuild": "0.21.2"
+    "esbuild": "0.22.0"
   }
 }
