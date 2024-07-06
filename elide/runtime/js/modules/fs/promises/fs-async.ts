@@ -32,7 +32,7 @@ function internalsAccessor(): any {
 /**
  * File system constants
  */
-const constants = {
+export const constants = {
   F_OK: 0,
   R_OK: 4,
   W_OK: 2,
