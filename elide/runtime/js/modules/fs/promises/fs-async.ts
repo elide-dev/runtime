@@ -37,6 +37,9 @@ const constants = {
   R_OK: 4,
   W_OK: 2,
   X_OK: 1,
+  COPYFILE_EXCL: 1,
+  COPYFILE_FICLONE: 2,
+  COPYFILE_FICLONE_FORCE: 4,
 };
 
 /**
@@ -97,10 +100,25 @@ export function mkdir(path: string | Buffer | URL, options: { recursive: boolean
   return internalsAccessor().mkdir(path, options);
 }
 
+/**
+ * Copy a file
+ *
+ * Asynchronously copies one file path to another, optionally with certain mode flags.
+ *
+ * @param src Source path to copy from
+ * @param dest Destination path to copy to
+ * @param mode Mode to copy with
+ * @returns A promise that resolves when the file is written
+ */
+export function copyFile(src: string | Buffer | URL, dest: string | Buffer | URL, mode?: number): Promise<void> {
+  return internalsAccessor().copyFile(src, dest, mode || 0);
+}
+
 export default {
   access,
   constants,
   readFile,
   writeFile,
+  copyFile,
   mkdir,
 };
