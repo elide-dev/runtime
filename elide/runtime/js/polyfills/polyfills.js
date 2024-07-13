@@ -12,6 +12,5 @@
  */
 
 import "./abort-controller.js";
-import "./buffer.js";
 import "./once.js";
 import "./readable-stream.mjs";
