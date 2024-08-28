@@ -11,7 +11,7 @@
     "@bazel/ibazel": "0.16.2",
     "@bazel/labs": "4.6.1",
     "@bazel/typescript": "4.6.2",
-    "@types/node": "20.14.2",
+    "@types/node": "22.5.1",
     "@types/source-map-support": "0.5.10",
     "esbuild": "0.21.2",
     "google-closure-library-types": "0.1.17",
