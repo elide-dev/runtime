@@ -5,7 +5,7 @@
   "description": "Runtime userland intrinsics for Elide",
   "devDependencies": {
     "@bazel/buildifier": "6.1.2",
-    "@bazel/buildozer": "6.1.2",
+    "@bazel/buildozer": "7.3.1",
     "@bazel/concatjs": "4.6.2",
     "@bazel/esbuild": "4.6.2",
     "@bazel/ibazel": "0.16.2",
