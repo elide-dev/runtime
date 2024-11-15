@@ -30,7 +30,7 @@ jobs:
           egress-policy: audit
 
       - name: "Setup: Checkout"
-        uses: "actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9" # v3
+        uses: "actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332" # v3
       - name: "Check: Dependency Review"
         uses: "actions/dependency-review-action@01bc87099ba56df1e897b6874784491ea6309bc4" # v3
         continue-on-error: true
@@ -68,7 +68,7 @@ jobs:
           egress-policy: audit
 
       - name: "Setup: Checkout"
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v3
       - name: "Setup: GraalVM (Java ${{ vars.JVM_VERSION }})"
         uses: graalvm/setup-graalvm@2f25c0caae5b220866f732832d5e3e29ff493338 # v1
         with:
