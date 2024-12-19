@@ -7,4 +7,4 @@ curl https://sh.rustup.rs -sSf | bash -s -- -y \
   && rustup toolchain install nightly \
   && rustup default nightly \
   && rustup target add wasm32-unknown-unknown \
-  && rustup target add wasm32-wasi;
+  && rustup target add wasm32-wasip1;

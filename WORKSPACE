@@ -627,7 +627,7 @@ rust_register_toolchains(
         "x86_64-unknown-linux-gnu",
         "aarch64-apple-darwin",
         "wasm32-unknown-unknown",
-        "wasm32-wasi",
+        "wasm32-wasip1",
     ],
     versions = [RUST_VERSION],
 )
