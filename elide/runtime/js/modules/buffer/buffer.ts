@@ -128,7 +128,7 @@ export function isAscii(buffer: Buffer | Uint8Array): boolean {
  * For code running using Node.js APIs, converting between base64-encoded strings and binary data should be performed
  * using Buffer.from(str, 'base64') and buf.toString('base64').
  */
-export const btoa = node_buffer.btoa;
+export const btoa = globalThis['btoa'];
 
 /**
  * Decodes a string of Base64-encoded data into bytes, and encodes those bytes into a string using Latin-1 (ISO-8859-1).
@@ -140,7 +140,7 @@ export const btoa = node_buffer.btoa;
  * code running using Node.js APIs, converting between base64-encoded strings and binary data should be performed
  * using Buffer.from(str, 'base64') and buf.toString('base64').
  */
-export const atob = node_buffer.atob;
+export const atob = globalThis['atob'];
 
 // `Buffer` is assigned as the default export.
 export default Buffer;

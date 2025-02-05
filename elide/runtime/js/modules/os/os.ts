@@ -29,7 +29,7 @@ function intrinsic(): any {
 /**
  * Resolves operating system constants for the current platform.
  */
-export const constants = {};
+export const constants = intrinsic().constants;
 
 /**
  * Returns the operating system's end-of-line value.
