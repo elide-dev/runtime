@@ -73,6 +73,16 @@ export function createInflate(options?: any): Inflate {
 }
 
 /**
+ * Creates a readable stream which decompresses data using the zip algorithm.
+ *
+ * @param options Zlib options to apply to this stream. Optional.
+ * @returns Inflation stream
+ */
+export function createUnzip(options?: any): Inflate {
+    return intrinsic().createUnzip(options);
+}
+
+/**
  * Creates a writable stream which compresses data using the Brotli algorithm.
  *
  * @param options Brotli options to apply to this stream. Optional.
@@ -97,7 +107,7 @@ export function createBrotliDecompress(options?: any): Inflate {
  *
  * @param data The data to compress
  * @param options Zlib options to apply to this compression. Optional.
- * @returns The compressed data
+ * @param cbk Callback to invoke when the operation completes, and which receives the resulting data.
  */
 export function deflate(
     data: string | Buffer | DataView | any,
@@ -125,7 +135,7 @@ export function deflateSync(data: string | Buffer | DataView | any, options?: an
  *
  * @param data The data to decompress
  * @param options Zlib options to apply to this compression. Optional.
- * @returns The decompressed data
+ * @param cbk Callback to invoke when the operation completes, and which receives the resulting data.
  */
 export function inflate(
     data: string | Buffer | DataView | any,
@@ -149,6 +159,23 @@ export function inflateSync(data: string | Buffer | DataView | any, options?: an
 }
 
 /**
+ * Asynchronously compresses the given data using the gzip algorithm.
+ *
+ * @param data The data to compress
+ * @param options Zlib options to apply to this compression. Optional.
+ * @param cbk Callback to invoke when the operation completes, and which receives the resulting data.
+ */
+export function gzip(
+    data: string | Buffer | DataView | any,
+    optionsOrCbk?: any,
+    cbk?: (errOrResult: Error | BufferLike) => void,
+): Buffer {
+    const callback = cbk || optionsOrCbk;
+    const opts = cbk ? optionsOrCbk : undefined;
+    return intrinsic().gzip(data, opts, callback);
+}
+
+/**
  * Synchronously compresses the given data using the gzip algorithm.
  *
  * @param data The data to compress
@@ -160,6 +187,23 @@ export function gzipSync(data: string | Buffer | DataView | any, options?: any):
 }
 
 /**
+ * Asynchronously decompresses the given data using the gzip algorithm.
+ *
+ * @param data The data to decompress
+ * @param options Zlib options to apply to this compression. Optional.
+ * @param cbk Callback to invoke when the operation completes, and which receives the resulting data.
+ */
+export function gunzip(
+    data: string | Buffer | DataView | any,
+    optionsOrCbk?: any,
+    cbk?: (errOrResult: Error | BufferLike) => void,
+): Buffer {
+    const callback = cbk || optionsOrCbk;
+    const opts = cbk ? optionsOrCbk : undefined;
+    return intrinsic().gunzip(data, opts, callback);
+}
+
+/**
  * Synchronously decompresses the given data using the gzip algorithm.
  *
  * @param data The data to decompress
@@ -168,6 +212,23 @@ export function gzipSync(data: string | Buffer | DataView | any, options?: any):
  */
 export function gunzipSync(data: string | Buffer | DataView | any, options?: any): Buffer {
     return intrinsic().gunzipSync(data, options);
+}
+
+/**
+ * Asynchronously decompresses the given data using the zip algorithm.
+ *
+ * @param data The data to decompress
+ * @param options Zlib options to apply to this compression. Optional.
+ * @param cbk Callback to invoke when the operation completes, and which receives the resulting data.
+ */
+export function unzip(
+    data: string | Buffer | DataView | any,
+    optionsOrCbk?: any,
+    cbk?: (errOrResult: Error | BufferLike) => void,
+): Buffer {
+    const callback = cbk || optionsOrCbk;
+    const opts = cbk ? optionsOrCbk : undefined;
+    return intrinsic().unzip(data, opts, callback);
 }
 
 /**
@@ -186,7 +247,7 @@ export function unzipSync(data: string | Buffer | DataView | any, options?: any)
  *
  * @param data The data to compress
  * @param options Brotli options to apply to this compression. Optional.
- * @returns The compressed data
+ * @param cbk Callback to invoke when the operation completes, and which receives the resulting data.
  */
 export function brotliCompress(
     data: string | Buffer | DataView | any,
@@ -214,7 +275,7 @@ export function brotliCompressSync(data: string | Buffer | DataView | any, optio
  *
  * @param data The data to decompress
  * @param options Brotli options to apply to this compression. Optional.
- * @returns The decompressed data
+ * @param cbk Callback to invoke when the operation completes, and which receives the resulting data.
  */
 export function brotliDecompress(
     data: string | Buffer | DataView | any,
