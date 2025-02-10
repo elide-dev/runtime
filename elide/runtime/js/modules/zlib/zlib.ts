@@ -50,6 +50,8 @@ export type BrotliCompress = any;
 
 export type BrotliDecompress = any;
 
+export type BufferLike = any;
+
 /**
  * Creates a writable stream which compresses data using the DEFLATE algorithm.
  *
@@ -73,7 +75,7 @@ export function createInflate(options?: any): Inflate {
 /**
  * Creates a writable stream which compresses data using the Brotli algorithm.
  *
- * @param options Zlib options to apply to this stream. Optional.
+ * @param options Brotli options to apply to this stream. Optional.
  * @returns Deflation stream
  */
 export function createBrotliCompress(options?: any): Deflate {
@@ -83,11 +85,28 @@ export function createBrotliCompress(options?: any): Deflate {
 /**
  * Creates a readable stream which decompresses data using the Brotli algorithm.
  *
- * @param options Zlib options to apply to this stream. Optional.
+ * @param options Brotli options to apply to this stream. Optional.
  * @returns Inflation stream
  */
 export function createBrotliDecompress(options?: any): Inflate {
     return intrinsic().createBrotliDecompress(options);
+}
+
+/**
+ * Asynchronously compresses the given data using the DEFLATE algorithm.
+ *
+ * @param data The data to compress
+ * @param options Zlib options to apply to this compression. Optional.
+ * @returns The compressed data
+ */
+export function deflate(
+    data: string | Buffer | DataView | any,
+    optionsOrCbk?: any,
+    cbk?: (errOrResult: Error | BufferLike) => void,
+): Buffer {
+    const callback = cbk || optionsOrCbk;
+    const opts = cbk ? optionsOrCbk : undefined;
+    return intrinsic().deflate(data, opts, callback);
 }
 
 /**
@@ -99,6 +118,23 @@ export function createBrotliDecompress(options?: any): Inflate {
  */
 export function deflateSync(data: string | Buffer | DataView | any, options?: any): Buffer {
     return intrinsic().deflateSync(data, options);
+}
+
+/**
+ * Asynchronously decompresses the given data using the DEFLATE algorithm.
+ *
+ * @param data The data to decompress
+ * @param options Zlib options to apply to this compression. Optional.
+ * @returns The decompressed data
+ */
+export function inflate(
+    data: string | Buffer | DataView | any,
+    optionsOrCbk?: any,
+    cbk?: (errOrResult: Error | BufferLike) => void,
+): Buffer {
+    const callback = cbk || optionsOrCbk;
+    const opts = cbk ? optionsOrCbk : undefined;
+    return intrinsic().inflate(data, opts, callback);
 }
 
 /**
@@ -146,10 +182,27 @@ export function unzipSync(data: string | Buffer | DataView | any, options?: any)
 }
 
 /**
+ * Asynchronously compresses the given data using the Brotli algorithm.
+ *
+ * @param data The data to compress
+ * @param options Brotli options to apply to this compression. Optional.
+ * @returns The compressed data
+ */
+export function brotliCompress(
+    data: string | Buffer | DataView | any,
+    optionsOrCbk?: any,
+    cbk?: (errOrResult: Error | BufferLike) => void,
+): Buffer {
+    const callback = cbk || optionsOrCbk;
+    const opts = cbk ? optionsOrCbk : undefined;
+    return intrinsic().brotliCompress(data, opts, callback);
+}
+
+/**
  * Synchronously compresses the given data using the Brotli algorithm.
  *
  * @param data The data to compress
- * @param options Zlib options to apply to this compression. Optional.
+ * @param options Brotli options to apply to this compression. Optional.
  * @returns The compressed data
  */
 export function brotliCompressSync(data: string | Buffer | DataView | any, options?: any): Buffer {
@@ -157,10 +210,27 @@ export function brotliCompressSync(data: string | Buffer | DataView | any, optio
 }
 
 /**
+ * Asynchronously decompresses the given data using the Brotli algorithm.
+ *
+ * @param data The data to decompress
+ * @param options Brotli options to apply to this compression. Optional.
+ * @returns The decompressed data
+ */
+export function brotliDecompress(
+    data: string | Buffer | DataView | any,
+    optionsOrCbk?: any,
+    cbk?: (errOrResult: Error | BufferLike) => void,
+): Buffer {
+    const callback = cbk || optionsOrCbk;
+    const opts = cbk ? optionsOrCbk : undefined;
+    return intrinsic().brotliDecompress(data, opts, callback);
+}
+
+/**
  * Synchronously decompresses the given data using the Brotli algorithm.
  *
  * @param data The data to decompress
- * @param options Zlib options to apply to this decompression. Optional.
+ * @param options Brotli options to apply to this decompression. Optional.
  * @returns The decompressed data
  */
 export function brotliDecompressSync(data: string | Buffer | DataView | any, options?: any): Buffer {
