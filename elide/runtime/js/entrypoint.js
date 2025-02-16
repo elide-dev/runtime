@@ -75,6 +75,3 @@ const intrinsicProcess = node_process;
 function nodeProcessAPI() {
     return intrinsicProcess;
 }
-
-globalThis['window'] = undefined;
-globalThis['gc'] = null;
