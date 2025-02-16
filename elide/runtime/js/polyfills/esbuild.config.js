@@ -17,6 +17,6 @@ module.exports = {
     minify: true,
     target: "es2021",
     treeShaking: false,
-    legalComments: "external",
+    legalComments: "none",
     platform: "neutral"
 };
