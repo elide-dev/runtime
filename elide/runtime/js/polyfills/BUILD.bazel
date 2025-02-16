@@ -14,7 +14,7 @@ package(
 ## -- Polyfills -- ##
 
 POLYFILLS = {
-    "abort-controller": ["abort-controller.js"],
+    "abort-controller": [],
     "buffer": ["base64.js", "ieee754.js"],
     "once": ["once.js"],
     "readable-stream": ["readable-stream.mjs"],
