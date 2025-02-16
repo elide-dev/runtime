@@ -14,13 +14,13 @@ package(
 ## -- Polyfills -- ##
 
 POLYFILLS = {
-    "readable-stream": ["readable-stream.mjs"],
     # --- Disabled (Implemented Natively) -------
     # "abort-controller": [],
     # "buffer": ["base64.js", "ieee754.js"],
     # "event": ["event-target.js"],
     # "once": ["once.js"],
     # "text-encoder": ["textencoder.js"],
+    # "readable-stream": ["readable-stream.mjs"],
 }
 
 [filegroup(name = n[0], srcs = n[1]) for n in POLYFILLS.items()]
