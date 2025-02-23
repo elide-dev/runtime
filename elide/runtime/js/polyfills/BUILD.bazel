@@ -15,6 +15,7 @@ package(
 
 POLYFILLS = {
     "readable-stream": ["readable-stream.mjs"],
+    "fetch": ["fetch.js"],
     # --- Disabled (Implemented Natively) -------
     # "abort-controller": [],
     # "buffer": ["base64.js", "ieee754.js"],
