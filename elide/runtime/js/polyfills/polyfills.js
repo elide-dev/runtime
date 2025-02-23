@@ -12,3 +12,4 @@
  */
 
 import "./readable-stream.mjs";
+import "./fetch.js";
