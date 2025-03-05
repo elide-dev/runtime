@@ -32,10 +32,7 @@ export const kStringMaxLength = 536870888;
 /**
  * The `constants` object contains useful constants for working with buffers.
  */
-export const constants = {
-  MAX_LENGTH: kMaxLength,
-  MAX_STRING_LENGTH: kStringMaxLength,
-}
+export const constants = node_buffer.constants;
 
 /**
  * Export the intrinsic `Buffer` type as the main export, and also an export called `Buffer`.

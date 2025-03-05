@@ -38,7 +38,7 @@ export type ExecCallback = (error: Error | null, stdout: string, stderr: string)
  * @return Child process handle.
  */
 export function exec(command: string, options?: object | ExecCallback, cbk?: ExecCallback): typeof ChildProcess {
-  return node_child_process.exec(command, options as any, cbk);
+  return node_child_process().exec(command, options as any, cbk);
 }
 
 /**
@@ -75,7 +75,7 @@ export function execFile(
     )
   );
 
-  return node_child_process.execFile(
+  return node_child_process().execFile(
     command,
     args,
     options,
@@ -117,7 +117,7 @@ export function fork(
     )
   );
 
-  return node_child_process.fork(
+  return node_child_process().fork(
     modulePath,
     args,
     options,
@@ -138,7 +138,7 @@ export function spawn(
   argsOrOptions?: object | string[],
   options?: object,
 ): typeof ChildProcess {
-  return node_child_process.spawn(
+  return node_child_process().spawn(
     command,
     !!options ? argsOrOptions : undefined,
     !!options ? options : argsOrOptions,
@@ -153,7 +153,7 @@ export function spawn(
  * @return String or buffer, depending on output encoding settings
  */
 export function execSync(command: string, options?: object): string | Buffer {
-  return node_child_process.execSync(command, options);
+  return node_child_process().execSync(command, options);
 }
 
 /**
@@ -165,7 +165,7 @@ export function execSync(command: string, options?: object): string | Buffer {
  * @return String or buffer, depending on output encoding settings
  */
 export function execFileSync(file: string, argsOrOptions?: object | string[], options?: object): string | Buffer {
-  return node_child_process.execFileSync(
+  return node_child_process().execFileSync(
     file,
     !!options ? argsOrOptions : undefined,
     !!options ? options : argsOrOptions,
@@ -189,7 +189,7 @@ export function spawnSync(command: string, argsOrOptions?: object | string[], op
   signal: string | null;
   error: Error | null;
 } {
-  return node_child_process.spawnSync(
+  return node_child_process().spawnSync(
     command,
     !!options ? argsOrOptions : undefined,
     !!options ? options : argsOrOptions,
