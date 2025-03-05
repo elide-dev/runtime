@@ -23,7 +23,7 @@ if (!node_zlib) {
 }
 
 function intrinsic(): any {
-  return node_zlib;
+  return node_zlib();
 }
 
 /**

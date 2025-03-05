@@ -25,8 +25,6 @@ load(
     "KOTLIN_COMPILER_VERSION",
     "NODE_VERSION",
     "PROTOBUF_VERSION",
-    "RUST_EDITION",
-    "RUST_VERSION",
 )
 
 http_archive(
@@ -278,12 +276,6 @@ http_archive(
     sha256 = "2673233caeaf955b0886672f3fc91886bc7145a4dabbf4ce549b9a203f3f896d",
     strip_prefix = "flatbuffers-48da2389205ca5fbd0d1f40ad52d9c0b8685a076",
     urls = ["https://github.com/google/flatbuffers/archive/48da2389205ca5fbd0d1f40ad52d9c0b8685a076.tar.gz"],
-)
-
-http_archive(
-    name = "rules_rust",
-    sha256 = "4a9cb4fda6ccd5b5ec393b2e944822a62e050c7c06f1ea41607f14c4fdec57a2",
-    urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.25.1/rules_rust-v0.25.1.tar.gz"],
 )
 
 http_archive(
@@ -613,88 +605,6 @@ j2cl_maven_import_external(
 #    "@zig_sdk//toolchain:darwin_amd64",
 #    "@zig_sdk//toolchain:x86_64-linux-gnu.2.31",
 # )
-
-# rules_rust
-
-load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains", "rust_repository_set")
-
-rules_rust_dependencies()
-
-rust_register_toolchains(
-    edition = RUST_EDITION,
-    extra_target_triples = [
-        "x86_64-apple-darwin",
-        "x86_64-unknown-linux-gnu",
-        "aarch64-apple-darwin",
-        "wasm32-unknown-unknown",
-        "wasm32-wasi",
-    ],
-    versions = [RUST_VERSION],
-)
-
-rust_repository_set(
-    name = "macos_x86_64",
-    edition = RUST_EDITION,
-    exec_triple = "x86_64-apple-darwin",
-    extra_target_triples = ["aarch64-unknown-linux-gnu"],
-    versions = [RUST_VERSION],
-)
-
-rust_repository_set(
-    name = "linux_x86_64",
-    edition = RUST_EDITION,
-    exec_triple = "x86_64-unknown-linux-gnu",
-    extra_target_triples = ["aarch64-unknown-linux-gnu"],
-    versions = [RUST_VERSION],
-)
-
-load("@rules_rust//crate_universe:repositories.bzl", "crate_universe_dependencies")
-load("@rules_rust//crate_universe:defs.bzl", "crates_repository")
-
-crate_universe_dependencies(
-    bootstrap = True,
-)
-
-crates_repository(
-    name = "crates",
-    cargo_lockfile = "//:Cargo.lock",
-    lockfile = "//:Cargo.Bazel.lock",
-    manifests = ["//:Cargo.toml"],
-)
-
-load("@crates//:defs.bzl", "crate_repositories")
-
-crate_repositories()
-
-load("@rules_rust//tools/rust_analyzer:deps.bzl", "rust_analyzer_dependencies")
-
-rust_analyzer_dependencies()
-
-load("@rules_rust//bindgen:repositories.bzl", "rust_bindgen_dependencies", "rust_bindgen_register_toolchains")
-
-rust_bindgen_dependencies()
-
-rust_bindgen_register_toolchains()
-
-load("@rules_rust//proto/protobuf:repositories.bzl", "rust_proto_protobuf_dependencies", "rust_proto_protobuf_register_toolchains")
-
-rust_proto_protobuf_dependencies()
-
-rust_proto_protobuf_register_toolchains()
-
-load("@rules_rust//proto/protobuf:transitive_repositories.bzl", "rust_proto_protobuf_transitive_repositories")
-
-rust_proto_protobuf_transitive_repositories()
-
-load("@rules_rust//proto:transitive_repositories.bzl", "rust_proto_transitive_repositories")
-
-rust_proto_transitive_repositories()
-
-load("@rules_rust//wasm_bindgen:repositories.bzl", "rust_wasm_bindgen_dependencies", "rust_wasm_bindgen_register_toolchains")
-
-rust_wasm_bindgen_dependencies()
-
-rust_wasm_bindgen_register_toolchains()
 
 # skylib
 
