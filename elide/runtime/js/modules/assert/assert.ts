@@ -26,7 +26,7 @@ if (!node_assert) {
   throw new Error(`The 'assert' module failed to load its intrinsic API.`);
 }
 
-const intrinsic: any = node_assert;
+const intrinsic: any = node_assert();
 
 /**
  * Type: `AssertionError`
