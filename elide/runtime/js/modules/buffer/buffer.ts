@@ -17,7 +17,9 @@
  * Provides a shim which offers a `Buffer` implementation that is compatible with Node.js-style imports.
  */
 
-const { node_buffer_module: node_buffer } = primordials;
+const { node_buffer_module: node_buffer_factory } = primordials;
+
+const node_buffer = node_buffer_factory();
 
 /**
  * Maximum buffer size.
