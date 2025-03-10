@@ -4202,11 +4202,11 @@ const exports = {
     TransformStream,
     TransformStreamDefaultController
 };
-// Add classes to global scope
-if (typeof globals !== 'undefined') {
+
+if (typeof globalThis !== 'undefined') {
     for (const prop in exports) {
         if (Object.prototype.hasOwnProperty.call(exports, prop)) {
-            Object.defineProperty(globals, prop, {
+            Object.defineProperty(globalThis, prop, {
                 value: exports[prop],
                 writable: true,
                 configurable: true
@@ -4214,9 +4214,6 @@ if (typeof globals !== 'undefined') {
         }
     }
 }
-
-globalThis['ReadableStream'] = ReadableStream;
-globalThis['WritableStream'] = WritableStream;
 
 export { ByteLengthQueuingStrategy, CountQueuingStrategy, ReadableByteStreamController, ReadableStream, ReadableStreamBYOBReader, ReadableStreamBYOBRequest, ReadableStreamDefaultController, ReadableStreamDefaultReader, TransformStream, TransformStreamDefaultController, WritableStream, WritableStreamDefaultController, WritableStreamDefaultWriter };
 //# sourceMappingURL=polyfill.es2018.mjs.map

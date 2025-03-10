@@ -5,6 +5,27 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
  */
 
+// Fail early if we cannot resolve any of the required classes.
+const URI = Java.type('java.net.URI');
+const HttpClient = Java.type('java.net.http.HttpClient');
+const HttpClient_Redirect = Java.type('java.net.http.HttpClient.Redirect');
+const HttpRequest = Java.type('java.net.http.HttpRequest');
+const HttpResponse = Java.type('java.net.http.HttpResponse');
+const HttpRequest_BodyPublishers = Java.type('java.net.http.HttpRequest.BodyPublishers');
+const HttpResponse_BodyHandlers = Java.type('java.net.http.HttpResponse.BodyHandlers');
+const ConnectException = Java.type('java.net.ConnectException');
+const java_lang_String = Java.type('java.lang.String');
+const ByteBuffer = Java.type('java.nio.ByteBuffer');
+const Base64 = Java.type('java.util.Base64');
+const StandardCharsets = Java.type('java.nio.charset.StandardCharsets');
+const specialHttp2Headers = new Set();
+specialHttp2Headers.add(':authority');
+specialHttp2Headers.add(':method');
+specialHttp2Headers.add(':path');
+specialHttp2Headers.add(':scheme');
+specialHttp2Headers.add(':status');
+
+
 /**
  * Experimental fetch API shim backed by Java 11 HttpClient.
  */
@@ -12,25 +33,6 @@ class Fetch {
     #private;
 
     static {
-        // Fail early if we cannot resolve any of the required classes.
-        const URI = Java.type('java.net.URI');
-        const HttpClient = Java.type('java.net.http.HttpClient');
-        const HttpClient_Redirect = Java.type('java.net.http.HttpClient.Redirect');
-        const HttpRequest = Java.type('java.net.http.HttpRequest');
-        const HttpResponse = Java.type('java.net.http.HttpResponse');
-        const HttpRequest_BodyPublishers = Java.type('java.net.http.HttpRequest.BodyPublishers');
-        const HttpResponse_BodyHandlers = Java.type('java.net.http.HttpResponse.BodyHandlers');
-        const ConnectException = Java.type('java.net.ConnectException');
-        const java_lang_String = Java.type('java.lang.String');
-        const ByteBuffer = Java.type('java.nio.ByteBuffer');
-        const Base64 = Java.type('java.util.Base64');
-        const StandardCharsets = Java.type('java.nio.charset.StandardCharsets');
-        const specialHttp2Headers = new Set();
-        specialHttp2Headers.add(':authority');
-        specialHttp2Headers.add(':method');
-        specialHttp2Headers.add(':path');
-        specialHttp2Headers.add(':scheme');
-        specialHttp2Headers.add(':status');
 
         function parseAndValidateURL(url) {
             try {
@@ -594,13 +596,16 @@ class Fetch {
         const HTTP_SEE_OTHER = 303;
 
         async function fetch(input, init={}) {
+            console.log("[fetch] checkpoint 2.1")
             let request = new Request(input, init);
             let requestPrivate = getRequestPrivate(request);
 
             let scheme = requestPrivate.uri.getScheme();
+            console.log("[fetch] checkpoint 2.2")
             switch (scheme) {
                 case "http":
                 case "https":
+                    console.log("[fetch] checkpoint 2.3")
                     return await httpFetch(request);
                 case "data":
                     return await dataFetch(request);
@@ -700,6 +705,7 @@ class Fetch {
         }
 
         async function httpFetch(request) {
+            console.log("[fetch] checkpoint 3.1")
             let requestPrivate = getRequestPrivate(request);
 
             let httpClient = HttpClient.newBuilder()
@@ -707,6 +713,9 @@ class Fetch {
                             .build();
 
             let httpRequestBuilder = HttpRequest.newBuilder(request.uri);
+
+            console.log("[fetch] checkpoint 3.2")
+
             let bodyPublisher;
             let requestBody = request.body;
             if (requestBody == null) {
@@ -718,6 +727,7 @@ class Fetch {
                 // set a default Content-Type if none given
                 httpRequestBuilder.setHeader("Content-Type", "text/plain;charset=UTF-8");
             }
+
             httpRequestBuilder.method(request.method, bodyPublisher);
             httpRequestBuilder.setHeader("Accept", "*/*");
             httpRequestBuilder.setHeader("Accept-Encoding", ""); // compression not supported
@@ -725,6 +735,9 @@ class Fetch {
             if (requestPrivate.referrer !== 'client') {
                 httpRequestBuilder.setHeader("Referer", requestPrivate.referrer); // [sic]
             }
+
+            console.log("[fetch] checkpoint 3.3")
+
             // add user-specified headers
             let lastName;
             for (const [name, value] of request.headers.entries()) {
@@ -737,6 +750,8 @@ class Fetch {
             }
             let httpRequest = httpRequestBuilder.build();
 
+            console.log("[fetch] checkpoint 3.4")
+
             let httpResponse;
             try {
                 httpResponse = httpClient.send(httpRequest, HttpResponse_BodyHandlers.ofByteArray());
@@ -746,6 +761,8 @@ class Fetch {
                 }
                 throw new TypeError(e.message);
             }
+
+            console.log("[fetch] checkpoint 4.1")
 
             let status = httpResponse.statusCode();
 
@@ -762,17 +779,25 @@ class Fetch {
                         let location = httpResponse.headers().firstValue("Location");
                         try {
                             // HTTP-redirect fetch step 3
+                            console.log("[fetch] checkpoint 4.1.1")
                             if (location.isPresent()) {
-                                locationURI = new URI(requestPrivate.url).resolve(location.get());
+                                console.log("[fetch] checkpoint 4.1.1.1")
+                                const redirectTargetBase = new URI(requestPrivate.url);
+                                console.log("[fetch] checkpoint 4.1.1.2")
+                                const inner = location.get()
+                                console.log("[fetch] checkpoint 4.1.1.3")
+                                locationURI = redirectTargetBase.resolve(inner);
                             }
                         } catch { // URISyntaxException
-                            throw new FetchError("invalid url in location header", "unsupported-redirect");
+                           throw new FetchError("invalid url in location header", "unsupported-redirect");
                         }
 
                         // HTTP-redirect fetch step 4
                         if (locationURI == null) {
                             break;
                         }
+
+                        console.log("[fetch] checkpoint 4.1.2")
 
                         // HTTP-redirect fetch step 7
                         if (requestPrivate.redirectCount >= Math.min(20, requestPrivate.follow)) {
@@ -782,12 +807,16 @@ class Fetch {
                         // HTTP-redirect fetch step 8
                         requestPrivate.redirectCount++;
 
+                        console.log("[fetch] checkpoint 4.1.3")
+
                         // remove sensitive headers if redirecting to a new domain or protocol changes
                         if (!isDomainOrSubDomain(locationURI, requestPrivate.uri) || !isSameProtocol(locationURI, requestPrivate.uri)) {
                             PRIVATE_HEADERS.forEach(k => {
                                 request.headers.delete(k);
                             });
                         }
+
+                        console.log("[fetch] checkpoint 4.1.4")
 
                         // HTTP-redirect fetch step 11
                         if (status !== HTTP_SEE_OTHER && requestPrivate.body != null) {
@@ -804,6 +833,8 @@ class Fetch {
                             });
                         }
 
+                        console.log("[fetch] checkpoint 4.1.5")
+
                         // HTTP-redirect fetch step 17
                         requestPrivate.uri = locationURI;
                         requestPrivate.url = locationURI.toString();
@@ -819,6 +850,8 @@ class Fetch {
                             });
                         }
 
+                        console.log("[fetch] checkpoint 4.1.6")
+
                         // HTTP-redirect fetch step 19 invoke fetch, following the redirect
                         return await httpFetch(request);
                     }
@@ -827,6 +860,8 @@ class Fetch {
                 }
             }
 
+            console.log("[fetch] checkpoint 5.1")
+
             let headers = new Headers();
             for (const [name, values] of new Map(httpResponse.headers().map())) {
                 for (const value of values) {
@@ -834,6 +869,8 @@ class Fetch {
                 }
             }
             let body = new Blob(new ByteArrayWrapper(httpResponse.body()), {type: headers.get('content-type')});
+
+            console.log("[fetch] checkpoint 6.1")
 
             let response = new Response(body, {
                 status,
@@ -928,3 +965,4 @@ class Fetch {
 };
 
 globalThis['Fetch'] = Fetch;
+export { Fetch };
