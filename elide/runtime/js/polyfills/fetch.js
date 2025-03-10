@@ -8,8 +8,7 @@
 /**
  * Experimental fetch API shim backed by Java 11 HttpClient.
  */
-
-(class Fetch {
+class Fetch {
     #private;
 
     static {
@@ -26,6 +25,12 @@
         const ByteBuffer = Java.type('java.nio.ByteBuffer');
         const Base64 = Java.type('java.util.Base64');
         const StandardCharsets = Java.type('java.nio.charset.StandardCharsets');
+        const specialHttp2Headers = new Set();
+        specialHttp2Headers.add(':authority');
+        specialHttp2Headers.add(':method');
+        specialHttp2Headers.add(':path');
+        specialHttp2Headers.add(':scheme');
+        specialHttp2Headers.add(':status');
 
         function parseAndValidateURL(url) {
             try {
@@ -41,15 +46,13 @@
                 throw new TypeError("Invalid URL: " + e.message);
             }
         }
-
         function validateHeaderName(name) {
             const validHttpToken = /^[\^_`a-zA-Z\-0-9!#$%&'*+.|~]+$/;
-            if (!validHttpToken.test(name)) {
+            if (!specialHttp2Headers.has(name) && !validHttpToken.test(name)) {
                 throw new TypeError(`Header name must be a valid HTTP token: [${name}]`);
             }
             return name;
         }
-
         function validateHeaderValue(name, value) {
             const invalidFieldValueChar = /[^\t\x20-\x7e\x80-\xff]/;
             if (invalidFieldValueChar.exec(value) !== null) {
@@ -63,7 +66,6 @@
         function defineToStringTag(constructor) {
             Object.defineProperty(constructor.prototype, Symbol.toStringTag, {value: constructor.name, configurable: true, writable: true, enumerable: false});
         }
-
         // Wraps a byte[] to facilitate type checking in Blob constructor.
         class ByteArrayWrapper extends Fetch {
             constructor(byteArray) {
@@ -71,7 +73,6 @@
                 this.#private = byteArray;
             }
         }
-
         class Blob {
             #size = 0;
             #byteArray;
@@ -148,7 +149,6 @@
         function asBlob(body) {
             return body instanceof Blob ? body : new Blob(body);
         }
-
         function fillHeaders(headers, init) {
             if (init instanceof Headers) {
                 init = init.entries();
@@ -284,7 +284,6 @@
                 return method;
             }
         }
-
         function makeRequest(init, uri, url, source) {
             // https://fetch.spec.whatwg.org/#requests
             let referrer = init.referrer;
@@ -722,7 +721,7 @@
             httpRequestBuilder.method(request.method, bodyPublisher);
             httpRequestBuilder.setHeader("Accept", "*/*");
             httpRequestBuilder.setHeader("Accept-Encoding", ""); // compression not supported
-            httpRequestBuilder.setHeader("User-Agent", "graaljs-fetch");
+            httpRequestBuilder.setHeader("User-Agent", `${navigator.userAgent}/graaljs-fetch/Node.js`);
             if (requestPrivate.referrer !== 'client') {
                 httpRequestBuilder.setHeader("Referer", requestPrivate.referrer); // [sic]
             }
@@ -921,10 +920,11 @@
                 default: return "";
             };
         }
-
         Object.entries({"fetch": fetch, "Headers": Headers, "Request": Request, "Response": Response}).forEach((entry) => {
             const [name, fn] = entry;
             Object.defineProperty(globalThis, name, {value: fn, configurable: true, writable: true, enumerable: false});
         });
     }
-});
+};
+
+globalThis['Fetch'] = Fetch;
