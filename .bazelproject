@@ -14,7 +14,6 @@ build_flags:
 
 targets:
   //elide/...
-  -//elide/runtime/rs/...
 
 test_flags:
   --test_strategy=standalone
