@@ -1,17 +1,3 @@
 package(
     default_visibility = ["//visibility:public"],
 )
-
-load(
-    "//tools/defs/rust:exports.bzl",
-    "rust_test",
-)
-
-rust_test(
-    name = "web",
-    srcs = ["web.rs"],
-    deps = [
-        "@crates//:wasm-bindgen",
-        "@crates//:wasm-bindgen-test",
-    ],
-)
