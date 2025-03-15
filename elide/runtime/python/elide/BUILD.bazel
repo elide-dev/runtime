@@ -1,0 +1,12 @@
+load(
+    "//tools:defs.bzl",
+    "py_library",
+)
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+py_library(
+  name = "elide",
+  srcs = ["__init__.py"],
+)

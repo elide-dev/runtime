@@ -5,12 +5,18 @@ load(
 )
 
 PYTHON_BUILTINS = [
+  "elide",
   "sqlite3",
 ]
 
 py_runtime(
     name = "runtime",
     deps = ["//elide/runtime/python/%s" % m for m in PYTHON_BUILTINS],
+)
+
+alias(
+    name = "python",
+    actual = ":dist",
 )
 
 ## -- Distribution -- ##
