@@ -15,5 +15,3 @@
  Defines the Python-side SQLite3 API for use in Elide; roughly follows the standardized
  Python `sqlite3` module API.
 """
-
-hello = "hi"
