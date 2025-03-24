@@ -18,5 +18,6 @@ module.exports = {
     target: "es2021",
     treeShaking: false,
     legalComments: "none",
-    platform: "neutral"
+    platform: "neutral",
+    mainFields: ["module", "main"],
 };

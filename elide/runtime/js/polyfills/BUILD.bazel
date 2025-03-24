@@ -14,6 +14,7 @@ package(
 ## -- Polyfills -- ##
 
 POLYFILLS = {
+    "node-streams": ["node-streams.mjs"],
     "readable-stream": ["readable-stream.mjs"],
     "fetch": ["fetch.js"],
     # --- Disabled (Implemented Natively) -------
@@ -49,6 +50,9 @@ esbuild(
     target = JS_TARGET,
     sourcemap = "external",
     visibility = ["//visibility:public"],
+    deps = [
+        "@npm//readable-stream",
+    ],
 )
 
 alias(
