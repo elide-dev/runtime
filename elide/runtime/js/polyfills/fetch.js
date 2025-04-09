@@ -348,7 +348,7 @@ class Fetch {
 
         let getRequestPrivate; // Private field accessor
 
-        class Request {
+        class FetchLikeRequest {
             #req;
             #bodyUsed = false;
 
@@ -414,7 +414,7 @@ class Fetch {
                 if (this.#bodyUsed) {
                     throw new TypeError("Body has already been consumed");
                 }
-                return new Request(this);
+                return new FetchLikeRequest(this);
             }
 
             #consumeBody() {
@@ -443,7 +443,7 @@ class Fetch {
                 return asBlob(body);
             }
         }
-        defineToStringTag(Request);
+        defineToStringTag(FetchLikeRequest);
 
         function makeResponse(init) {
             return {
@@ -456,7 +456,7 @@ class Fetch {
             };
         }
 
-        class Response {
+        class FetchLikeResponse {
             #res;
             #body;
             #bodyUsed = false;
@@ -469,7 +469,7 @@ class Fetch {
             }
 
             static error() {
-                return new Response(null, {type: 'error', status: 0, statusText: ''});
+                return new FetchLikeResponse(null, {type: 'error', status: 0, statusText: ''});
             }
 
             static json(body, init = {}) {
@@ -478,7 +478,7 @@ class Fetch {
                 if (init.headers != null) {
                     fillHeaders(headers, init.headers);
                 }
-                return new Response(body, {...init, headers});
+                return new FetchLikeResponse(body, {...init, headers});
             }
 
             static redirect(url, status) {
@@ -488,7 +488,7 @@ class Fetch {
                 if (!isRedirect(status)) {
                     throw new RangeError(`Invalid status code ${status}`);
                 }
-                return new Response(null, {status, statusText: getStatusText(status), headers: {'Location': url}});
+                return new FetchLikeResponse(null, {status, statusText: getStatusText(status), headers: {'Location': url}});
             }
 
             get url() {
@@ -525,7 +525,7 @@ class Fetch {
                 if (this.#bodyUsed) {
                     throw new TypeError("Body has already been consumed");
                 }
-                let clone = new Response(this.#body);
+                let clone = new FetchLikeResponse(this.#body);
                 clone.#res = makeResponse(this.#res);
                 return clone;
             }
@@ -556,7 +556,7 @@ class Fetch {
                 return asBlob(body);
             }
         }
-        defineToStringTag(Response);
+        defineToStringTag(FetchLikeResponse);
 
         function FetchError(message, code) {
             const error = new TypeError(message);
@@ -597,7 +597,7 @@ class Fetch {
 
         async function fetch(input, init={}) {
             console.log("[fetch] checkpoint 2.1")
-            let request = new Request(input, init);
+            let request = new FetchLikeRequest(input, init);
             let requestPrivate = getRequestPrivate(request);
 
             let scheme = requestPrivate.uri.getScheme();
@@ -673,7 +673,7 @@ class Fetch {
                 mimeType = "text/plain;charset=US-ASCII";
             }
 
-            let response = new Response(body, {
+            let response = new FetchLikeResponse(body, {
                 status: 200,
                 statusText: 'OK',
                 url: request.url,
@@ -872,7 +872,7 @@ class Fetch {
 
             console.log("[fetch] checkpoint 6.1")
 
-            let response = new Response(body, {
+            let response = new FetchLikeResponse(body, {
                 status,
                 headers,
                 url: request.url,
@@ -957,12 +957,11 @@ class Fetch {
                 default: return "";
             };
         }
-        Object.entries({"fetch": fetch, "Headers": Headers, "Request": Request, "Response": Response}).forEach((entry) => {
+        Object.entries({"fetch": fetch}).forEach((entry) => {
             const [name, fn] = entry;
             Object.defineProperty(globalThis, name, {value: fn, configurable: true, writable: true, enumerable: false});
         });
     }
 };
 
-globalThis['Fetch'] = Fetch;
 export { Fetch };
