@@ -15,13 +15,13 @@ package(
 
 POLYFILLS = {
     "node-streams": ["node-streams.mjs"],
-    "readable-stream": ["readable-stream.mjs"],
     "fetch": ["fetch.js"],
     # --- Disabled (Implemented Natively) -------
     # "abort-controller": [],
     # "buffer": ["base64.js", "ieee754.js"],
     # "event": ["event-target.js"],
     # "once": ["once.js"],
+    # "readable-stream": ["readable-stream.mjs"],
     # "text-encoder": ["textencoder.js"],
 }
 

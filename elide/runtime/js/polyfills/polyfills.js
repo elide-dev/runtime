@@ -12,6 +12,5 @@
  */
 
 import "./node-streams.mjs";
-import "./readable-stream.mjs";
 import "./fetch.js";
 
